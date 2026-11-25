@@ -1,0 +1,1399 @@
+========== OLD MEMORY RESERVATION ==========
+#include <plat/board.h>
+#include <linux/memblock.h>
+#include <asm/setup.h>
+
+static size_t reserved_size = 0;
+static phys_addr_t reserved_base_end = 0;
+
+phys_addr_t __init board_mem_reserve_add(char *name, size_t size)
+{
+    phys_addr_t base = 0;
+
+    if(reserved_base_end == 0)
+        reserved_base_end  = meminfo.bank[0].start + meminfo.bank[0].size;
+
+    reserved_size += size;
+    base  = reserved_base_end - reserved_size;
+    pr_info("memory reserve: Memory(base:0x%x size:%dM) reserved for <%s>\n", 
+                    base, size/SZ_1M, name);
+    return base;
+}
+
+void __init board_mem_reserved(void)
+{
+    phys_addr_t base = reserved_base_end - reserved_size;
+
+    if(reserved_size){
+        memblock_remove(base, reserved_size);
+	    pr_info("memory reserve: Total reserved %dM\n", reserved_size/SZ_1M);
+    }
+}
+
+========== OLD RK3188 BOX FRAMEBUFFER ==========
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-390-static struct sensor_platform_data cm3217_info = {
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-391-	.type = SENSOR_TYPE_LIGHT,
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-392-	.irq_enable = 0,
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-393-	.poll_delay_ms = 500,
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-394-};
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-395-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-396-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-397-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c:398:#ifdef CONFIG_FB_ROCKCHIP
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-399-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-400-#define LCD_CS_PIN         INVALID_GPIO
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-401-#define LCD_CS_VALUE       GPIO_HIGH
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-402-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-403-#define LCD_EN_PIN         INVALID_GPIO//RK30_PIN0_PB0
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-404-#define LCD_EN_VALUE       GPIO_LOW
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-405-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-406-static int rk_fb_io_init(struct rk29_fb_setting_info *fb_setting)
+--
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-530-	
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-531-};
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-532-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-533-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-534-static struct resource resource_fb[] = {
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-535-	[0] = {
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-536-		.name  = "fb0 buf",
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-537-		.start = 0,
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c:538:		.end   = 0,//RK30_FB0_MEM_SIZE - 1,
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-539-		.flags = IORESOURCE_MEM,
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-540-	},
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-541-	[1] = {
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-542-		.name  = "ipp buf",  //for rotate
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-543-		.start = 0,
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c:544:		.end   = 0,//RK30_FB0_MEM_SIZE - 1,
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-545-		.flags = IORESOURCE_MEM,
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-546-	},
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-547-	[2] = {
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-548-		.name  = "fb2 buf",
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-549-		.start = 0,
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c:550:		.end   = 0,//RK30_FB0_MEM_SIZE - 1,
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-551-		.flags = IORESOURCE_MEM,
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-552-	},
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-553-};
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-554-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-555-static struct platform_device device_fb = {
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-556-	.name		= "rk-fb",
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-557-	.id		= -1,
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-558-	.num_resources	= ARRAY_SIZE(resource_fb),
+--
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-1294-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-1295-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-1296-static int rk_platform_add_display_devices(void)
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-1297-{
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-1298-	struct platform_device *fb = NULL;  //fb
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-1299-	struct platform_device *lcdc0 = NULL; //lcdc0
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-1300-	struct platform_device *lcdc1 = NULL; //lcdc1
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-1301-	struct platform_device *bl = NULL; //backlight
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c:1302:#ifdef CONFIG_FB_ROCKCHIP
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-1303-	fb = &device_fb;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-1304-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-1305-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-1306-#if defined(CONFIG_LCDC0_RK3188)
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-1307-	lcdc0 = &device_lcdc0,
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-1308-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-1309-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-1310-#if defined(CONFIG_LCDC1_RK3188)
+--
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2048-}
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2049-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2050-static void __init rk30_reserve(void)
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2051-{
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2052-#ifdef CONFIG_ION
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2053-	rk30_ion_pdata.heaps[0].base = board_mem_reserve_add("ion", ION_RESERVE_SIZE);
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2054-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2055-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c:2056:#ifdef CONFIG_FB_ROCKCHIP
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c:2057:	resource_fb[0].start = board_mem_reserve_add("fb0 buf", get_fb_size());
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c:2058:	resource_fb[0].end = resource_fb[0].start + get_fb_size()- 1;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2059-#if 0
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c:2060:	resource_fb[1].start = board_mem_reserve_add("ipp buf", RK30_FB0_MEM_SIZE);
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c:2061:	resource_fb[1].end = resource_fb[1].start + RK30_FB0_MEM_SIZE - 1;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2062-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2063-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c:2064:#if defined(CONFIG_FB_ROTATE) || !defined(CONFIG_THREE_FB_BUFFER)
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c:2065:	resource_fb[2].start = board_mem_reserve_add("fb2 buf",get_fb_size());
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c:2066:	resource_fb[2].end = resource_fb[2].start + get_fb_size() - 1;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2067-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2068-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2069-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2070-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2071-#ifdef CONFIG_VIDEO_RK29
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2072-	rk30_camera_request_reserve_mem();
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2073-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2074-	
+
+========== OLD FRAMEBUFFER DEFINITIONS ==========
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/epson1355fb.c-460-};
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/epson1355fb.c-461-
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/epson1355fb.c-462-/* ------------------------------------------------------------------------- */
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/epson1355fb.c-463-
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/epson1355fb.c:464:static __init unsigned int get_fb_size(struct fb_info *info)
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/epson1355fb.c-465-{
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/epson1355fb.c-466-	unsigned int size = 2 * 1024 * 1024;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/epson1355fb.c-467-	char *p = info->screen_base;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/epson1355fb.c-468-
+--
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/epson1355fb.c-654-
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/epson1355fb.c-655-	info->fix.mmio_start = EPSON1355FB_REGS_PHYS;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/epson1355fb.c-656-	info->fix.mmio_len = EPSON1355FB_REGS_LEN;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/epson1355fb.c-657-	info->fix.smem_start = EPSON1355FB_FB_PHYS;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/epson1355fb.c:658:	info->fix.smem_len = get_fb_size(info);
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/epson1355fb.c-659-
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/epson1355fb.c-660-	printk(KERN_INFO "epson1355fb: regs mapped at 0x%lx, fb %d KiB mapped at 0x%p\n",
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/epson1355fb.c-661-	       default_par->reg_addr, info->fix.smem_len / 1024, info->screen_base);
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/epson1355fb.c-662-
+--
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_720p.c-68-    screen->init = NULL;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_720p.c-69-    screen->standby = NULL;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_720p.c-70-}
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_720p.c-71-
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_720p.c:72:size_t get_fb_size(void)
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_720p.c-73-{
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_720p.c-74-	size_t size = 0;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_720p.c-75-	#if defined(CONFIG_THREE_FB_BUFFER)
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_720p.c-76-		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+--
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_LP097QX1.c-117-    screen->standby = NULL;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_LP097QX1.c-118-    screen->dsp_lut = dsp_lut;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_LP097QX1.c-119-}
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_LP097QX1.c-120-
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_LP097QX1.c:121:size_t get_fb_size(void)
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_LP097QX1.c-122-{
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_LP097QX1.c-123-	size_t size = 0;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_LP097QX1.c-124-	#if defined(CONFIG_THREE_FB_BUFFER)
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_LP097QX1.c-125-		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+--
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_hsd100pxn.c-294-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_hsd100pxn.c-295-}
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_hsd100pxn.c-296-
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_hsd100pxn.c-297-
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_hsd100pxn.c:298:size_t get_fb_size(void)
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_hsd100pxn.c-299-{
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_hsd100pxn.c-300-	size_t size = 0;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_hsd100pxn.c-301-	#if defined(CONFIG_THREE_FB_BUFFER)
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_hsd100pxn.c-302-		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+--
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_ds1006h.c-333-    	screen->sscreen_set = rk610_lcd_scaler_set_param;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_ds1006h.c-334-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_ds1006h.c-335-}
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_ds1006h.c-336-
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_ds1006h.c:337:size_t get_fb_size(void)
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_ds1006h.c-338-{
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_ds1006h.c-339-	size_t size = 0;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_ds1006h.c-340-	#if defined(CONFIG_THREE_FB_BUFFER)
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_ds1006h.c-341-		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+--
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c-182-#ifdef CONFIG_RK610_LVDS
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c-183-    screen->sscreen_set = rk610_lcd_scaler_set_param;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c-184-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c-185-}
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c:186:size_t get_fb_size(void)
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c-187-{
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c-188-	size_t size = 0;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c-189-	#if defined(CONFIG_THREE_FB_BUFFER)
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c-190-		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+--
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_hsd07pfw1.c-337-    	screen->sscreen_set = rk610_lcd_scaler_set_param;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_hsd07pfw1.c-338-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_hsd07pfw1.c-339-}
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_hsd07pfw1.c-340-
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_hsd07pfw1.c:341:size_t get_fb_size(void)
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_hsd07pfw1.c-342-{
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_hsd07pfw1.c-343-	size_t size = 0;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_hsd07pfw1.c-344-	#if defined(CONFIG_THREE_FB_BUFFER)
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_hsd07pfw1.c-345-		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+--
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_1080p.c-68-    screen->init = NULL;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_1080p.c-69-    screen->standby = NULL;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_1080p.c-70-}
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_1080p.c-71-
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_1080p.c:72:size_t get_fb_size(void)
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_1080p.c-73-{
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_1080p.c-74-	size_t size = 0;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_1080p.c-75-	#if defined(CONFIG_THREE_FB_BUFFER)
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_1080p.c-76-		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+--
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_b101ew05.c-340-    	screen->sscreen_set = rk610_lcd_scaler_set_param;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_b101ew05.c-341-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_b101ew05.c-342-}
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_b101ew05.c-343-
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_b101ew05.c:344:size_t get_fb_size(void)
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_b101ew05.c-345-{
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_b101ew05.c-346-	size_t size = 0;
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_b101ew05.c-347-	#if defined(CONFIG_THREE_FB_BUFFER)
+/home/snowleopard/src/reference-Kernel-3188-X7/drivers/video/display/screen/lcd_b101ew05.c-348-		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+--
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-ds1006h.c-1721-	rk30_ion_pdata.heaps[0].base = board_mem_reserve_add("ion", ION_RESERVE_SIZE);
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-ds1006h.c-1722-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-ds1006h.c-1723-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-ds1006h.c-1724-#ifdef CONFIG_FB_ROCKCHIP
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-ds1006h.c:1725:	resource_fb[0].start = board_mem_reserve_add("fb0 buf", get_fb_size());
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-ds1006h.c:1726:	resource_fb[0].end = resource_fb[0].start + get_fb_size()- 1;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-ds1006h.c-1727-#if 0
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-ds1006h.c-1728-	resource_fb[1].start = board_mem_reserve_add("ipp buf", RK30_FB0_MEM_SIZE);
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-ds1006h.c-1729-	resource_fb[1].end = resource_fb[1].start + RK30_FB0_MEM_SIZE - 1;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-ds1006h.c-1730-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-ds1006h.c-1731-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-ds1006h.c-1732-#if defined(CONFIG_FB_ROTATE) || !defined(CONFIG_THREE_FB_BUFFER)
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-ds1006h.c:1733:	resource_fb[2].start = board_mem_reserve_add("fb2 buf",get_fb_size());
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-ds1006h.c:1734:	resource_fb[2].end = resource_fb[2].start + get_fb_size() - 1;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-ds1006h.c-1735-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-ds1006h.c-1736-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-ds1006h.c-1737-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-ds1006h.c-1738-
+--
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-86v.c-1845-	rk30_ion_pdata.heaps[0].base = board_mem_reserve_add("ion", ION_RESERVE_SIZE);
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-86v.c-1846-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-86v.c-1847-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-86v.c-1848-#ifdef CONFIG_FB_ROCKCHIP
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-86v.c:1849:	resource_fb[0].start = board_mem_reserve_add("fb0 buf", get_fb_size());
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-86v.c:1850:	resource_fb[0].end = resource_fb[0].start + get_fb_size()- 1;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-86v.c-1851-#if 0
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-86v.c-1852-	resource_fb[1].start = board_mem_reserve_add("ipp buf", RK30_FB0_MEM_SIZE);
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-86v.c-1853-	resource_fb[1].end = resource_fb[1].start + RK30_FB0_MEM_SIZE - 1;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-86v.c-1854-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-86v.c-1855-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-86v.c-1856-#if defined(CONFIG_FB_ROTATE) || !defined(CONFIG_THREE_FB_BUFFER)
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-86v.c:1857:	resource_fb[2].start = board_mem_reserve_add("fb2 buf",get_fb_size());
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-86v.c:1858:	resource_fb[2].end = resource_fb[2].start + get_fb_size() - 1;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-86v.c-1859-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-86v.c-1860-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-86v.c-1861-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-86v.c-1862-
+--
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-tb.c-1992-#ifdef CONFIG_ION
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-tb.c-1993-	rk30_ion_pdata.heaps[0].base = board_mem_reserve_add("ion", ION_RESERVE_SIZE);
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-tb.c-1994-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-tb.c-1995-#ifdef CONFIG_FB_ROCKCHIP
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-tb.c:1996:	resource_fb[0].start = board_mem_reserve_add("fb0 buf", get_fb_size());
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-tb.c:1997:	resource_fb[0].end = resource_fb[0].start + get_fb_size()- 1;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-tb.c-1998-#if 0
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-tb.c-1999-	resource_fb[1].start = board_mem_reserve_add("ipp buf", RK30_FB0_MEM_SIZE);
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-tb.c-2000-	resource_fb[1].end = resource_fb[1].start + RK30_FB0_MEM_SIZE - 1;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-tb.c-2001-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-tb.c-2002-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-tb.c-2003-#if defined(CONFIG_FB_ROTATE) || !defined(CONFIG_THREE_FB_BUFFER)
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-tb.c:2004:	resource_fb[2].start = board_mem_reserve_add("fb2 buf",get_fb_size());
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-tb.c:2005:	resource_fb[2].end = resource_fb[2].start + get_fb_size() - 1;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-tb.c-2006-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-tb.c-2007-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-tb.c-2008-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-tb.c-2009-#ifdef CONFIG_VIDEO_RK29
+--
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk30-box.c-85-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk30-box.c-86-//$_rbox_$_modify_$_zhengyang modified for framebuffer size
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk30-box.c-87-#ifdef  CONFIG_THREE_FB_BUFFER
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk30-box.c-88-	#ifdef CONFIG_BOX_FB_1080P
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk30-box.c:89:		#define RK30_FB0_MEM_SIZE 24*SZ_1M
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk30-box.c-90-	#else
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk30-box.c:91:		#define RK30_FB0_MEM_SIZE 12*SZ_1M
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk30-box.c-92-	#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk30-box.c-93-#else
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk30-box.c-94-	#ifdef CONFIG_BOX_FB_1080P
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk30-box.c:95:		#define RK30_FB0_MEM_SIZE 16*SZ_1M
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk30-box.c-96-	#else
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk30-box.c:97:		#define RK30_FB0_MEM_SIZE 8*SZ_1M
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk30-box.c-98-	#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk30-box.c-99-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk30-box.c-100-//$_rbox_$_modify_$_zhengyang modified end
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk30-box.c-101-#if defined(CONFIG_DP501)   //for display port transmitter dp501
+--
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-LR097.c-2220-#ifdef CONFIG_ION
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-LR097.c-2221-	rk30_ion_pdata.heaps[0].base = board_mem_reserve_add("ion", ION_RESERVE_SIZE);
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-LR097.c-2222-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-LR097.c-2223-#ifdef CONFIG_FB_ROCKCHIP
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-LR097.c:2224:	resource_fb[0].start = board_mem_reserve_add("fb0 buf", get_fb_size());
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-LR097.c:2225:	resource_fb[0].end = resource_fb[0].start + get_fb_size()- 1;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-LR097.c-2226-#if 0
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-LR097.c-2227-	resource_fb[1].start = board_mem_reserve_add("ipp buf", RK30_FB0_MEM_SIZE);
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-LR097.c-2228-	resource_fb[1].end = resource_fb[1].start + RK30_FB0_MEM_SIZE - 1;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-LR097.c-2229-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-LR097.c-2230-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-LR097.c-2231-#if defined(CONFIG_FB_ROTATE) || !defined(CONFIG_THREE_FB_BUFFER)
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-LR097.c:2232:	resource_fb[2].start = board_mem_reserve_add("fb2 buf",get_fb_size());
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-LR097.c:2233:	resource_fb[2].end = resource_fb[2].start + get_fb_size() - 1;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-LR097.c-2234-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-LR097.c-2235-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-LR097.c-2236-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk30/board-rk3168-LR097.c-2237-#ifdef CONFIG_VIDEO_RK29
+--
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1855-	rk30_ion_pdata.heaps[0].base = board_mem_reserve_add("ion", ION_RESERVE_SIZE);
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1856-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1857-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1858-#ifdef CONFIG_FB_ROCKCHIP
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-ds1006h.c:1859:	resource_fb[0].start = board_mem_reserve_add("fb0 buf", get_fb_size());
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-ds1006h.c:1860:	resource_fb[0].end = resource_fb[0].start + get_fb_size()- 1;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1861-#if 0
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1862-	resource_fb[1].start = board_mem_reserve_add("ipp buf", RK30_FB0_MEM_SIZE);
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1863-	resource_fb[1].end = resource_fb[1].start + RK30_FB0_MEM_SIZE - 1;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1864-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1865-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1866-#if defined(CONFIG_FB_ROTATE) || !defined(CONFIG_THREE_FB_BUFFER)
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-ds1006h.c:1867:	resource_fb[2].start = board_mem_reserve_add("fb2 buf",get_fb_size());
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-ds1006h.c:1868:	resource_fb[2].end = resource_fb[2].start + get_fb_size() - 1;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1869-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1870-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1871-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1872-
+--
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2053-	rk30_ion_pdata.heaps[0].base = board_mem_reserve_add("ion", ION_RESERVE_SIZE);
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2054-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2055-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2056-#ifdef CONFIG_FB_ROCKCHIP
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c:2057:	resource_fb[0].start = board_mem_reserve_add("fb0 buf", get_fb_size());
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c:2058:	resource_fb[0].end = resource_fb[0].start + get_fb_size()- 1;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2059-#if 0
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2060-	resource_fb[1].start = board_mem_reserve_add("ipp buf", RK30_FB0_MEM_SIZE);
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2061-	resource_fb[1].end = resource_fb[1].start + RK30_FB0_MEM_SIZE - 1;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2062-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2063-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2064-#if defined(CONFIG_FB_ROTATE) || !defined(CONFIG_THREE_FB_BUFFER)
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c:2065:	resource_fb[2].start = board_mem_reserve_add("fb2 buf",get_fb_size());
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c:2066:	resource_fb[2].end = resource_fb[2].start + get_fb_size() - 1;
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2067-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2068-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2069-
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/mach-rk3188/board-rk3188-box.c-2070-
+--
+/home/snowleopard/src/reference-Kernel-3188-X7/include/linux/rk_screen.h-195-#ifndef CONFIG_DISPLAY_SUPPORT
+/home/snowleopard/src/reference-Kernel-3188-X7/include/linux/rk_screen.h-196-static inline void set_lcd_info(struct rk29fb_screen *screen, struct rk29lcd_info *lcd_info) {}
+/home/snowleopard/src/reference-Kernel-3188-X7/include/linux/rk_screen.h-197-#else
+/home/snowleopard/src/reference-Kernel-3188-X7/include/linux/rk_screen.h-198-extern void set_lcd_info(struct rk29fb_screen *screen, struct rk29lcd_info *lcd_info);
+/home/snowleopard/src/reference-Kernel-3188-X7/include/linux/rk_screen.h:199:extern size_t get_fb_size(void);
+/home/snowleopard/src/reference-Kernel-3188-X7/include/linux/rk_screen.h-200-#endif
+/home/snowleopard/src/reference-Kernel-3188-X7/include/linux/rk_screen.h-201-extern void set_tv_info(struct rk29fb_screen *screen);
+/home/snowleopard/src/reference-Kernel-3188-X7/include/linux/rk_screen.h-202-extern void set_hdmi_info(struct rk29fb_screen *screen);
+/home/snowleopard/src/reference-Kernel-3188-X7/include/linux/rk_screen.h-203-
+
+========== OLD BOARD CONFIGURATION ==========
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_r2_defconfig:323:CONFIG_MACH_RK3188_BOX=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_r2_defconfig:1988:CONFIG_ION=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_r2_defconfig:1989:CONFIG_ION_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_r2_defconfig:2093:CONFIG_FB_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_r2_defconfig:2099:# CONFIG_FB_ROTATE is not set
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_r2_defconfig:2100:CONFIG_THREE_FB_BUFFER=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_x7mini_r1_defconfig:323:CONFIG_MACH_RK3188_BOX=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_x7mini_r1_defconfig:1989:CONFIG_ION=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_x7mini_r1_defconfig:1990:CONFIG_ION_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_x7mini_r1_defconfig:2094:CONFIG_FB_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_x7mini_r1_defconfig:2100:# CONFIG_FB_ROTATE is not set
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_x7mini_r1_defconfig:2101:CONFIG_THREE_FB_BUFFER=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3066b_m701_defconfig:288:CONFIG_ION=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3066b_m701_defconfig:289:CONFIG_ION_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3066b_m701_defconfig:298:CONFIG_FB_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3168_tb_defconfig:298:CONFIG_ION=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3168_tb_defconfig:299:CONFIG_ION_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3168_tb_defconfig:307:CONFIG_FB_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_base-commit1_defconfig:323:CONFIG_MACH_RK3188_BOX=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_base-commit1_defconfig:2001:CONFIG_ION=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_base-commit1_defconfig:2002:CONFIG_ION_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_base-commit1_defconfig:2107:CONFIG_FB_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_base-commit1_defconfig:2112:# CONFIG_FB_ROTATE is not set
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_base-commit1_defconfig:2113:CONFIG_THREE_FB_BUFFER=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3108_tb_defconfig:297:CONFIG_ION=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3108_tb_defconfig:298:CONFIG_ION_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3108_tb_defconfig:306:CONFIG_FB_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3066b_sdk_defconfig:298:CONFIG_ION=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3066b_sdk_defconfig:299:CONFIG_ION_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3066b_sdk_defconfig:307:CONFIG_FB_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3188_steak_defconfig:27:CONFIG_MACH_RK3188_BOX=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3188_steak_defconfig:279:CONFIG_ION=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3188_steak_defconfig:280:CONFIG_ION_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3188_steak_defconfig:288:CONFIG_FB_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3168_LR097_defconfig:286:CONFIG_ION=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3168_LR097_defconfig:287:CONFIG_ION_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3168_LR097_defconfig:296:CONFIG_FB_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3168_ds1006h_defconfig:296:CONFIG_ION=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3168_ds1006h_defconfig:297:CONFIG_ION_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3168_ds1006h_defconfig:306:CONFIG_FB_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_dongle_base_defconfig:323:CONFIG_MACH_RK3188_BOX=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_dongle_base_defconfig:1964:CONFIG_ION=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_dongle_base_defconfig:1965:CONFIG_ION_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_dongle_base_defconfig:2069:CONFIG_FB_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_dongle_base_defconfig:2074:# CONFIG_FB_ROTATE is not set
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_dongle_base_defconfig:2075:CONFIG_THREE_FB_BUFFER=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3168_86v_defconfig:2007:CONFIG_ION=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3168_86v_defconfig:2008:CONFIG_ION_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3168_86v_defconfig:2117:CONFIG_FB_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3168_86v_defconfig:2122:# CONFIG_FB_ROTATE is not set
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3168_86v_defconfig:2123:CONFIG_THREE_FB_BUFFER=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_r1_defconfig:323:CONFIG_MACH_RK3188_BOX=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_r1_defconfig:1977:CONFIG_ION=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_r1_defconfig:1978:CONFIG_ION_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_r1_defconfig:2082:CONFIG_FB_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_r1_defconfig:2087:# CONFIG_FB_ROTATE is not set
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_r1_defconfig:2088:CONFIG_THREE_FB_BUFFER=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_base_defconfig:323:CONFIG_MACH_RK3188_BOX=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_base_defconfig:2000:CONFIG_ION=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_base_defconfig:2001:CONFIG_ION_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_base_defconfig:2106:CONFIG_FB_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_base_defconfig:2111:# CONFIG_FB_ROTATE is not set
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/box_3188_base_defconfig:2112:CONFIG_THREE_FB_BUFFER=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3188_magicwand_defconfig:28:CONFIG_MACH_RK3188_BOX=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3188_magicwand_defconfig:278:CONFIG_ION=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3188_magicwand_defconfig:279:CONFIG_ION_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3188_magicwand_defconfig:287:CONFIG_FB_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3188_tb_defconfig:298:CONFIG_ION=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3188_tb_defconfig:299:CONFIG_ION_ROCKCHIP=y
+/home/snowleopard/src/reference-Kernel-3188-X7/arch/arm/configs/rk3188_tb_defconfig:307:CONFIG_FB_ROCKCHIP=y
+
+========== CURRENT ION CONFIGURATION ==========
+CONFIG_CMA=y
+CONFIG_OF_RESERVED_MEM=y
+CONFIG_ION=y
+CONFIG_ION_SYSTEM_HEAP=y
+CONFIG_ION_CARVEOUT_HEAP=y
+CONFIG_ION_CMA_HEAP=y
+
+========== CURRENT NORHEAP IMPLEMENTATION ==========
+21-
+22-#include "ion.h"
+23-
+24-#define ION_CARVEOUT_ALLOCATE_FAIL   ((phys_addr_t)-1)
+25:#define ION_NORHEAP_COMPATIBLE       "rockchip,rk3188-ion-norheap"
+26-#define ION_NORHEAP_NAME             "norheap"
+27-
+28-struct ion_carveout_heap {
+29-        struct ion_heap heap;
+--
+196-        first_pfn = PFN_DOWN(heap_data->base);
+197-        last_pfn = PFN_DOWN(end - 1);
+198-
+199-        for (pfn = first_pfn; ; pfn++) {
+200:                if (!pfn_valid(pfn)) {
+201-                        pr_err("ion: norheap contains invalid PFN 0x%lx\n",
+202-                               pfn);
+203-                        return ERR_PTR(-EINVAL);
+204-                }
+--
+231-                goto err_destroy_pool;
+232-
+233-        page = pfn_to_page(first_pfn);
+234-
+235:        ret = ion_heap_pages_zero(page, heap_data->size,
+236-                                  pgprot_writecombine(PAGE_KERNEL));
+237-        if (ret)
+238-                goto err_destroy_pool;
+239-
+--
+286-        };
+287-        struct ion_heap *heap;
+288-        int ret;
+289-
+290:        np = of_find_compatible_node(NULL, NULL, ION_NORHEAP_COMPATIBLE);
+291-        if (!np) {
+292-                pr_info("ion: no %s reserved-memory node; norheap skipped\n",
+293:                        ION_NORHEAP_COMPATIBLE);
+294-                return 0;
+295-        }
+296-
+297-        if (!of_device_is_available(np)) {
+--
+342-        return ret;
+343-}
+344-
+345-#ifndef CONFIG_ION_MODULE
+346:device_initcall(ion_add_carveout_heap);
+347-#endif
+
+========== CURRENT DTS RESERVED MEMORY ==========
+arch/arm/boot/dts/keystone-k2hk-evm.dts-11-
+arch/arm/boot/dts/keystone-k2hk-evm.dts-12-/ {
+arch/arm/boot/dts/keystone-k2hk-evm.dts-13-	compatible =  "ti,k2hk-evm", "ti,k2hk", "ti,keystone";
+arch/arm/boot/dts/keystone-k2hk-evm.dts-14-	model = "Texas Instruments Keystone 2 Kepler/Hawking EVM";
+arch/arm/boot/dts/keystone-k2hk-evm.dts-15-
+arch/arm/boot/dts/keystone-k2hk-evm.dts:16:	reserved-memory {
+arch/arm/boot/dts/keystone-k2hk-evm.dts-17-		#address-cells = <2>;
+arch/arm/boot/dts/keystone-k2hk-evm.dts-18-		#size-cells = <2>;
+arch/arm/boot/dts/keystone-k2hk-evm.dts-19-		ranges;
+arch/arm/boot/dts/keystone-k2hk-evm.dts-20-
+arch/arm/boot/dts/keystone-k2hk-evm.dts-21-		dsp_common_memory: dsp-common-memory@81f800000 {
+arch/arm/boot/dts/keystone-k2hk-evm.dts-22-			compatible = "shared-dma-pool";
+arch/arm/boot/dts/keystone-k2hk-evm.dts-23-			reg = <0x00000008 0x1f800000 0x00000000 0x800000>;
+arch/arm/boot/dts/keystone-k2hk-evm.dts:24:			reusable;
+arch/arm/boot/dts/keystone-k2hk-evm.dts-25-			status = "okay";
+arch/arm/boot/dts/keystone-k2hk-evm.dts-26-		};
+arch/arm/boot/dts/keystone-k2hk-evm.dts-27-	};
+arch/arm/boot/dts/keystone-k2hk-evm.dts-28-
+arch/arm/boot/dts/keystone-k2hk-evm.dts-29-	leds {
+--
+arch/arm/boot/dts/keystone-k2l-evm.dts-11-
+arch/arm/boot/dts/keystone-k2l-evm.dts-12-/ {
+arch/arm/boot/dts/keystone-k2l-evm.dts-13-	compatible = "ti,k2l-evm", "ti,k2l", "ti,keystone";
+arch/arm/boot/dts/keystone-k2l-evm.dts-14-	model = "Texas Instruments Keystone 2 Lamarr EVM";
+arch/arm/boot/dts/keystone-k2l-evm.dts-15-
+arch/arm/boot/dts/keystone-k2l-evm.dts:16:	reserved-memory {
+arch/arm/boot/dts/keystone-k2l-evm.dts-17-		#address-cells = <2>;
+arch/arm/boot/dts/keystone-k2l-evm.dts-18-		#size-cells = <2>;
+arch/arm/boot/dts/keystone-k2l-evm.dts-19-		ranges;
+arch/arm/boot/dts/keystone-k2l-evm.dts-20-
+arch/arm/boot/dts/keystone-k2l-evm.dts-21-		dsp_common_memory: dsp-common-memory@81f800000 {
+arch/arm/boot/dts/keystone-k2l-evm.dts-22-			compatible = "shared-dma-pool";
+arch/arm/boot/dts/keystone-k2l-evm.dts-23-			reg = <0x00000008 0x1f800000 0x00000000 0x800000>;
+arch/arm/boot/dts/keystone-k2l-evm.dts:24:			reusable;
+arch/arm/boot/dts/keystone-k2l-evm.dts-25-			status = "okay";
+arch/arm/boot/dts/keystone-k2l-evm.dts-26-		};
+arch/arm/boot/dts/keystone-k2l-evm.dts-27-	};
+arch/arm/boot/dts/keystone-k2l-evm.dts-28-};
+arch/arm/boot/dts/keystone-k2l-evm.dts-29-
+--
+arch/arm/boot/dts/rk3128h-box.dtsi-28-
+arch/arm/boot/dts/rk3128h-box.dtsi-29-	firmware {
+arch/arm/boot/dts/rk3128h-box.dtsi-30-		firmware_android: android {};
+arch/arm/boot/dts/rk3128h-box.dtsi-31-	};
+arch/arm/boot/dts/rk3128h-box.dtsi-32-
+arch/arm/boot/dts/rk3128h-box.dtsi:33:	reserved_memory: reserved-memory {
+arch/arm/boot/dts/rk3128h-box.dtsi-34-		#address-cells = <1>;
+arch/arm/boot/dts/rk3128h-box.dtsi-35-		#size-cells = <1>;
+arch/arm/boot/dts/rk3128h-box.dtsi-36-		ranges;
+arch/arm/boot/dts/rk3128h-box.dtsi-37-
+arch/arm/boot/dts/rk3128h-box.dtsi-38-		drm_logo: drm-logo@00000000 {
+--
+arch/arm/boot/dts/qcom-apq8064.dtsi-12-/ {
+arch/arm/boot/dts/qcom-apq8064.dtsi-13-	model = "Qualcomm APQ8064";
+arch/arm/boot/dts/qcom-apq8064.dtsi-14-	compatible = "qcom,apq8064";
+arch/arm/boot/dts/qcom-apq8064.dtsi-15-	interrupt-parent = <&intc>;
+arch/arm/boot/dts/qcom-apq8064.dtsi-16-
+arch/arm/boot/dts/qcom-apq8064.dtsi:17:	reserved-memory {
+arch/arm/boot/dts/qcom-apq8064.dtsi-18-		#address-cells = <1>;
+arch/arm/boot/dts/qcom-apq8064.dtsi-19-		#size-cells = <1>;
+arch/arm/boot/dts/qcom-apq8064.dtsi-20-		ranges;
+arch/arm/boot/dts/qcom-apq8064.dtsi-21-
+arch/arm/boot/dts/qcom-apq8064.dtsi-22-		smem_region: smem@80000000 {
+arch/arm/boot/dts/qcom-apq8064.dtsi-23-			reg = <0x80000000 0x200000>;
+arch/arm/boot/dts/qcom-apq8064.dtsi:24:			no-map;
+arch/arm/boot/dts/qcom-apq8064.dtsi-25-		};
+arch/arm/boot/dts/qcom-apq8064.dtsi-26-
+arch/arm/boot/dts/qcom-apq8064.dtsi-27-		wcnss_mem: wcnss@8f000000 {
+arch/arm/boot/dts/qcom-apq8064.dtsi-28-			reg = <0x8f000000 0x700000>;
+arch/arm/boot/dts/qcom-apq8064.dtsi:29:			no-map;
+arch/arm/boot/dts/qcom-apq8064.dtsi-30-		};
+arch/arm/boot/dts/qcom-apq8064.dtsi-31-	};
+arch/arm/boot/dts/qcom-apq8064.dtsi-32-
+arch/arm/boot/dts/qcom-apq8064.dtsi-33-	cpus {
+arch/arm/boot/dts/qcom-apq8064.dtsi-34-		#address-cells = <1>;
+--
+arch/arm/boot/dts/exynos4210-smdkv310.dts-12- */
+arch/arm/boot/dts/exynos4210-smdkv310.dts-13-
+arch/arm/boot/dts/exynos4210-smdkv310.dts-14-/dts-v1/;
+arch/arm/boot/dts/exynos4210-smdkv310.dts-15-#include "exynos4210.dtsi"
+arch/arm/boot/dts/exynos4210-smdkv310.dts-16-#include <dt-bindings/gpio/gpio.h>
+arch/arm/boot/dts/exynos4210-smdkv310.dts:17:#include "exynos-mfc-reserved-memory.dtsi"
+arch/arm/boot/dts/exynos4210-smdkv310.dts-18-
+arch/arm/boot/dts/exynos4210-smdkv310.dts-19-/ {
+arch/arm/boot/dts/exynos4210-smdkv310.dts-20-	model = "Samsung smdkv310 evaluation board based on Exynos4210";
+arch/arm/boot/dts/exynos4210-smdkv310.dts-21-	compatible = "samsung,smdkv310", "samsung,exynos4210", "samsung,exynos4";
+arch/arm/boot/dts/exynos4210-smdkv310.dts-22-
+--
+arch/arm/boot/dts/keystone-k2e-evm.dts-11-
+arch/arm/boot/dts/keystone-k2e-evm.dts-12-/ {
+arch/arm/boot/dts/keystone-k2e-evm.dts-13-	compatible = "ti,k2e-evm", "ti,k2e", "ti,keystone";
+arch/arm/boot/dts/keystone-k2e-evm.dts-14-	model = "Texas Instruments Keystone 2 Edison EVM";
+arch/arm/boot/dts/keystone-k2e-evm.dts-15-
+arch/arm/boot/dts/keystone-k2e-evm.dts:16:	reserved-memory {
+arch/arm/boot/dts/keystone-k2e-evm.dts-17-		#address-cells = <2>;
+arch/arm/boot/dts/keystone-k2e-evm.dts-18-		#size-cells = <2>;
+arch/arm/boot/dts/keystone-k2e-evm.dts-19-		ranges;
+arch/arm/boot/dts/keystone-k2e-evm.dts-20-
+arch/arm/boot/dts/keystone-k2e-evm.dts-21-		dsp_common_memory: dsp-common-memory@81f800000 {
+arch/arm/boot/dts/keystone-k2e-evm.dts-22-			compatible = "shared-dma-pool";
+arch/arm/boot/dts/keystone-k2e-evm.dts-23-			reg = <0x00000008 0x1f800000 0x00000000 0x800000>;
+arch/arm/boot/dts/keystone-k2e-evm.dts:24:			reusable;
+arch/arm/boot/dts/keystone-k2e-evm.dts-25-			status = "okay";
+arch/arm/boot/dts/keystone-k2e-evm.dts-26-		};
+arch/arm/boot/dts/keystone-k2e-evm.dts-27-	};
+arch/arm/boot/dts/keystone-k2e-evm.dts-28-};
+arch/arm/boot/dts/keystone-k2e-evm.dts-29-
+--
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts-14-
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts-15-	memory@80000000 {
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts-16-		reg = <0x80000000 0x20000000>;
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts-17-	};
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts-18-
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts:19:	reserved-memory {
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts-20-		#address-cells = <1>;
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts-21-		#size-cells = <1>;
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts-22-		ranges;
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts-23-
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts-24-		vga_memory: framebuffer@9f000000 {
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts:25:			no-map;
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts-26-			reg = <0x9f000000 0x01000000>; /* 16M */
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts-27-		};
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts-28-
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts-29-		flash_memory: region@98000000 {
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts:30:			no-map;
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts-31-			reg = <0x98000000 0x04000000>; /* 64M */
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts-32-		};
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts-33-	};
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts-34-
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts-35-	leds {
+--
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-12-	ramdisk: ramdisk {
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-13-		compatible = "rockchip,ramdisk";
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-14-		memory-region = <&ramdisk_r>;
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-15-	};
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-16-
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi:17:	reserved-memory {
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-18-		trust@0 {
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-19-			reg = <0x00000000 0x00200000>;
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi:20:			no-map;
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-21-		};
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-22-
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-23-		trust@200000 {
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-24-			reg = <0x00200000 0x00008000>;
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-25-		};
+--
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-33-			pmsg-size = <0x50000>;
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-34-		};
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-35-
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-36-		rtos@300000 {
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-37-			reg = <0x00300000 0x00100000>;
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi:38:			no-map;
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-39-		};
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-40-
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-41-		ramdisk_r: ramdisk@2800000 {
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-42-			reg = <0x02800000 (48 * 0x00100000)>;
+arch/arm/boot/dts/rv1126-thunder-boot.dtsi-43-		};
+--
+arch/arm/boot/dts/rk3288.dtsi-277-			compatible = "linaro,optee-tz";
+arch/arm/boot/dts/rk3288.dtsi-278-			method = "smc";
+arch/arm/boot/dts/rk3288.dtsi-279-		};
+arch/arm/boot/dts/rk3288.dtsi-280-	};
+arch/arm/boot/dts/rk3288.dtsi-281-
+arch/arm/boot/dts/rk3288.dtsi:282:	reserved-memory {
+arch/arm/boot/dts/rk3288.dtsi-283-		#address-cells = <2>;
+arch/arm/boot/dts/rk3288.dtsi-284-		#size-cells = <2>;
+arch/arm/boot/dts/rk3288.dtsi-285-		ranges;
+arch/arm/boot/dts/rk3288.dtsi-286-
+arch/arm/boot/dts/rk3288.dtsi-287-		/*
+--
+arch/arm/boot/dts/qcom-ipq8064-ap148.dts-11-
+arch/arm/boot/dts/qcom-ipq8064-ap148.dts-12-	chosen {
+arch/arm/boot/dts/qcom-ipq8064-ap148.dts-13-		stdout-path = "serial0:115200n8";
+arch/arm/boot/dts/qcom-ipq8064-ap148.dts-14-	};
+arch/arm/boot/dts/qcom-ipq8064-ap148.dts-15-
+arch/arm/boot/dts/qcom-ipq8064-ap148.dts:16:	reserved-memory {
+arch/arm/boot/dts/qcom-ipq8064-ap148.dts-17-		#address-cells = <1>;
+arch/arm/boot/dts/qcom-ipq8064-ap148.dts-18-		#size-cells = <1>;
+arch/arm/boot/dts/qcom-ipq8064-ap148.dts-19-		ranges;
+arch/arm/boot/dts/qcom-ipq8064-ap148.dts-20-		rsvd@41200000 {
+arch/arm/boot/dts/qcom-ipq8064-ap148.dts-21-			reg = <0x41200000 0x300000>;
+arch/arm/boot/dts/qcom-ipq8064-ap148.dts:22:			no-map;
+arch/arm/boot/dts/qcom-ipq8064-ap148.dts-23-		};
+arch/arm/boot/dts/qcom-ipq8064-ap148.dts-24-	};
+arch/arm/boot/dts/qcom-ipq8064-ap148.dts-25-
+arch/arm/boot/dts/qcom-ipq8064-ap148.dts-26-	soc {
+arch/arm/boot/dts/qcom-ipq8064-ap148.dts-27-		pinmux@800000 {
+--
+arch/arm/boot/dts/keystone-k2g-ice.dts-16-	memory@800000000 {
+arch/arm/boot/dts/keystone-k2g-ice.dts-17-		device_type = "memory";
+arch/arm/boot/dts/keystone-k2g-ice.dts-18-		reg = <0x00000008 0x00000000 0x00000000 0x20000000>;
+arch/arm/boot/dts/keystone-k2g-ice.dts-19-	};
+arch/arm/boot/dts/keystone-k2g-ice.dts-20-
+arch/arm/boot/dts/keystone-k2g-ice.dts:21:	reserved-memory {
+arch/arm/boot/dts/keystone-k2g-ice.dts-22-		#address-cells = <2>;
+arch/arm/boot/dts/keystone-k2g-ice.dts-23-		#size-cells = <2>;
+arch/arm/boot/dts/keystone-k2g-ice.dts-24-		ranges;
+arch/arm/boot/dts/keystone-k2g-ice.dts-25-
+arch/arm/boot/dts/keystone-k2g-ice.dts-26-		dsp_common_memory: dsp-common-memory@81f800000 {
+arch/arm/boot/dts/keystone-k2g-ice.dts-27-			compatible = "shared-dma-pool";
+arch/arm/boot/dts/keystone-k2g-ice.dts-28-			reg = <0x00000008 0x1f800000 0x00000000 0x800000>;
+arch/arm/boot/dts/keystone-k2g-ice.dts:29:			reusable;
+arch/arm/boot/dts/keystone-k2g-ice.dts-30-			status = "okay";
+arch/arm/boot/dts/keystone-k2g-ice.dts-31-		};
+arch/arm/boot/dts/keystone-k2g-ice.dts-32-	};
+arch/arm/boot/dts/keystone-k2g-ice.dts-33-
+arch/arm/boot/dts/keystone-k2g-ice.dts-34-	vmain: fixedregulator-vmain {
+--
+arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts-15-
+arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts-16-	memory@80000000 {
+arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts-17-		reg = <0x80000000 0x20000000>;
+arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts-18-	};
+arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts-19-
+arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts:20:	reserved-memory {
+arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts-21-		#address-cells = <1>;
+arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts-22-		#size-cells = <1>;
+arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts-23-		ranges;
+arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts-24-
+arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts-25-		flash_memory: region@98000000 {
+arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts:26:			no-map;
+arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts-27-			reg = <0x98000000 0x04000000>; /* 64M */
+arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts-28-		};
+arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts-29-	};
+arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts-30-
+arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts-31-	gpio-keys {
+--
+arch/arm/boot/dts/atlas7-evb.dts-24-	memory {
+arch/arm/boot/dts/atlas7-evb.dts-25-		device_type = "memory";
+arch/arm/boot/dts/atlas7-evb.dts-26-		reg = <0x40000000 0x20000000>;
+arch/arm/boot/dts/atlas7-evb.dts-27-	};
+arch/arm/boot/dts/atlas7-evb.dts-28-
+arch/arm/boot/dts/atlas7-evb.dts:29:	reserved-memory {
+arch/arm/boot/dts/atlas7-evb.dts-30-		#address-cells = <1>;
+arch/arm/boot/dts/atlas7-evb.dts-31-		#size-cells = <1>;
+arch/arm/boot/dts/atlas7-evb.dts-32-		ranges;
+arch/arm/boot/dts/atlas7-evb.dts-33-
+arch/arm/boot/dts/atlas7-evb.dts-34-		vpp_reserved: vpp_mem@5e800000 {
+arch/arm/boot/dts/atlas7-evb.dts:35:			compatible = "sirf,reserved-memory";
+arch/arm/boot/dts/atlas7-evb.dts-36-			reg = <0x5e800000 0x800000>;
+arch/arm/boot/dts/atlas7-evb.dts-37-		};
+arch/arm/boot/dts/atlas7-evb.dts-38-
+arch/arm/boot/dts/atlas7-evb.dts-39-		nanddisk_reserved: nanddisk@46000000 {
+arch/arm/boot/dts/atlas7-evb.dts-40-			reg = <0x46000000 0x200000>;
+arch/arm/boot/dts/atlas7-evb.dts:41:			no-map;
+arch/arm/boot/dts/atlas7-evb.dts-42-		};
+arch/arm/boot/dts/atlas7-evb.dts-43-	};
+arch/arm/boot/dts/atlas7-evb.dts-44-
+arch/arm/boot/dts/atlas7-evb.dts-45-
+arch/arm/boot/dts/atlas7-evb.dts-46-	noc {
+--
+arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts-14-
+arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts-15-	memory@40000000 {
+arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts-16-		reg = <0x40000000 0x8000000>;
+arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts-17-	};
+arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts-18-
+arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts:19:	reserved-memory {
+arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts-20-		#address-cells = <1>;
+arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts-21-		#size-cells = <1>;
+arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts-22-		ranges;
+arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts-23-
+arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts-24-		vga_memory: framebuffer@47800000 {
+arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts:25:			no-map;
+arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts-26-			reg = <0x47800000 0x00800000>; /* 8MB */
+arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts-27-		};
+arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts-28-	};
+arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts-29-
+arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts-30-	leds {
+--
+arch/arm/boot/dts/rk3229-echo-v10.dts-53-	memory@60000000 {
+arch/arm/boot/dts/rk3229-echo-v10.dts-54-		device_type = "memory";
+arch/arm/boot/dts/rk3229-echo-v10.dts-55-		reg = <0x60000000 0x40000000>;
+arch/arm/boot/dts/rk3229-echo-v10.dts-56-	};
+arch/arm/boot/dts/rk3229-echo-v10.dts-57-
+arch/arm/boot/dts/rk3229-echo-v10.dts:58:	reserved-memory {
+arch/arm/boot/dts/rk3229-echo-v10.dts-59-		#address-cells = <1>;
+arch/arm/boot/dts/rk3229-echo-v10.dts-60-		#size-cells = <1>;
+arch/arm/boot/dts/rk3229-echo-v10.dts-61-		ranges;
+arch/arm/boot/dts/rk3229-echo-v10.dts-62-
+arch/arm/boot/dts/rk3229-echo-v10.dts-63-		trust_reserved: trust@0x68400000 {
+arch/arm/boot/dts/rk3229-echo-v10.dts-64-			 reg = <0x68400000 0xe00000>;
+arch/arm/boot/dts/rk3229-echo-v10.dts:65:			 no-map;
+arch/arm/boot/dts/rk3229-echo-v10.dts-66-		};
+arch/arm/boot/dts/rk3229-echo-v10.dts-67-	};
+arch/arm/boot/dts/rk3229-echo-v10.dts-68-
+arch/arm/boot/dts/rk3229-echo-v10.dts-69-	sdio_pwrseq: sdio-pwrseq {
+arch/arm/boot/dts/rk3229-echo-v10.dts-70-		compatible = "mmc-pwrseq-simple";
+--
+arch/arm/boot/dts/exynos4412-itop-scp-core.dtsi-13-#include <dt-bindings/clock/samsung,s2mps11.h>
+arch/arm/boot/dts/exynos4412-itop-scp-core.dtsi-14-#include <dt-bindings/gpio/gpio.h>
+arch/arm/boot/dts/exynos4412-itop-scp-core.dtsi-15-#include <dt-bindings/input/input.h>
+arch/arm/boot/dts/exynos4412-itop-scp-core.dtsi-16-#include "exynos4412.dtsi"
+arch/arm/boot/dts/exynos4412-itop-scp-core.dtsi-17-#include "exynos4412-ppmu-common.dtsi"
+arch/arm/boot/dts/exynos4412-itop-scp-core.dtsi:18:#include "exynos-mfc-reserved-memory.dtsi"
+arch/arm/boot/dts/exynos4412-itop-scp-core.dtsi-19-
+arch/arm/boot/dts/exynos4412-itop-scp-core.dtsi-20-/ {
+arch/arm/boot/dts/exynos4412-itop-scp-core.dtsi-21-	memory@40000000 {
+arch/arm/boot/dts/exynos4412-itop-scp-core.dtsi-22-		device_type = "memory";
+arch/arm/boot/dts/exynos4412-itop-scp-core.dtsi-23-		reg = <0x40000000 0x40000000>;
+--
+arch/arm/boot/dts/qcom-apq8064-asus-nexus7-flo.dts-14-
+arch/arm/boot/dts/qcom-apq8064-asus-nexus7-flo.dts-15-	chosen {
+arch/arm/boot/dts/qcom-apq8064-asus-nexus7-flo.dts-16-		stdout-path = "serial0:115200n8";
+arch/arm/boot/dts/qcom-apq8064-asus-nexus7-flo.dts-17-	};
+arch/arm/boot/dts/qcom-apq8064-asus-nexus7-flo.dts-18-
+arch/arm/boot/dts/qcom-apq8064-asus-nexus7-flo.dts:19:	reserved-memory {
+arch/arm/boot/dts/qcom-apq8064-asus-nexus7-flo.dts-20-		#address-cells = <1>;
+arch/arm/boot/dts/qcom-apq8064-asus-nexus7-flo.dts-21-		#size-cells = <1>;
+arch/arm/boot/dts/qcom-apq8064-asus-nexus7-flo.dts-22-		ranges;
+arch/arm/boot/dts/qcom-apq8064-asus-nexus7-flo.dts-23-
+arch/arm/boot/dts/qcom-apq8064-asus-nexus7-flo.dts-24-		ramoops@88d00000{
+--
+arch/arm/boot/dts/imx6ul-ccimx6ulsom.dtsi-5- * Copyright 2018 Digi International, Inc.
+arch/arm/boot/dts/imx6ul-ccimx6ulsom.dtsi-6- *
+arch/arm/boot/dts/imx6ul-ccimx6ulsom.dtsi-7- */
+arch/arm/boot/dts/imx6ul-ccimx6ulsom.dtsi-8-
+arch/arm/boot/dts/imx6ul-ccimx6ulsom.dtsi-9-/ {
+arch/arm/boot/dts/imx6ul-ccimx6ulsom.dtsi:10:	reserved-memory {
+arch/arm/boot/dts/imx6ul-ccimx6ulsom.dtsi-11-		#address-cells = <1>;
+arch/arm/boot/dts/imx6ul-ccimx6ulsom.dtsi-12-		#size-cells = <1>;
+arch/arm/boot/dts/imx6ul-ccimx6ulsom.dtsi-13-		ranges;
+arch/arm/boot/dts/imx6ul-ccimx6ulsom.dtsi-14-
+arch/arm/boot/dts/imx6ul-ccimx6ulsom.dtsi-15-		linux,cma {
+arch/arm/boot/dts/imx6ul-ccimx6ulsom.dtsi-16-			compatible = "shared-dma-pool";
+arch/arm/boot/dts/imx6ul-ccimx6ulsom.dtsi:17:			reusable;
+arch/arm/boot/dts/imx6ul-ccimx6ulsom.dtsi-18-			size = <0x4000000>;
+arch/arm/boot/dts/imx6ul-ccimx6ulsom.dtsi-19-			linux,cma-default;
+arch/arm/boot/dts/imx6ul-ccimx6ulsom.dtsi-20-		};
+arch/arm/boot/dts/imx6ul-ccimx6ulsom.dtsi-21-	};
+arch/arm/boot/dts/imx6ul-ccimx6ulsom.dtsi-22-};
+--
+arch/arm/boot/dts/exynos4412-smdk4412.dts-9- * Samsung's Exynos4412 SoC.
+arch/arm/boot/dts/exynos4412-smdk4412.dts-10- */
+arch/arm/boot/dts/exynos4412-smdk4412.dts-11-
+arch/arm/boot/dts/exynos4412-smdk4412.dts-12-/dts-v1/;
+arch/arm/boot/dts/exynos4412-smdk4412.dts-13-#include "exynos4412.dtsi"
+arch/arm/boot/dts/exynos4412-smdk4412.dts:14:#include "exynos-mfc-reserved-memory.dtsi"
+arch/arm/boot/dts/exynos4412-smdk4412.dts-15-
+arch/arm/boot/dts/exynos4412-smdk4412.dts-16-/ {
+arch/arm/boot/dts/exynos4412-smdk4412.dts-17-	model = "Samsung SMDK evaluation board based on Exynos4412";
+arch/arm/boot/dts/exynos4412-smdk4412.dts-18-	compatible = "samsung,smdk4412", "samsung,exynos4412", "samsung,exynos4";
+arch/arm/boot/dts/exynos4412-smdk4412.dts-19-
+--
+arch/arm/boot/dts/mt8135.dtsi-64-			compatible = "arm,cortex-a15";
+arch/arm/boot/dts/mt8135.dtsi-65-			reg = <0x101>;
+arch/arm/boot/dts/mt8135.dtsi-66-		};
+arch/arm/boot/dts/mt8135.dtsi-67-	};
+arch/arm/boot/dts/mt8135.dtsi-68-
+arch/arm/boot/dts/mt8135.dtsi:69:	reserved-memory {
+arch/arm/boot/dts/mt8135.dtsi-70-		#address-cells = <2>;
+arch/arm/boot/dts/mt8135.dtsi-71-		#size-cells = <2>;
+arch/arm/boot/dts/mt8135.dtsi-72-		ranges;
+arch/arm/boot/dts/mt8135.dtsi-73-
+arch/arm/boot/dts/mt8135.dtsi-74-		trustzone-bootinfo@80002000 {
+--
+arch/arm/boot/dts/meson8.dtsi-101-			     <GIC_SPI 153 IRQ_TYPE_LEVEL_HIGH>,
+arch/arm/boot/dts/meson8.dtsi-102-			     <GIC_SPI 154 IRQ_TYPE_LEVEL_HIGH>;
+arch/arm/boot/dts/meson8.dtsi-103-		interrupt-affinity = <&cpu0>, <&cpu1>, <&cpu2>, <&cpu3>;
+arch/arm/boot/dts/meson8.dtsi-104-	};
+arch/arm/boot/dts/meson8.dtsi-105-
+arch/arm/boot/dts/meson8.dtsi:106:	reserved-memory {
+arch/arm/boot/dts/meson8.dtsi-107-		#address-cells = <1>;
+arch/arm/boot/dts/meson8.dtsi-108-		#size-cells = <1>;
+arch/arm/boot/dts/meson8.dtsi-109-		ranges;
+arch/arm/boot/dts/meson8.dtsi-110-
+arch/arm/boot/dts/meson8.dtsi-111-		/* 2 MiB reserved for Hardware ROM Firmware? */
+arch/arm/boot/dts/meson8.dtsi-112-		hwrom@0 {
+arch/arm/boot/dts/meson8.dtsi-113-			reg = <0x0 0x200000>;
+arch/arm/boot/dts/meson8.dtsi:114:			no-map;
+arch/arm/boot/dts/meson8.dtsi-115-		};
+arch/arm/boot/dts/meson8.dtsi-116-
+arch/arm/boot/dts/meson8.dtsi-117-		/*
+arch/arm/boot/dts/meson8.dtsi-118-		 * 1 MiB reserved for the "ARM Power Firmware": this is ARM
+arch/arm/boot/dts/meson8.dtsi-119-		 * code which is responsible for system suspend. It loads a
+--
+arch/arm/boot/dts/meson8.dtsi-124-		 * simply the power key) and re-starts the ARM core once it
+arch/arm/boot/dts/meson8.dtsi-125-		 * detects a wakeup request.
+arch/arm/boot/dts/meson8.dtsi-126-		 */
+arch/arm/boot/dts/meson8.dtsi-127-		power-firmware@4f00000 {
+arch/arm/boot/dts/meson8.dtsi-128-			reg = <0x4f00000 0x100000>;
+arch/arm/boot/dts/meson8.dtsi:129:			no-map;
+arch/arm/boot/dts/meson8.dtsi-130-		};
+arch/arm/boot/dts/meson8.dtsi-131-	};
+arch/arm/boot/dts/meson8.dtsi-132-
+arch/arm/boot/dts/meson8.dtsi-133-	scu@c4300000 {
+arch/arm/boot/dts/meson8.dtsi-134-		compatible = "arm,cortex-a9-scu";
+--
+arch/arm/boot/dts/rk322x-android.dtsi-61-
+arch/arm/boot/dts/rk322x-android.dtsi-62-	firmware {
+arch/arm/boot/dts/rk322x-android.dtsi-63-		firmware_android: android {};
+arch/arm/boot/dts/rk322x-android.dtsi-64-	};
+arch/arm/boot/dts/rk322x-android.dtsi-65-
+arch/arm/boot/dts/rk322x-android.dtsi:66:	reserved-memory {
+arch/arm/boot/dts/rk322x-android.dtsi-67-		#address-cells = <1>;
+arch/arm/boot/dts/rk322x-android.dtsi-68-		#size-cells = <1>;
+arch/arm/boot/dts/rk322x-android.dtsi-69-		ranges;
+arch/arm/boot/dts/rk322x-android.dtsi-70-
+arch/arm/boot/dts/rk322x-android.dtsi-71-		drm_logo: drm-logo@00000000 {
+--
+arch/arm/boot/dts/keystone-k2g-evm.dts-15-	memory@800000000 {
+arch/arm/boot/dts/keystone-k2g-evm.dts-16-		device_type = "memory";
+arch/arm/boot/dts/keystone-k2g-evm.dts-17-		reg = <0x00000008 0x00000000 0x00000000 0x80000000>;
+arch/arm/boot/dts/keystone-k2g-evm.dts-18-	};
+arch/arm/boot/dts/keystone-k2g-evm.dts-19-
+arch/arm/boot/dts/keystone-k2g-evm.dts:20:	reserved-memory {
+arch/arm/boot/dts/keystone-k2g-evm.dts-21-		#address-cells = <2>;
+arch/arm/boot/dts/keystone-k2g-evm.dts-22-		#size-cells = <2>;
+arch/arm/boot/dts/keystone-k2g-evm.dts-23-		ranges;
+arch/arm/boot/dts/keystone-k2g-evm.dts-24-
+arch/arm/boot/dts/keystone-k2g-evm.dts-25-		dsp_common_memory: dsp-common-memory@81f800000 {
+arch/arm/boot/dts/keystone-k2g-evm.dts-26-			compatible = "shared-dma-pool";
+arch/arm/boot/dts/keystone-k2g-evm.dts-27-			reg = <0x00000008 0x1f800000 0x00000000 0x800000>;
+arch/arm/boot/dts/keystone-k2g-evm.dts:28:			reusable;
+arch/arm/boot/dts/keystone-k2g-evm.dts-29-			status = "okay";
+arch/arm/boot/dts/keystone-k2g-evm.dts-30-		};
+arch/arm/boot/dts/keystone-k2g-evm.dts-31-	};
+arch/arm/boot/dts/keystone-k2g-evm.dts-32-
+arch/arm/boot/dts/keystone-k2g-evm.dts-33-	vcc3v3_dcin_reg: fixedregulator-vcc3v3-dcin {
+--
+arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts-15-
+arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts-16-	memory@40000000 {
+arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts-17-		reg = <0x40000000 0x20000000>;
+arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts-18-	};
+arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts-19-
+arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts:20:	reserved-memory {
+arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts-21-		#address-cells = <1>;
+arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts-22-		#size-cells = <1>;
+arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts-23-		ranges;
+arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts-24-
+arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts-25-		vga_memory: framebuffer@5f000000 {
+arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts:26:			no-map;
+arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts-27-			reg = <0x5f000000 0x01000000>; /* 16M */
+arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts-28-		};
+arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts-29-	};
+arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts-30-
+arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts-31-	leds {
+--
+arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts-16-
+arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts-17-	memory@80000000 {
+arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts-18-		reg = <0x80000000 0x40000000>;
+arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts-19-	};
+arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts-20-
+arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts:21:	reserved-memory {
+arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts-22-		#address-cells = <1>;
+arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts-23-		#size-cells = <1>;
+arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts-24-		ranges;
+arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts-25-
+arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts-26-		flash_memory: region@98000000 {
+arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts:27:			no-map;
+arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts-28-			reg = <0x98000000 0x04000000>; /* 64M */
+arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts-29-		};
+arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts-30-	};
+arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts-31-
+arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts-32-	leds {
+--
+arch/arm/boot/dts/qcom-apq8084.dtsi-9-/ {
+arch/arm/boot/dts/qcom-apq8084.dtsi-10-	model = "Qualcomm APQ 8084";
+arch/arm/boot/dts/qcom-apq8084.dtsi-11-	compatible = "qcom,apq8084";
+arch/arm/boot/dts/qcom-apq8084.dtsi-12-	interrupt-parent = <&intc>;
+arch/arm/boot/dts/qcom-apq8084.dtsi-13-
+arch/arm/boot/dts/qcom-apq8084.dtsi:14:	reserved-memory {
+arch/arm/boot/dts/qcom-apq8084.dtsi-15-		#address-cells = <1>;
+arch/arm/boot/dts/qcom-apq8084.dtsi-16-		#size-cells = <1>;
+arch/arm/boot/dts/qcom-apq8084.dtsi-17-		ranges;
+arch/arm/boot/dts/qcom-apq8084.dtsi-18-
+arch/arm/boot/dts/qcom-apq8084.dtsi-19-		smem_mem: smem_region@fa00000 {
+arch/arm/boot/dts/qcom-apq8084.dtsi-20-			reg = <0xfa00000 0x200000>;
+arch/arm/boot/dts/qcom-apq8084.dtsi:21:			no-map;
+arch/arm/boot/dts/qcom-apq8084.dtsi-22-		};
+arch/arm/boot/dts/qcom-apq8084.dtsi-23-	};
+arch/arm/boot/dts/qcom-apq8084.dtsi-24-
+arch/arm/boot/dts/qcom-apq8084.dtsi-25-	cpus {
+arch/arm/boot/dts/qcom-apq8084.dtsi-26-		#address-cells = <1>;
+--
+arch/arm/boot/dts/da850-lcdk.dts-24-	memory@c0000000 {
+arch/arm/boot/dts/da850-lcdk.dts-25-		/* 128 MB DDR2 SDRAM @ 0xc0000000 */
+arch/arm/boot/dts/da850-lcdk.dts-26-		reg = <0xc0000000 0x08000000>;
+arch/arm/boot/dts/da850-lcdk.dts-27-	};
+arch/arm/boot/dts/da850-lcdk.dts-28-
+arch/arm/boot/dts/da850-lcdk.dts:29:	reserved-memory {
+arch/arm/boot/dts/da850-lcdk.dts-30-		#address-cells = <1>;
+arch/arm/boot/dts/da850-lcdk.dts-31-		#size-cells = <1>;
+arch/arm/boot/dts/da850-lcdk.dts-32-		ranges;
+arch/arm/boot/dts/da850-lcdk.dts-33-
+arch/arm/boot/dts/da850-lcdk.dts-34-		dsp_memory_region: dsp-memory@c3000000 {
+arch/arm/boot/dts/da850-lcdk.dts-35-			compatible = "shared-dma-pool";
+arch/arm/boot/dts/da850-lcdk.dts-36-			reg = <0xc3000000 0x1000000>;
+arch/arm/boot/dts/da850-lcdk.dts:37:			reusable;
+arch/arm/boot/dts/da850-lcdk.dts-38-			status = "okay";
+arch/arm/boot/dts/da850-lcdk.dts-39-		};
+arch/arm/boot/dts/da850-lcdk.dts-40-	};
+arch/arm/boot/dts/da850-lcdk.dts-41-
+arch/arm/boot/dts/da850-lcdk.dts-42-	vcc_5vd: fixedregulator-vcc_5vd {
+--
+arch/arm/boot/dts/exynos4412-odroid-common.dtsi-8-#include <dt-bindings/input/input.h>
+arch/arm/boot/dts/exynos4412-odroid-common.dtsi-9-#include <dt-bindings/clock/maxim,max77686.h>
+arch/arm/boot/dts/exynos4412-odroid-common.dtsi-10-#include "exynos4412.dtsi"
+arch/arm/boot/dts/exynos4412-odroid-common.dtsi-11-#include "exynos4412-ppmu-common.dtsi"
+arch/arm/boot/dts/exynos4412-odroid-common.dtsi-12-#include <dt-bindings/gpio/gpio.h>
+arch/arm/boot/dts/exynos4412-odroid-common.dtsi:13:#include "exynos-mfc-reserved-memory.dtsi"
+arch/arm/boot/dts/exynos4412-odroid-common.dtsi-14-
+arch/arm/boot/dts/exynos4412-odroid-common.dtsi-15-/ {
+arch/arm/boot/dts/exynos4412-odroid-common.dtsi-16-	chosen {
+arch/arm/boot/dts/exynos4412-odroid-common.dtsi-17-		stdout-path = &serial_1;
+arch/arm/boot/dts/exynos4412-odroid-common.dtsi-18-	};
+--
+arch/arm/boot/dts/qcom-msm8974.dtsi-11-/ {
+arch/arm/boot/dts/qcom-msm8974.dtsi-12-	model = "Qualcomm MSM8974";
+arch/arm/boot/dts/qcom-msm8974.dtsi-13-	compatible = "qcom,msm8974";
+arch/arm/boot/dts/qcom-msm8974.dtsi-14-	interrupt-parent = <&intc>;
+arch/arm/boot/dts/qcom-msm8974.dtsi-15-
+arch/arm/boot/dts/qcom-msm8974.dtsi:16:	reserved-memory {
+arch/arm/boot/dts/qcom-msm8974.dtsi-17-		#address-cells = <1>;
+arch/arm/boot/dts/qcom-msm8974.dtsi-18-		#size-cells = <1>;
+arch/arm/boot/dts/qcom-msm8974.dtsi-19-		ranges;
+arch/arm/boot/dts/qcom-msm8974.dtsi-20-
+arch/arm/boot/dts/qcom-msm8974.dtsi-21-		mpss@8000000 {
+arch/arm/boot/dts/qcom-msm8974.dtsi-22-			reg = <0x08000000 0x5100000>;
+arch/arm/boot/dts/qcom-msm8974.dtsi:23:			no-map;
+arch/arm/boot/dts/qcom-msm8974.dtsi-24-		};
+arch/arm/boot/dts/qcom-msm8974.dtsi-25-
+arch/arm/boot/dts/qcom-msm8974.dtsi-26-		mba@d100000 {
+arch/arm/boot/dts/qcom-msm8974.dtsi-27-			reg = <0x0d100000 0x100000>;
+arch/arm/boot/dts/qcom-msm8974.dtsi:28:			no-map;
+arch/arm/boot/dts/qcom-msm8974.dtsi-29-		};
+arch/arm/boot/dts/qcom-msm8974.dtsi-30-
+arch/arm/boot/dts/qcom-msm8974.dtsi-31-		reserved@d200000 {
+arch/arm/boot/dts/qcom-msm8974.dtsi-32-			reg = <0x0d200000 0xa00000>;
+arch/arm/boot/dts/qcom-msm8974.dtsi:33:			no-map;
+arch/arm/boot/dts/qcom-msm8974.dtsi-34-		};
+arch/arm/boot/dts/qcom-msm8974.dtsi-35-
+arch/arm/boot/dts/qcom-msm8974.dtsi-36-		adsp_region: adsp@dc00000 {
+arch/arm/boot/dts/qcom-msm8974.dtsi-37-			reg = <0x0dc00000 0x1900000>;
+arch/arm/boot/dts/qcom-msm8974.dtsi:38:			no-map;
+arch/arm/boot/dts/qcom-msm8974.dtsi-39-		};
+arch/arm/boot/dts/qcom-msm8974.dtsi-40-
+arch/arm/boot/dts/qcom-msm8974.dtsi-41-		venus@f500000 {
+arch/arm/boot/dts/qcom-msm8974.dtsi-42-			reg = <0x0f500000 0x500000>;
+arch/arm/boot/dts/qcom-msm8974.dtsi:43:			no-map;
+arch/arm/boot/dts/qcom-msm8974.dtsi-44-		};
+arch/arm/boot/dts/qcom-msm8974.dtsi-45-
+arch/arm/boot/dts/qcom-msm8974.dtsi-46-		smem_region: smem@fa00000 {
+arch/arm/boot/dts/qcom-msm8974.dtsi-47-			reg = <0xfa00000 0x200000>;
+arch/arm/boot/dts/qcom-msm8974.dtsi:48:			no-map;
+arch/arm/boot/dts/qcom-msm8974.dtsi-49-		};
+arch/arm/boot/dts/qcom-msm8974.dtsi-50-
+arch/arm/boot/dts/qcom-msm8974.dtsi-51-		tz@fc00000 {
+arch/arm/boot/dts/qcom-msm8974.dtsi-52-			reg = <0x0fc00000 0x160000>;
+arch/arm/boot/dts/qcom-msm8974.dtsi:53:			no-map;
+arch/arm/boot/dts/qcom-msm8974.dtsi-54-		};
+arch/arm/boot/dts/qcom-msm8974.dtsi-55-
+arch/arm/boot/dts/qcom-msm8974.dtsi-56-		rfsa@fd60000 {
+arch/arm/boot/dts/qcom-msm8974.dtsi-57-			reg = <0x0fd60000 0x20000>;
+arch/arm/boot/dts/qcom-msm8974.dtsi:58:			no-map;
+arch/arm/boot/dts/qcom-msm8974.dtsi-59-		};
+arch/arm/boot/dts/qcom-msm8974.dtsi-60-
+arch/arm/boot/dts/qcom-msm8974.dtsi-61-		rmtfs@fd80000 {
+arch/arm/boot/dts/qcom-msm8974.dtsi-62-			reg = <0x0fd80000 0x180000>;
+arch/arm/boot/dts/qcom-msm8974.dtsi:63:			no-map;
+arch/arm/boot/dts/qcom-msm8974.dtsi-64-		};
+arch/arm/boot/dts/qcom-msm8974.dtsi-65-	};
+arch/arm/boot/dts/qcom-msm8974.dtsi-66-
+arch/arm/boot/dts/qcom-msm8974.dtsi-67-	cpus {
+arch/arm/boot/dts/qcom-msm8974.dtsi-68-		#address-cells = <1>;
+--
+arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts-15-
+arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts-16-	memory@80000000 {
+arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts-17-		reg = <0x80000000 0x20000000>;
+arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts-18-	};
+arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts-19-
+arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts:20:	reserved-memory {
+arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts-21-		#address-cells = <1>;
+arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts-22-		#size-cells = <1>;
+arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts-23-		ranges;
+arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts-24-
+arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts-25-		vga_memory: framebuffer@9f000000 {
+arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts:26:			no-map;
+arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts-27-			reg = <0x9f000000 0x01000000>; /* 16M */
+arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts-28-		};
+arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts-29-	};
+arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts-30-
+arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts-31-	iio-hwmon {
+--
+arch/arm/boot/dts/mt8127.dtsi-39-			reg = <0x3>;
+arch/arm/boot/dts/mt8127.dtsi-40-		};
+arch/arm/boot/dts/mt8127.dtsi-41-
+arch/arm/boot/dts/mt8127.dtsi-42-	};
+arch/arm/boot/dts/mt8127.dtsi-43-
+arch/arm/boot/dts/mt8127.dtsi:44:	reserved-memory {
+arch/arm/boot/dts/mt8127.dtsi-45-		#address-cells = <2>;
+arch/arm/boot/dts/mt8127.dtsi-46-		#size-cells = <2>;
+arch/arm/boot/dts/mt8127.dtsi-47-		ranges;
+arch/arm/boot/dts/mt8127.dtsi-48-
+arch/arm/boot/dts/mt8127.dtsi-49-		trustzone-bootinfo@80002000 {
+--
+arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts-14-
+arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts-15-	memory@80000000 {
+arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts-16-		reg = <0x80000000 0x40000000>;
+arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts-17-	};
+arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts-18-
+arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts:19:	reserved-memory {
+arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts-20-		#address-cells = <1>;
+arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts-21-		#size-cells = <1>;
+arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts-22-		ranges;
+arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts-23-
+arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts-24-		flash_memory: region@98000000 {
+arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts:25:			no-map;
+arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts-26-			reg = <0x98000000 0x04000000>; /* 64M */
+arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts-27-		};
+arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts-28-	};
+arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts-29-
+arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts-30-	onewire0 {
+--
+arch/arm/boot/dts/rk3288-android.dtsi-123-			opp-hz = /bits/ 64 <528000000>;
+arch/arm/boot/dts/rk3288-android.dtsi-124-			opp-microvolt = <1150000>;
+arch/arm/boot/dts/rk3288-android.dtsi-125-		};
+arch/arm/boot/dts/rk3288-android.dtsi-126-	};
+arch/arm/boot/dts/rk3288-android.dtsi-127-
+arch/arm/boot/dts/rk3288-android.dtsi:128:	reserved-memory {
+arch/arm/boot/dts/rk3288-android.dtsi-129-		ramoops: ramoops@8000000 {
+arch/arm/boot/dts/rk3288-android.dtsi-130-			compatible = "ramoops";
+arch/arm/boot/dts/rk3288-android.dtsi-131-			reg = <0x0 0x8000000 0x0 0xF0000>;
+arch/arm/boot/dts/rk3288-android.dtsi-132-			record-size = <0x20000>;
+arch/arm/boot/dts/rk3288-android.dtsi-133-			console-size = <0x80000>;
+--
+arch/arm/boot/dts/meson8b.dtsi-99-			     <GIC_SPI 153 IRQ_TYPE_LEVEL_HIGH>,
+arch/arm/boot/dts/meson8b.dtsi-100-			     <GIC_SPI 154 IRQ_TYPE_LEVEL_HIGH>;
+arch/arm/boot/dts/meson8b.dtsi-101-		interrupt-affinity = <&cpu0>, <&cpu1>, <&cpu2>, <&cpu3>;
+arch/arm/boot/dts/meson8b.dtsi-102-	};
+arch/arm/boot/dts/meson8b.dtsi-103-
+arch/arm/boot/dts/meson8b.dtsi:104:	reserved-memory {
+arch/arm/boot/dts/meson8b.dtsi-105-		#address-cells = <1>;
+arch/arm/boot/dts/meson8b.dtsi-106-		#size-cells = <1>;
+arch/arm/boot/dts/meson8b.dtsi-107-		ranges;
+arch/arm/boot/dts/meson8b.dtsi-108-
+arch/arm/boot/dts/meson8b.dtsi-109-		/* 2 MiB reserved for Hardware ROM Firmware? */
+arch/arm/boot/dts/meson8b.dtsi-110-		hwrom@0 {
+arch/arm/boot/dts/meson8b.dtsi-111-			reg = <0x0 0x200000>;
+arch/arm/boot/dts/meson8b.dtsi:112:			no-map;
+arch/arm/boot/dts/meson8b.dtsi-113-		};
+arch/arm/boot/dts/meson8b.dtsi-114-	};
+arch/arm/boot/dts/meson8b.dtsi-115-
+arch/arm/boot/dts/meson8b.dtsi-116-	scu@c4300000 {
+arch/arm/boot/dts/meson8b.dtsi-117-		compatible = "arm,cortex-a5-scu";
+--
+arch/arm/boot/dts/qcom-ipq8064.dtsi-46-		compatible = "qcom,krait-pmu";
+arch/arm/boot/dts/qcom-ipq8064.dtsi-47-		interrupts = <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(2) |
+arch/arm/boot/dts/qcom-ipq8064.dtsi-48-					  IRQ_TYPE_LEVEL_HIGH)>;
+arch/arm/boot/dts/qcom-ipq8064.dtsi-49-	};
+arch/arm/boot/dts/qcom-ipq8064.dtsi-50-
+arch/arm/boot/dts/qcom-ipq8064.dtsi:51:	reserved-memory {
+arch/arm/boot/dts/qcom-ipq8064.dtsi-52-		#address-cells = <1>;
+arch/arm/boot/dts/qcom-ipq8064.dtsi-53-		#size-cells = <1>;
+arch/arm/boot/dts/qcom-ipq8064.dtsi-54-		ranges;
+arch/arm/boot/dts/qcom-ipq8064.dtsi-55-
+arch/arm/boot/dts/qcom-ipq8064.dtsi-56-		nss@40000000 {
+arch/arm/boot/dts/qcom-ipq8064.dtsi-57-			reg = <0x40000000 0x1000000>;
+arch/arm/boot/dts/qcom-ipq8064.dtsi:58:			no-map;
+arch/arm/boot/dts/qcom-ipq8064.dtsi-59-		};
+arch/arm/boot/dts/qcom-ipq8064.dtsi-60-
+arch/arm/boot/dts/qcom-ipq8064.dtsi-61-		smem@41000000 {
+arch/arm/boot/dts/qcom-ipq8064.dtsi-62-			reg = <0x41000000 0x200000>;
+arch/arm/boot/dts/qcom-ipq8064.dtsi:63:			no-map;
+arch/arm/boot/dts/qcom-ipq8064.dtsi-64-		};
+arch/arm/boot/dts/qcom-ipq8064.dtsi-65-	};
+arch/arm/boot/dts/qcom-ipq8064.dtsi-66-
+arch/arm/boot/dts/qcom-ipq8064.dtsi-67-	clocks {
+arch/arm/boot/dts/qcom-ipq8064.dtsi-68-		cxo_board {
+--
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-4- *
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-5- * Copyright (c) 2016 Samsung Electronics Co., Ltd
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-6- */
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-7-
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-8-/ {
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi:9:	reserved-memory {
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-10-		#address-cells = <1>;
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-11-		#size-cells = <1>;
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-12-		ranges;
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-13-
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-14-		mfc_left: region_mfc_left {
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-15-			compatible = "shared-dma-pool";
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi:16:			no-map;
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-17-			size = <0x2400000>;
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-18-			alignment = <0x100000>;
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-19-		};
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-20-
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-21-		mfc_right: region_mfc_right {
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-22-			compatible = "shared-dma-pool";
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi:23:			no-map;
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-24-			size = <0x800000>;
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-25-			alignment = <0x100000>;
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-26-		};
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-27-	};
+arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi-28-};
+--
+arch/arm/boot/dts/exynos4412-origen.dts-11-
+arch/arm/boot/dts/exynos4412-origen.dts-12-/dts-v1/;
+arch/arm/boot/dts/exynos4412-origen.dts-13-#include "exynos4412.dtsi"
+arch/arm/boot/dts/exynos4412-origen.dts-14-#include <dt-bindings/gpio/gpio.h>
+arch/arm/boot/dts/exynos4412-origen.dts-15-#include <dt-bindings/input/input.h>
+arch/arm/boot/dts/exynos4412-origen.dts:16:#include "exynos-mfc-reserved-memory.dtsi"
+arch/arm/boot/dts/exynos4412-origen.dts-17-
+arch/arm/boot/dts/exynos4412-origen.dts-18-/ {
+arch/arm/boot/dts/exynos4412-origen.dts-19-	model = "Insignal Origen evaluation board based on Exynos4412";
+arch/arm/boot/dts/exynos4412-origen.dts-20-	compatible = "insignal,origen4412", "samsung,exynos4412", "samsung,exynos4";
+arch/arm/boot/dts/exynos4412-origen.dts-21-
+--
+arch/arm/boot/dts/qcom-ipq4019.dtsi-21-/ {
+arch/arm/boot/dts/qcom-ipq4019.dtsi-22-	model = "Qualcomm Technologies, Inc. IPQ4019";
+arch/arm/boot/dts/qcom-ipq4019.dtsi-23-	compatible = "qcom,ipq4019";
+arch/arm/boot/dts/qcom-ipq4019.dtsi-24-	interrupt-parent = <&intc>;
+arch/arm/boot/dts/qcom-ipq4019.dtsi-25-
+arch/arm/boot/dts/qcom-ipq4019.dtsi:26:	reserved-memory {
+arch/arm/boot/dts/qcom-ipq4019.dtsi-27-		#address-cells = <0x1>;
+arch/arm/boot/dts/qcom-ipq4019.dtsi-28-		#size-cells = <0x1>;
+arch/arm/boot/dts/qcom-ipq4019.dtsi-29-		ranges;
+arch/arm/boot/dts/qcom-ipq4019.dtsi-30-
+arch/arm/boot/dts/qcom-ipq4019.dtsi-31-		smem_region: smem@87e00000 {
+arch/arm/boot/dts/qcom-ipq4019.dtsi-32-			reg = <0x87e00000 0x080000>;
+arch/arm/boot/dts/qcom-ipq4019.dtsi:33:			no-map;
+arch/arm/boot/dts/qcom-ipq4019.dtsi-34-		};
+arch/arm/boot/dts/qcom-ipq4019.dtsi-35-
+arch/arm/boot/dts/qcom-ipq4019.dtsi-36-		tz@87e80000 {
+arch/arm/boot/dts/qcom-ipq4019.dtsi-37-			reg = <0x87e80000 0x180000>;
+arch/arm/boot/dts/qcom-ipq4019.dtsi:38:			no-map;
+arch/arm/boot/dts/qcom-ipq4019.dtsi-39-		};
+arch/arm/boot/dts/qcom-ipq4019.dtsi-40-	};
+arch/arm/boot/dts/qcom-ipq4019.dtsi-41-
+arch/arm/boot/dts/qcom-ipq4019.dtsi-42-	aliases {
+arch/arm/boot/dts/qcom-ipq4019.dtsi-43-		spi0 = &blsp1_spi1;
+--
+arch/arm/boot/dts/rk3288-linux.dtsi-71-			opp-hz = /bits/ 64 <528000000>;
+arch/arm/boot/dts/rk3288-linux.dtsi-72-			opp-microvolt = <1150000>;
+arch/arm/boot/dts/rk3288-linux.dtsi-73-		};
+arch/arm/boot/dts/rk3288-linux.dtsi-74-	};
+arch/arm/boot/dts/rk3288-linux.dtsi-75-
+arch/arm/boot/dts/rk3288-linux.dtsi:76:	reserved-memory {
+arch/arm/boot/dts/rk3288-linux.dtsi-77-		ramoops_mem: ramoops@00000000 {
+arch/arm/boot/dts/rk3288-linux.dtsi-78-			reg = <0x0 0x8000000 0x0 0xF0000>;
+arch/arm/boot/dts/rk3288-linux.dtsi-79-		};
+arch/arm/boot/dts/rk3288-linux.dtsi-80-
+arch/arm/boot/dts/rk3288-linux.dtsi-81-		drm_logo: drm-logo@00000000 {
+--
+arch/arm/boot/dts/stih407-family.dtsi-13-#include <dt-bindings/interrupt-controller/irq-st.h>
+arch/arm/boot/dts/stih407-family.dtsi-14-/ {
+arch/arm/boot/dts/stih407-family.dtsi-15-	#address-cells = <1>;
+arch/arm/boot/dts/stih407-family.dtsi-16-	#size-cells = <1>;
+arch/arm/boot/dts/stih407-family.dtsi-17-
+arch/arm/boot/dts/stih407-family.dtsi:18:	reserved-memory {
+arch/arm/boot/dts/stih407-family.dtsi-19-		#address-cells = <1>;
+arch/arm/boot/dts/stih407-family.dtsi-20-		#size-cells = <1>;
+arch/arm/boot/dts/stih407-family.dtsi-21-		ranges;
+arch/arm/boot/dts/stih407-family.dtsi-22-
+arch/arm/boot/dts/stih407-family.dtsi-23-		gp0_reserved: rproc@45000000 {
+arch/arm/boot/dts/stih407-family.dtsi-24-			compatible = "shared-dma-pool";
+arch/arm/boot/dts/stih407-family.dtsi-25-			reg = <0x45000000 0x00400000>;
+arch/arm/boot/dts/stih407-family.dtsi:26:			no-map;
+arch/arm/boot/dts/stih407-family.dtsi-27-		};
+arch/arm/boot/dts/stih407-family.dtsi-28-
+arch/arm/boot/dts/stih407-family.dtsi-29-		delta_reserved: rproc@44000000 {
+arch/arm/boot/dts/stih407-family.dtsi-30-			compatible = "shared-dma-pool";
+arch/arm/boot/dts/stih407-family.dtsi-31-			reg = <0x44000000 0x01000000>;
+arch/arm/boot/dts/stih407-family.dtsi:32:			no-map;
+arch/arm/boot/dts/stih407-family.dtsi-33-		};
+arch/arm/boot/dts/stih407-family.dtsi-34-	};
+arch/arm/boot/dts/stih407-family.dtsi-35-
+arch/arm/boot/dts/stih407-family.dtsi-36-	cpus {
+arch/arm/boot/dts/stih407-family.dtsi-37-		#address-cells = <1>;
+--
+arch/arm/boot/dts/rv1126-trailcamera.dts-9-
+arch/arm/boot/dts/rv1126-trailcamera.dts-10-/ {
+arch/arm/boot/dts/rv1126-trailcamera.dts-11-	model = "Rockchip RV1126 trailcamera Board";
+arch/arm/boot/dts/rv1126-trailcamera.dts-12-	compatible = "rockchip,rv1126-trailcamera", "rockchip,rv1126";
+arch/arm/boot/dts/rv1126-trailcamera.dts-13-
+arch/arm/boot/dts/rv1126-trailcamera.dts:14:	reserved-memory {
+arch/arm/boot/dts/rv1126-trailcamera.dts-15-		/delete-node/ mmc@20f000;
+arch/arm/boot/dts/rv1126-trailcamera.dts-16-		/delete-node/ mmc@500000;
+arch/arm/boot/dts/rv1126-trailcamera.dts-17-	};
+arch/arm/boot/dts/rv1126-trailcamera.dts-18-};
+arch/arm/boot/dts/rv1126-trailcamera.dts-19-
+--
+arch/arm/boot/dts/rk3288-firefly-rk808.dts-145-	hdmi_analog_sound: hdmi-analog-sound {
+arch/arm/boot/dts/rk3288-firefly-rk808.dts-146-		status = "disabled";
+arch/arm/boot/dts/rk3288-firefly-rk808.dts-147-		rockchip,codec = <&es8323>, <&hdmi>;
+arch/arm/boot/dts/rk3288-firefly-rk808.dts-148-	};
+arch/arm/boot/dts/rk3288-firefly-rk808.dts-149-
+arch/arm/boot/dts/rk3288-firefly-rk808.dts:150:	reserved-memory {
+arch/arm/boot/dts/rk3288-firefly-rk808.dts-151-		ramoops: ramoops@8000000 {
+arch/arm/boot/dts/rk3288-firefly-rk808.dts-152-			compatible = "ramoops";
+arch/arm/boot/dts/rk3288-firefly-rk808.dts-153-			reg = <0x0 0x8000000 0x0 0xF0000>;
+arch/arm/boot/dts/rk3288-firefly-rk808.dts-154-			record-size = <0x0 0x20000>;
+arch/arm/boot/dts/rk3288-firefly-rk808.dts-155-			console-size = <0x0 0x80000>;
+--
+arch/arm/boot/dts/exynos4210-origen.dts-13-
+arch/arm/boot/dts/exynos4210-origen.dts-14-/dts-v1/;
+arch/arm/boot/dts/exynos4210-origen.dts-15-#include "exynos4210.dtsi"
+arch/arm/boot/dts/exynos4210-origen.dts-16-#include <dt-bindings/gpio/gpio.h>
+arch/arm/boot/dts/exynos4210-origen.dts-17-#include <dt-bindings/input/input.h>
+arch/arm/boot/dts/exynos4210-origen.dts:18:#include "exynos-mfc-reserved-memory.dtsi"
+arch/arm/boot/dts/exynos4210-origen.dts-19-
+arch/arm/boot/dts/exynos4210-origen.dts-20-/ {
+arch/arm/boot/dts/exynos4210-origen.dts-21-	model = "Insignal Origen evaluation board based on Exynos4210";
+arch/arm/boot/dts/exynos4210-origen.dts-22-	compatible = "insignal,origen", "samsung,exynos4210", "samsung,exynos4";
+arch/arm/boot/dts/exynos4210-origen.dts-23-
+--
+arch/arm/boot/dts/rv1126.dtsi-356-	psci {
+arch/arm/boot/dts/rv1126.dtsi-357-		compatible = "arm,psci-1.0";
+arch/arm/boot/dts/rv1126.dtsi-358-		method = "smc";
+arch/arm/boot/dts/rv1126.dtsi-359-	};
+arch/arm/boot/dts/rv1126.dtsi-360-
+arch/arm/boot/dts/rv1126.dtsi:361:	reserved-memory {
+arch/arm/boot/dts/rv1126.dtsi-362-		#address-cells = <1>;
+arch/arm/boot/dts/rv1126.dtsi-363-		#size-cells = <1>;
+arch/arm/boot/dts/rv1126.dtsi-364-		ranges;
+arch/arm/boot/dts/rv1126.dtsi-365-
+arch/arm/boot/dts/rv1126.dtsi-366-		linux,cma {
+arch/arm/boot/dts/rv1126.dtsi-367-			compatible = "shared-dma-pool";
+arch/arm/boot/dts/rv1126.dtsi-368-			inactive;
+arch/arm/boot/dts/rv1126.dtsi:369:			reusable;
+arch/arm/boot/dts/rv1126.dtsi-370-			size = <0x800000>;
+arch/arm/boot/dts/rv1126.dtsi-371-			linux,cma-default;
+arch/arm/boot/dts/rv1126.dtsi-372-		};
+arch/arm/boot/dts/rv1126.dtsi-373-
+arch/arm/boot/dts/rv1126.dtsi-374-		drm_logo: drm-logo@00000000 {
+--
+arch/arm/boot/dts/rv1126.dtsi-377-		};
+arch/arm/boot/dts/rv1126.dtsi-378-
+arch/arm/boot/dts/rv1126.dtsi-379-		isp_reserved: isp {
+arch/arm/boot/dts/rv1126.dtsi-380-			compatible = "shared-dma-pool";
+arch/arm/boot/dts/rv1126.dtsi-381-			inactive;
+arch/arm/boot/dts/rv1126.dtsi:382:			reusable;
+arch/arm/boot/dts/rv1126.dtsi-383-			size = <0x10000000>;
+arch/arm/boot/dts/rv1126.dtsi-384-		};
+arch/arm/boot/dts/rv1126.dtsi-385-
+arch/arm/boot/dts/rv1126.dtsi-386-		ramoops: ramoops@8000000 {
+arch/arm/boot/dts/rv1126.dtsi-387-			compatible = "ramoops";
+--
+arch/arm/boot/dts/rk312x-android.dtsi-32-
+arch/arm/boot/dts/rk312x-android.dtsi-33-	firmware {
+arch/arm/boot/dts/rk312x-android.dtsi-34-		firmware_android: android {};
+arch/arm/boot/dts/rk312x-android.dtsi-35-	};
+arch/arm/boot/dts/rk312x-android.dtsi-36-
+arch/arm/boot/dts/rk312x-android.dtsi:37:	reserved-memory {
+arch/arm/boot/dts/rk312x-android.dtsi-38-		#address-cells = <1>;
+arch/arm/boot/dts/rk312x-android.dtsi-39-		#size-cells = <1>;
+arch/arm/boot/dts/rk312x-android.dtsi-40-		ranges;
+arch/arm/boot/dts/rk312x-android.dtsi-41-
+arch/arm/boot/dts/rk312x-android.dtsi-42-		cma_region: region@88000000 {
+arch/arm/boot/dts/rk312x-android.dtsi-43-			compatible = "shared-dma-pool";
+arch/arm/boot/dts/rk312x-android.dtsi:44:			reusable;
+arch/arm/boot/dts/rk312x-android.dtsi-45-			reg = <0x88000000 0x1800000>;
+arch/arm/boot/dts/rk312x-android.dtsi-46-		};
+arch/arm/boot/dts/rk312x-android.dtsi-47-
+arch/arm/boot/dts/rk312x-android.dtsi-48-		ramoops: ramoops@62e00000 {
+arch/arm/boot/dts/rk312x-android.dtsi-49-			compatible = "ramoops";
+--
+arch/arm/boot/dts/rv1126-thunder-boot-emmc.dtsi-4- */
+arch/arm/boot/dts/rv1126-thunder-boot-emmc.dtsi-5-
+arch/arm/boot/dts/rv1126-thunder-boot-emmc.dtsi-6-#include "rv1126-thunder-boot.dtsi"
+arch/arm/boot/dts/rv1126-thunder-boot-emmc.dtsi-7-
+arch/arm/boot/dts/rv1126-thunder-boot-emmc.dtsi-8-/ {
+arch/arm/boot/dts/rv1126-thunder-boot-emmc.dtsi:9:	reserved-memory {
+arch/arm/boot/dts/rv1126-thunder-boot-emmc.dtsi-10-		mmc_ecsd: mmc@20f000 {
+arch/arm/boot/dts/rv1126-thunder-boot-emmc.dtsi-11-			reg = <0x0020f000 0x00001000>;
+arch/arm/boot/dts/rv1126-thunder-boot-emmc.dtsi-12-		};
+arch/arm/boot/dts/rv1126-thunder-boot-emmc.dtsi-13-
+arch/arm/boot/dts/rv1126-thunder-boot-emmc.dtsi-14-		mmc_idmac: mmc@500000 {
+--
+arch/arm/boot/dts/mt2701.dtsi-44-			compatible = "arm,cortex-a7";
+arch/arm/boot/dts/mt2701.dtsi-45-			reg = <0x3>;
+arch/arm/boot/dts/mt2701.dtsi-46-		};
+arch/arm/boot/dts/mt2701.dtsi-47-	};
+arch/arm/boot/dts/mt2701.dtsi-48-
+arch/arm/boot/dts/mt2701.dtsi:49:	reserved-memory {
+arch/arm/boot/dts/mt2701.dtsi-50-		#address-cells = <2>;
+arch/arm/boot/dts/mt2701.dtsi-51-		#size-cells = <2>;
+arch/arm/boot/dts/mt2701.dtsi-52-		ranges;
+arch/arm/boot/dts/mt2701.dtsi-53-
+arch/arm/boot/dts/mt2701.dtsi-54-		trustzone-bootinfo@80002000 {
+--
+arch/arm/boot/dts/rk3229-evb.dts-54-		simple-audio-card,codec {
+arch/arm/boot/dts/rk3229-evb.dts-55-			sound-dai = <&hdmi>;
+arch/arm/boot/dts/rk3229-evb.dts-56-		};
+arch/arm/boot/dts/rk3229-evb.dts-57-	};
+arch/arm/boot/dts/rk3229-evb.dts-58-
+arch/arm/boot/dts/rk3229-evb.dts:59:	reserved-memory {
+arch/arm/boot/dts/rk3229-evb.dts-60-		#address-cells = <1>;
+arch/arm/boot/dts/rk3229-evb.dts-61-		#size-cells = <1>;
+arch/arm/boot/dts/rk3229-evb.dts-62-		ranges;
+arch/arm/boot/dts/rk3229-evb.dts-63-
+arch/arm/boot/dts/rk3229-evb.dts-64-		trust_reserved: trust@0x68400000 {
+arch/arm/boot/dts/rk3229-evb.dts-65-			reg = <0x68400000 0xe00000>;
+arch/arm/boot/dts/rk3229-evb.dts:66:			no-map;
+arch/arm/boot/dts/rk3229-evb.dts-67-		};
+arch/arm/boot/dts/rk3229-evb.dts-68-	};
+arch/arm/boot/dts/rk3229-evb.dts-69-
+arch/arm/boot/dts/rk3229-evb.dts-70-	sdio_pwrseq: sdio-pwrseq {
+arch/arm/boot/dts/rk3229-evb.dts-71-		compatible = "mmc-pwrseq-simple";

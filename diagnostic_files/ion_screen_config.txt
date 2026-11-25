@@ -1,0 +1,339 @@
+========== X7 MINI DISPLAY CONFIG ==========
+323:CONFIG_MACH_RK3188_BOX=y
+2023:# CONFIG_LCD_CLASS_DEVICE is not set
+2035:CONFIG_DISPLAY_SUPPORT=y
+2040:# CONFIG_LCD_NULL is not set
+2041:# CONFIG_LCD_LG_LP097X02 is not set
+2042:# CONFIG_LCD_TD043MGEA1 is not set
+2043:# CONFIG_LCD_HX8357 is not set
+2044:# CONFIG_LCD_TJ048NC01CA is not set
+2045:# CONFIG_LCD_HL070VM4AU is not set
+2046:# CONFIG_LCD_HSD070IDW1 is not set
+2047:# CONFIG_LCD_RGB_TFT480800_25_E is not set
+2048:# CONFIG_LCD_HSD100PXN is not set
+2049:# CONFIG_LCD_HSD07PFW1 is not set
+2050:# CONFIG_LCD_BYD8688FTGF is not set
+2051:# CONFIG_LCD_B101AW06 is not set
+2052:# CONFIG_LCD_LS035Y8DX02A is not set
+2053:# CONFIG_LCD_LS035Y8DX04A is not set
+2054:# CONFIG_LCD_HSD100PXN_FOR_TDW851 is not set
+2055:# CONFIG_LCD_CPTCLAA038LA31XE is not set
+2056:# CONFIG_LCD_A060SE02 is not set
+2057:# CONFIG_LCD_S1D13521 is not set
+2058:# CONFIG_LCD_NT35582 is not set
+2059:# CONFIG_LCD_NT35580 is not set
+2060:# CONFIG_LCD_IPS1P5680_V1_E is not set
+2061:# CONFIG_LCD_MCU_TFT480800_25_E is not set
+2062:# CONFIG_LCD_NT35510 is not set
+2063:# CONFIG_LCD_ILI9803_CPT4_3 is not set
+2064:# CONFIG_LCD_AT070TNA2 is not set
+2065:# CONFIG_LCD_AT070TN93 is not set
+2066:# CONFIG_LCD_TX23D88VM is not set
+2067:# CONFIG_LCD_A050VL01 is not set
+2068:# CONFIG_LCD_B101EW05 is not set
+2069:# CONFIG_LCD_HJ050NA_06A is not set
+2070:# CONFIG_LCD_HV070WSA100 is not set
+2071:# CONFIG_LCD_COMMON is not set
+2072:# CONFIG_LCD_RK2928_A720 is not set
+2073:# CONFIG_LCD_RK2926_V86 is not set
+2074:# CONFIG_LCD_RK3168_86V is not set
+2075:# CONFIG_LCD_HJ080NA is not set
+2076:# CONFIG_LCD_HJ101NA is not set
+2077:# CONFIG_LCD_AUTO is not set
+2078:# CONFIG_LCD_I30_800X480 is not set
+2079:# CONFIG_LCD_TL5001_MIPI is not set
+2080:# CONFIG_LCD_LP097QX1 is not set
+2081:# CONFIG_LCD_DS1006H is not set
+2093:# CONFIG_HDMI is not set
+2094:CONFIG_FB_ROCKCHIP=y
+2099:CONFIG_LCDC_OVERLAY_ENABLE=y
+2100:# CONFIG_FB_ROTATE is not set
+2101:CONFIG_THREE_FB_BUFFER=y
+2102:CONFIG_LCDC_RK3188=y
+2103:# CONFIG_LCDC0_RK3188 is not set
+2104:CONFIG_LCDC1_RK3188=y
+2105:# CONFIG_LCDC1_IO_18V is not set
+
+========== RK3188 BOX SCREEN SELECTION ==========
+509-		gpio_set_value(LCD_EN_PIN, LCD_EN_VALUE);
+510-	}
+511-	return 0;
+512-}
+513-
+514:#if defined(CONFIG_LCDC0_RK3188)
+515-struct rk29fb_info lcdc0_screen_info = {
+516-	.prop           = EXTEND,       //extend display device
+517-       .lcd_info  = NULL,
+518:       .set_screen_info = set_lcd_info,
+519-
+520-};
+521-#endif
+522-
+523-#if defined(CONFIG_LCDC1_RK3188)
+524-struct rk29fb_info lcdc1_screen_info = {
+525-	.prop	   = PRMRY,		//primary display device
+526-	.io_init   = rk_fb_io_init,
+527-	.io_disable = rk_fb_io_disable,
+528-	.io_enable = rk_fb_io_enable,
+529:	.set_screen_info = set_lcd_info,
+530-	
+531-};
+532-#endif
+533-
+534-static struct resource resource_fb[] = {
+--
+558-	.num_resources	= ARRAY_SIZE(resource_fb),
+559-	.resource	= resource_fb,
+560-};
+561-#endif
+562-
+563:#if defined(CONFIG_LCDC0_RK3188)
+564-static struct resource resource_lcdc0[] = {
+565-	[0] = {
+566-		.name  = "lcdc0 reg",
+567-		.start = RK30_LCDC0_PHYS,
+568-		.end   = RK30_LCDC0_PHYS + RK30_LCDC0_SIZE - 1,
+--
+1301-	struct platform_device *bl = NULL; //backlight
+1302-#ifdef CONFIG_FB_ROCKCHIP
+1303-	fb = &device_fb;
+1304-#endif
+1305-
+1306:#if defined(CONFIG_LCDC0_RK3188)
+1307-	lcdc0 = &device_lcdc0,
+1308-#endif
+1309-
+1310-#if defined(CONFIG_LCDC1_RK3188)
+1311-	lcdc1 = &device_lcdc1,
+
+========== FRAMEBUFFER SIZE IMPLEMENTATIONS ==========
+--- drivers/video/display/screen/lcd_720p.c ---
+/* $_FOR_ROCKCHIP_RBOX_$ */
+#include <linux/fb.h>
+#include <linux/delay.h>
+#include <mach/gpio.h>
+#include <mach/iomux.h>
+#include <mach/board.h>
+#include <linux/rk_fb.h>
+#include <linux/rk_screen.h>
+
+#define OUT_TYPE		SCREEN_HDMI
+#define OUT_FACE		OUT_P888
+#define LCDC_ACLK		312000000
+
+#define OUT_CLK	    	74250000
+#define H_PW			40
+#define H_BP			220
+#define H_VD			1280
+#define H_FP			110
+#define V_PW			5
+#define V_BP			20
+#define V_VD			720
+#define V_FP			5
+
+#define LCD_WIDTH       0//1280
+#define LCD_HEIGHT      0//720
+/* Other */
+#define DCLK_POL		1
+#define SWAP_RB			0
+
+
+void set_lcd_info(struct rk29fb_screen *screen, struct rk29lcd_info *lcd_info )
+{
+    /* screen type & face */
+    screen->type = OUT_TYPE;
+    screen->face = OUT_FACE;
+
+    /* Screen size */
+    screen->x_res = H_VD;
+    screen->y_res = V_VD;
+
+    screen->width = LCD_WIDTH;
+    screen->height = LCD_HEIGHT;
+
+    /* Timing */
+    screen->lcdc_aclk = LCDC_ACLK;
+    screen->pixclock = OUT_CLK;
+	screen->left_margin = H_BP;
+	screen->right_margin = H_FP;
+	screen->hsync_len = H_PW;
+	screen->upper_margin = V_BP;
+	screen->lower_margin = V_FP;
+	screen->vsync_len = V_PW;
+
+	/* Pin polarity */
+	screen->pin_hsync = 1;
+	screen->pin_vsync = 1;
+	screen->pin_den = 0;
+	screen->pin_dclk = DCLK_POL;
+
+	/* Swap rule */
+    screen->swap_rb = SWAP_RB;
+    screen->swap_rg = 0;
+    screen->swap_gb = 0;
+    screen->swap_delta = 0;
+    screen->swap_dumy = 0;
+
+    /* Operation function*/
+    screen->init = NULL;
+    screen->standby = NULL;
+}
+
+size_t get_fb_size(void)
+{
+	size_t size = 0;
+	#if defined(CONFIG_THREE_FB_BUFFER)
+		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+	#else
+		size = ((H_VD)*(V_VD)<<2)<<1; //two buffer
+	#endif
+	return ALIGN(size,SZ_1M);
+}
+
+--- drivers/video/display/screen/lcd_1080p.c ---
+/* $_FOR_ROCKCHIP_RBOX_$ */
+#include <linux/fb.h>
+#include <linux/delay.h>
+#include <mach/gpio.h>
+#include <mach/iomux.h>
+#include <mach/board.h>
+#include <linux/rk_fb.h>
+#include <linux/rk_screen.h>
+
+#define OUT_TYPE		SCREEN_HDMI
+#define OUT_FACE		OUT_P888
+#define LCDC_ACLK		297000000
+
+#define OUT_CLK	    	148500000
+#define H_PW			44
+#define H_BP			148
+#define H_VD			1920
+#define H_FP			88
+#define V_PW			5
+#define V_BP			36
+#define V_VD			1080
+#define V_FP			4
+
+#define LCD_WIDTH       0//1920
+#define LCD_HEIGHT      0//1080
+/* Other */
+#define DCLK_POL		1
+#define SWAP_RB			0
+
+
+void set_lcd_info(struct rk29fb_screen *screen, struct rk29lcd_info *lcd_info )
+{
+    /* screen type & face */
+    screen->type = OUT_TYPE;
+    screen->face = OUT_FACE;
+
+    /* Screen size */
+    screen->x_res = H_VD;
+    screen->y_res = V_VD;
+
+    screen->width = LCD_WIDTH;
+    screen->height = LCD_HEIGHT;
+
+    /* Timing */
+    screen->lcdc_aclk = LCDC_ACLK;
+    screen->pixclock = OUT_CLK;
+	screen->left_margin = H_BP;
+	screen->right_margin = H_FP;
+	screen->hsync_len = H_PW;
+	screen->upper_margin = V_BP;
+	screen->lower_margin = V_FP;
+	screen->vsync_len = V_PW;
+
+	/* Pin polarity */
+	screen->pin_hsync = 1;
+	screen->pin_vsync = 1;
+	screen->pin_den = 0;
+	screen->pin_dclk = DCLK_POL;
+
+	/* Swap rule */
+    screen->swap_rb = SWAP_RB;
+    screen->swap_rg = 0;
+    screen->swap_gb = 0;
+    screen->swap_delta = 0;
+    screen->swap_dumy = 0;
+
+    /* Operation function*/
+    screen->init = NULL;
+    screen->standby = NULL;
+}
+
+size_t get_fb_size(void)
+{
+	size_t size = 0;
+	#if defined(CONFIG_THREE_FB_BUFFER)
+		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+	#else
+		size = ((H_VD)*(V_VD)<<2)<<1; //two buffer
+	#endif
+	return ALIGN(size,SZ_1M);
+}
+
+========== ION RESERVE DEFINITIONS ==========
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-626-static struct rk_hdmi_platform_data rk_hdmi_pdata = {
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-627-	//.io_init = rk_hdmi_power_init,
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-628-};
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-629-#endif
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-630-#ifdef CONFIG_ION
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c:631:#define ION_RESERVE_SIZE        (80 * SZ_1M)
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-632-static struct ion_platform_data rk30_ion_pdata = {
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-633-	.nr = 1,
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-634-	.heaps = {
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-635-		{
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-636-			.type = ION_HEAP_TYPE_CARVEOUT,
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-637-			.id = ION_NOR_HEAP_ID,
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-638-			.name = "norheap",
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c:639:			.size = ION_RESERVE_SIZE,
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-640-		}
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-641-	},
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-642-};
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-643-
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-644-static struct platform_device device_ion = {
+--
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1850-}
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1851-
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1852-static void __init rk30_reserve(void)
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1853-{
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1854-#ifdef CONFIG_ION
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c:1855:	rk30_ion_pdata.heaps[0].base = board_mem_reserve_add("ion", ION_RESERVE_SIZE);
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1856-#endif
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1857-
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1858-#ifdef CONFIG_FB_ROCKCHIP
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1859-	resource_fb[0].start = board_mem_reserve_add("fb0 buf", get_fb_size());
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c-1860-	resource_fb[0].end = resource_fb[0].start + get_fb_size()- 1;
+--
+arch/arm/mach-rk3188/board-rk3188-box.c-684-static struct rk_hdmi_platform_data rk_hdmi_pdata = {
+arch/arm/mach-rk3188/board-rk3188-box.c-685-	//.io_init = rk_hdmi_power_init,
+arch/arm/mach-rk3188/board-rk3188-box.c-686-};
+arch/arm/mach-rk3188/board-rk3188-box.c-687-#endif
+arch/arm/mach-rk3188/board-rk3188-box.c-688-#ifdef CONFIG_ION
+arch/arm/mach-rk3188/board-rk3188-box.c:689:#define ION_RESERVE_SIZE        (120 * SZ_1M)
+arch/arm/mach-rk3188/board-rk3188-box.c-690-static struct ion_platform_data rk30_ion_pdata = {
+arch/arm/mach-rk3188/board-rk3188-box.c-691-	.nr = 1,
+arch/arm/mach-rk3188/board-rk3188-box.c-692-	.heaps = {
+arch/arm/mach-rk3188/board-rk3188-box.c-693-		{
+arch/arm/mach-rk3188/board-rk3188-box.c-694-			.type = ION_HEAP_TYPE_CARVEOUT,
+arch/arm/mach-rk3188/board-rk3188-box.c-695-			.id = ION_NOR_HEAP_ID,
+arch/arm/mach-rk3188/board-rk3188-box.c-696-			.name = "norheap",
+arch/arm/mach-rk3188/board-rk3188-box.c:697:			.size = ION_RESERVE_SIZE,
+arch/arm/mach-rk3188/board-rk3188-box.c-698-		}
+arch/arm/mach-rk3188/board-rk3188-box.c-699-	},
+arch/arm/mach-rk3188/board-rk3188-box.c-700-};
+arch/arm/mach-rk3188/board-rk3188-box.c-701-
+arch/arm/mach-rk3188/board-rk3188-box.c-702-static struct platform_device device_ion = {
+--
+arch/arm/mach-rk3188/board-rk3188-box.c-2048-}
+arch/arm/mach-rk3188/board-rk3188-box.c-2049-
+arch/arm/mach-rk3188/board-rk3188-box.c-2050-static void __init rk30_reserve(void)
+arch/arm/mach-rk3188/board-rk3188-box.c-2051-{
+arch/arm/mach-rk3188/board-rk3188-box.c-2052-#ifdef CONFIG_ION
+arch/arm/mach-rk3188/board-rk3188-box.c:2053:	rk30_ion_pdata.heaps[0].base = board_mem_reserve_add("ion", ION_RESERVE_SIZE);
+arch/arm/mach-rk3188/board-rk3188-box.c-2054-#endif
+arch/arm/mach-rk3188/board-rk3188-box.c-2055-
+arch/arm/mach-rk3188/board-rk3188-box.c-2056-#ifdef CONFIG_FB_ROCKCHIP
+arch/arm/mach-rk3188/board-rk3188-box.c-2057-	resource_fb[0].start = board_mem_reserve_add("fb0 buf", get_fb_size());
+arch/arm/mach-rk3188/board-rk3188-box.c-2058-	resource_fb[0].end = resource_fb[0].start + get_fb_size()- 1;

@@ -1,0 +1,206 @@
+========== DEVICE ==========
+NEO-X7-216A
+
+4.4.2
+
+
+========== MEMORY INFO ==========
+MemTotal:        2097152 kB
+
+MemFree:          957440 kB
+
+Buffers:           63524 kB
+
+Cached:           484664 kB
+
+SwapCached:            0 kB
+
+Active:           315268 kB
+
+Inactive:         430748 kB
+
+Active(anon):     197856 kB
+
+Inactive(anon):      424 kB
+
+Active(file):     117412 kB
+
+Inactive(file):   430324 kB
+
+Unevictable:           0 kB
+
+Mlocked:               0 kB
+
+HighTotal:       1449984 kB
+
+HighFree:         666924 kB
+
+LowTotal:         454744 kB
+
+LowFree:          290516 kB
+
+SwapTotal:             0 kB
+
+SwapFree:              0 kB
+
+Dirty:                 0 kB
+
+Writeback:             0 kB
+
+AnonPages:        197872 kB
+
+Mapped:            91476 kB
+
+Shmem:               468 kB
+
+Slab:              66944 kB
+
+SReclaimable:      22736 kB
+
+SUnreclaim:        44208 kB
+
+KernelStack:        5520 kB
+
+PageTables:         8112 kB
+
+NFS_Unstable:          0 kB
+
+Bounce:                0 kB
+
+WritebackTmp:          0 kB
+
+CommitLimit:      952364 kB
+
+Committed_AS:   16550332 kB
+
+VmallocTotal:     516096 kB
+
+VmallocUsed:       58424 kB
+
+VmallocChunk:     357252 kB
+
+
+========== IOMEM ==========
+00000000-00000000 : fb2 buf
+
+  00000000-00000000 : ipp buf
+
+10090000-10090100 : Mali_GP
+
+10091000-10091200 : Mali_L2
+
+10093000-10093100 : Mali_GP_MMU
+
+10094000-10094100 : Mali_PP0_MMU
+
+10095000-10095100 : Mali_PP1_MMU
+
+10096000-10096100 : Mali_PP2_MMU
+
+10097000-10097100 : Mali_PP3_MMU
+
+10098000-10099100 : Mali_PP0
+
+1009a000-1009b100 : Mali_PP1
+
+1009c000-1009d100 : Mali_PP2
+
+1009e000-1009f100 : Mali_PP3
+
+10104000-1010428f : vepu_io
+
+10104400-10104593 : vdpu_io
+
+1010e000-1010ffff : lcdc1 reg
+
+  1010e000-1010ffff : rk30-lcdc
+
+10110000-10113fff : rk29-ipp
+
+10114000-10115fff : rga
+
+  10114000-10115fff : rga_io
+
+1011a000-1011bfff : rk29_i2s.1
+
+  1011a000-1011bfff : rk29_i2s
+
+1011e000-1011ffff : spdif_base
+
+  1011e000-1011ffff : rockchip-spdif
+
+10124000-10125fff : rk_serial.0
+
+  10124000-10125fff : rk_serial
+
+10180000-101bffff : usb20_otg
+
+101c0000-101fffff : usb20_host
+
+10214000-10217fff : rk29_sdmmc.0
+
+10218000-1021bfff : rk29_sdmmc.1
+
+1021c000-1021ffff : emmc
+
+10500000-10503fff : rk29xxnand
+
+20018000-2001bfff : rk29-pl330.1
+
+  20018000-2001bfff : rk29-pl330
+
+2002d000-2002dfff : rk30_i2c.0
+
+  2002d000-2002dfff : rk30_i2c
+
+2002f000-2002ffff : rk30_i2c.1
+
+  2002f000-2002ffff : rk30_i2c
+
+2004c000-2004ffff : rk29-wdt.0
+
+  2004c000-2004ffff : rk29-wdt
+
+20056000-20057fff : rk30_i2c.2
+
+  20056000-20057fff : rk30_i2c
+
+2005a000-2005bfff : rk30_i2c.3
+
+  2005a000-2005bfff : rk30_i2c
+
+2005e000-2005ffff : rk30_i2c.4
+
+  2005e000-2005ffff : rk30_i2c
+
+20068000-2006bfff : rk_serial.3
+
+  20068000-2006bfff : rk_serial
+
+2006c000-2006ffff : rk30-adc
+
+  2006c000-2006ffff : rk30-adc
+
+20078000-2007bfff : rk29-pl330.2
+
+  20078000-2007bfff : rk29-pl330
+
+60000000-96ffffff : System RAM
+
+  60630000-60e4a95b : Kernel text
+
+  60e4c000-6198015f : Kernel data
+
+97000000-987fffff : fb0 buf
+
+  97000000-987fffff : rk-fb
+
+a0000000-dfffffff : System RAM
+
+
+========== BOOT MEMORY LOG ==========
+klogctl: Operation not permitted
+
+========== CMDLINE ==========
+/system/bin/sh: cat: /proc/cmdline: Permission denied
+

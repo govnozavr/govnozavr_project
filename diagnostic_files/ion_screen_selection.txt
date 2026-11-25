@@ -1,0 +1,268 @@
+========== X7 MINI CONFIG ==========
+2023:# CONFIG_LCD_CLASS_DEVICE is not set
+2035:CONFIG_DISPLAY_SUPPORT=y
+2040:# CONFIG_LCD_NULL is not set
+2041:# CONFIG_LCD_LG_LP097X02 is not set
+2042:# CONFIG_LCD_TD043MGEA1 is not set
+2043:# CONFIG_LCD_HX8357 is not set
+2044:# CONFIG_LCD_TJ048NC01CA is not set
+2045:# CONFIG_LCD_HL070VM4AU is not set
+2046:# CONFIG_LCD_HSD070IDW1 is not set
+2047:# CONFIG_LCD_RGB_TFT480800_25_E is not set
+2048:# CONFIG_LCD_HSD100PXN is not set
+2049:# CONFIG_LCD_HSD07PFW1 is not set
+2050:# CONFIG_LCD_BYD8688FTGF is not set
+2051:# CONFIG_LCD_B101AW06 is not set
+2052:# CONFIG_LCD_LS035Y8DX02A is not set
+2053:# CONFIG_LCD_LS035Y8DX04A is not set
+2054:# CONFIG_LCD_HSD100PXN_FOR_TDW851 is not set
+2055:# CONFIG_LCD_CPTCLAA038LA31XE is not set
+2056:# CONFIG_LCD_A060SE02 is not set
+2057:# CONFIG_LCD_S1D13521 is not set
+2058:# CONFIG_LCD_NT35582 is not set
+2059:# CONFIG_LCD_NT35580 is not set
+2060:# CONFIG_LCD_IPS1P5680_V1_E is not set
+2061:# CONFIG_LCD_MCU_TFT480800_25_E is not set
+2062:# CONFIG_LCD_NT35510 is not set
+2063:# CONFIG_LCD_ILI9803_CPT4_3 is not set
+2064:# CONFIG_LCD_AT070TNA2 is not set
+2065:# CONFIG_LCD_AT070TN93 is not set
+2066:# CONFIG_LCD_TX23D88VM is not set
+2067:# CONFIG_LCD_A050VL01 is not set
+2068:# CONFIG_LCD_B101EW05 is not set
+2069:# CONFIG_LCD_HJ050NA_06A is not set
+2070:# CONFIG_LCD_HV070WSA100 is not set
+2071:# CONFIG_LCD_COMMON is not set
+2072:# CONFIG_LCD_RK2928_A720 is not set
+2073:# CONFIG_LCD_RK2926_V86 is not set
+2074:# CONFIG_LCD_RK3168_86V is not set
+2075:# CONFIG_LCD_HJ080NA is not set
+2076:# CONFIG_LCD_HJ101NA is not set
+2077:# CONFIG_LCD_AUTO is not set
+2078:# CONFIG_LCD_I30_800X480 is not set
+2079:# CONFIG_LCD_TL5001_MIPI is not set
+2080:# CONFIG_LCD_LP097QX1 is not set
+2081:# CONFIG_LCD_DS1006H is not set
+2082:# CONFIG_BOX_FB_480P is not set
+2083:CONFIG_BOX_FB_720P=y
+2084:# CONFIG_BOX_FB_1080P is not set
+2093:# CONFIG_HDMI is not set
+2100:# CONFIG_FB_ROTATE is not set
+2101:CONFIG_THREE_FB_BUFFER=y
+2103:# CONFIG_LCDC0_RK3188 is not set
+2104:CONFIG_LCDC1_RK3188=y
+
+========== SCREEN MAKEFILE / KCONFIG SELECTION ==========
+drivers/video/rockchip/lcdc/Makefile:1:obj-$(CONFIG_LCDC_RK30) += rk30_lcdc.o
+drivers/video/rockchip/lcdc/Makefile:2:obj-$(CONFIG_LCDC_RK2928) += rk2928_lcdc.o
+drivers/video/rockchip/lcdc/Makefile:3:obj-$(CONFIG_LCDC_RK3066B) += rk3066b_lcdc.o
+drivers/video/rockchip/lcdc/Makefile:4:obj-$(CONFIG_LCDC_RK3188) += rk3188_lcdc.o
+drivers/video/backlight/Makefile:3:obj-$(CONFIG_LCD_CLASS_DEVICE)     += lcd.o
+drivers/video/backlight/Makefile:4:obj-$(CONFIG_LCD_CORGI)		   += corgi_lcd.o
+drivers/video/backlight/Makefile:5:obj-$(CONFIG_LCD_HP700)		   += jornada720_lcd.o
+drivers/video/backlight/Makefile:6:obj-$(CONFIG_LCD_L4F00242T03)	   += l4f00242t03.o
+drivers/video/backlight/Makefile:7:obj-$(CONFIG_LCD_LMS283GF05)	   += lms283gf05.o
+drivers/video/backlight/Makefile:8:obj-$(CONFIG_LCD_LTV350QV)	   += ltv350qv.o
+drivers/video/backlight/Makefile:9:obj-$(CONFIG_LCD_ILI9320)	   += ili9320.o
+drivers/video/backlight/Makefile:10:obj-$(CONFIG_LCD_PLATFORM)	   += platform_lcd.o
+drivers/video/backlight/Makefile:11:obj-$(CONFIG_LCD_VGG2432A4)	   += vgg2432a4.o
+drivers/video/backlight/Makefile:12:obj-$(CONFIG_LCD_TDO24M)	   += tdo24m.o
+drivers/video/backlight/Makefile:13:obj-$(CONFIG_LCD_TOSA)		   += tosa_lcd.o
+drivers/video/backlight/Makefile:14:obj-$(CONFIG_LCD_S6E63M0)	+= s6e63m0.o
+drivers/video/backlight/Makefile:15:obj-$(CONFIG_LCD_LD9040)	+= ld9040.o
+drivers/video/display/Makefile:6:obj-$(CONFIG_DISPLAY_SUPPORT)		+= display.o
+drivers/video/display/Makefile:7:obj-$(CONFIG_DISPLAY_SUPPORT)	    += screen/
+drivers/video/display/screen/Makefile:2:obj-$(CONFIG_LCD_NULL) += lcd_null.o
+drivers/video/display/screen/Makefile:4:obj-$(CONFIG_LCD_RK2928) += lcd_rk2928.o
+drivers/video/display/screen/Makefile:6:obj-$(CONFIG_LCD_TD043MGEA1) += lcd_td043mgea1.o
+drivers/video/display/screen/Makefile:7:obj-$(CONFIG_LCD_HSD070IDW1) += lcd_hsd800x480.o
+drivers/video/display/screen/Makefile:8:obj-$(CONFIG_LCD_HL070VM4AU) += lcd_hl070vm4.o
+drivers/video/display/screen/Makefile:9:obj-$(CONFIG_LCD_BYD8688FTGF) += lcd_byd1024x600.o
+drivers/video/display/screen/Makefile:10:obj-$(CONFIG_LCD_LG_LP097X02)+=	lcd_LG_LP097X02.o
+drivers/video/display/screen/Makefile:11:obj-$(CONFIG_LCD_TJ048NC01CA) 		+= lcd_tj048nc01ca.o
+drivers/video/display/screen/Makefile:13:obj-$(CONFIG_LCD_A060SE02) += lcd_a060se02.o
+drivers/video/display/screen/Makefile:14:obj-$(CONFIG_LCD_S1D13521) += lcd_s1d13521.o
+drivers/video/display/screen/Makefile:15:obj-$(CONFIG_LCD_NT35582) += lcd_nt35582.o
+drivers/video/display/screen/Makefile:16:obj-$(CONFIG_LCD_NT35580) += lcd_nt35580.o
+drivers/video/display/screen/Makefile:17:obj-$(CONFIG_LCD_IPS1P5680_V1_E) += lcd_ips1p5680_v1_e.o
+drivers/video/display/screen/Makefile:18:obj-$(CONFIG_LCD_RGB_TFT480800_25_E) += lcd_rgb_tft480800_25_e.o
+drivers/video/display/screen/Makefile:19:obj-$(CONFIG_LCD_MCU_TFT480800_25_E) += lcd_mcu_tft480800_25_e.o
+drivers/video/display/screen/Makefile:20:obj-$(CONFIG_LCD_LS035Y8DX02A) += lcd_ls035y8dx02a.o
+drivers/video/display/screen/Makefile:21:obj-$(CONFIG_LCD_LS035Y8DX04A) += lcd_ls035y8dx04a.o
+drivers/video/display/screen/Makefile:22:obj-$(CONFIG_LCD_CPTCLAA038LA31XE) += lcd_CPTclaa038la31xe.o
+drivers/video/display/screen/Makefile:25:obj-$(CONFIG_LCD_HX8357) += lcd_hx8357.o
+drivers/video/display/screen/Makefile:26:obj-$(CONFIG_LCD_HSD100PXN) += lcd_hsd100pxn.o
+drivers/video/display/screen/Makefile:27:obj-$(CONFIG_LCD_HDMI_1280x800) += lcd_hdmi_1280x800.o
+drivers/video/display/screen/Makefile:28:obj-$(CONFIG_LCD_HDMI_1024x768) += lcd_hdmi_1024x768.o
+drivers/video/display/screen/Makefile:29:obj-$(CONFIG_LCD_HDMI_800x480) += lcd_hdmi_800x480.o
+drivers/video/display/screen/Makefile:30:obj-$(CONFIG_LCD_B101AW06) += lcd_B101AW06.o
+drivers/video/display/screen/Makefile:31:obj-$(CONFIG_LCD_NT35510) += lcd_nt35510.o
+drivers/video/display/screen/Makefile:32:obj-$(CONFIG_LCD_ILI9803_CPT4_3) += lcd_ili9803_cpt4_3.o
+drivers/video/display/screen/Makefile:33:obj-$(CONFIG_LCD_RGB_TFT480800_25_E) += lcd_rgb_tft480800_25_e.o
+drivers/video/display/screen/Makefile:34:obj-$(CONFIG_LCD_LS035Y8DX02A) += lcd_ls035y8dx02a.o
+drivers/video/display/screen/Makefile:35:obj-$(CONFIG_LCD_IPS1P5680_V1_E) += lcd_ips1p5680_v1_e.o
+drivers/video/display/screen/Makefile:36:obj-$(CONFIG_LCD_MCU_TFT480800_25_E) += lcd_mcu_tft480800_25_e.o
+drivers/video/display/screen/Makefile:37:obj-$(CONFIG_LCD_AT070TNA2)    += lcd_AT070TNA2.o
+drivers/video/display/screen/Makefile:38:obj-$(CONFIG_LCD_TX23D88VM) += lcd_tx23d88vm.o
+drivers/video/display/screen/Makefile:39:obj-$(CONFIG_LCD_AT070TN93)    += lcd_at070tn93.o
+drivers/video/display/screen/Makefile:40:obj-$(CONFIG_LCD_A050VL01)    += lcd_A050VL01.o
+drivers/video/display/screen/Makefile:43:obj-$(CONFIG_BOX_FB_720P) += lcd_720p.o
+drivers/video/display/screen/Makefile:44:obj-$(CONFIG_BOX_FB_1080P) += lcd_1080p.o
+drivers/video/display/screen/Makefile:46:obj-$(CONFIG_LCD_B101EW05)    += lcd_b101ew05.o
+drivers/video/display/screen/Makefile:47:obj-$(CONFIG_LCD_HJ050NA_06A)    += lcd_hj050na_06a.o
+drivers/video/display/screen/Makefile:48:obj-$(CONFIG_LCD_HSD100PXN_FOR_TDW851) += lcd_hsd100pxn_for_tdw851.o
+drivers/video/display/screen/Makefile:49:obj-$(CONFIG_LCD_HV070WSA100)    += lcd_hv070wsa.o
+drivers/video/display/screen/Makefile:50:obj-$(CONFIG_LCD_COMMON)    += lcd_common.o
+drivers/video/display/screen/Makefile:51:obj-$(CONFIG_LCD_RK2928_A720) += lcd_YQ70CPT9160.o
+drivers/video/display/screen/Makefile:52:obj-$(CONFIG_LCD_RK2926_V86) += lcd_YQ70CPT9160_v86.o
+drivers/video/display/screen/Makefile:53:obj-$(CONFIG_LCD_RK3168_86V) += lcd_YQ70CPT9160_rk3168_86v.o
+drivers/video/display/screen/Makefile:54:obj-$(CONFIG_LCD_HSD07PFW1) += lcd_hsd07pfw1.o
+drivers/video/display/screen/Makefile:55:obj-$(CONFIG_LCD_HJ080NA)    += lcd_hj080na.o
+drivers/video/display/screen/Makefile:56:obj-$(CONFIG_LCD_HJ101NA)   += lcd_hj101na.o
+drivers/video/display/screen/Makefile:57:obj-$(CONFIG_LCD_AUTO)   += lcd_auto.o
+drivers/video/display/screen/Makefile:58:obj-$(CONFIG_LCD_I30_800X480)   += lcd_I30_800x480.o
+drivers/video/display/screen/Makefile:59:obj-$(CONFIG_LCD_TL5001_MIPI)    += lcd_tl5001_mipi.o
+drivers/video/display/screen/Makefile:60:obj-$(CONFIG_LCD_LP097QX1)    += lcd_LP097QX1.o
+drivers/video/display/screen/Makefile:61:obj-$(CONFIG_LCD_DS1006H)    += lcd_ds1006h.o
+
+========== ALL FB SIZE IMPLEMENTATIONS ==========
+drivers/video/display/screen/lcd_720p.c-69-    screen->standby = NULL;
+drivers/video/display/screen/lcd_720p.c-70-}
+drivers/video/display/screen/lcd_720p.c-71-
+drivers/video/display/screen/lcd_720p.c:72:size_t get_fb_size(void)
+drivers/video/display/screen/lcd_720p.c-73-{
+drivers/video/display/screen/lcd_720p.c-74-	size_t size = 0;
+drivers/video/display/screen/lcd_720p.c-75-	#if defined(CONFIG_THREE_FB_BUFFER)
+--
+drivers/video/display/screen/lcd_LP097QX1.c-118-    screen->dsp_lut = dsp_lut;
+drivers/video/display/screen/lcd_LP097QX1.c-119-}
+drivers/video/display/screen/lcd_LP097QX1.c-120-
+drivers/video/display/screen/lcd_LP097QX1.c:121:size_t get_fb_size(void)
+drivers/video/display/screen/lcd_LP097QX1.c-122-{
+drivers/video/display/screen/lcd_LP097QX1.c-123-	size_t size = 0;
+drivers/video/display/screen/lcd_LP097QX1.c-124-	#if defined(CONFIG_THREE_FB_BUFFER)
+--
+drivers/video/display/screen/lcd_hsd100pxn.c-295-}
+drivers/video/display/screen/lcd_hsd100pxn.c-296-
+drivers/video/display/screen/lcd_hsd100pxn.c-297-
+drivers/video/display/screen/lcd_hsd100pxn.c:298:size_t get_fb_size(void)
+drivers/video/display/screen/lcd_hsd100pxn.c-299-{
+drivers/video/display/screen/lcd_hsd100pxn.c-300-	size_t size = 0;
+drivers/video/display/screen/lcd_hsd100pxn.c-301-	#if defined(CONFIG_THREE_FB_BUFFER)
+--
+drivers/video/display/screen/lcd_ds1006h.c-334-#endif
+drivers/video/display/screen/lcd_ds1006h.c-335-}
+drivers/video/display/screen/lcd_ds1006h.c-336-
+drivers/video/display/screen/lcd_ds1006h.c:337:size_t get_fb_size(void)
+drivers/video/display/screen/lcd_ds1006h.c-338-{
+drivers/video/display/screen/lcd_ds1006h.c-339-	size_t size = 0;
+drivers/video/display/screen/lcd_ds1006h.c-340-	#if defined(CONFIG_THREE_FB_BUFFER)
+--
+drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c-183-    screen->sscreen_set = rk610_lcd_scaler_set_param;
+drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c-184-#endif
+drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c-185-}
+drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c:186:size_t get_fb_size(void)
+drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c-187-{
+drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c-188-	size_t size = 0;
+drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c-189-	#if defined(CONFIG_THREE_FB_BUFFER)
+--
+drivers/video/display/screen/lcd_hsd07pfw1.c-338-#endif
+drivers/video/display/screen/lcd_hsd07pfw1.c-339-}
+drivers/video/display/screen/lcd_hsd07pfw1.c-340-
+drivers/video/display/screen/lcd_hsd07pfw1.c:341:size_t get_fb_size(void)
+drivers/video/display/screen/lcd_hsd07pfw1.c-342-{
+drivers/video/display/screen/lcd_hsd07pfw1.c-343-	size_t size = 0;
+drivers/video/display/screen/lcd_hsd07pfw1.c-344-	#if defined(CONFIG_THREE_FB_BUFFER)
+--
+drivers/video/display/screen/lcd_1080p.c-69-    screen->standby = NULL;
+drivers/video/display/screen/lcd_1080p.c-70-}
+drivers/video/display/screen/lcd_1080p.c-71-
+drivers/video/display/screen/lcd_1080p.c:72:size_t get_fb_size(void)
+drivers/video/display/screen/lcd_1080p.c-73-{
+drivers/video/display/screen/lcd_1080p.c-74-	size_t size = 0;
+drivers/video/display/screen/lcd_1080p.c-75-	#if defined(CONFIG_THREE_FB_BUFFER)
+--
+drivers/video/display/screen/lcd_b101ew05.c-341-#endif
+drivers/video/display/screen/lcd_b101ew05.c-342-}
+drivers/video/display/screen/lcd_b101ew05.c-343-
+drivers/video/display/screen/lcd_b101ew05.c:344:size_t get_fb_size(void)
+drivers/video/display/screen/lcd_b101ew05.c-345-{
+drivers/video/display/screen/lcd_b101ew05.c-346-	size_t size = 0;
+drivers/video/display/screen/lcd_b101ew05.c-347-	#if defined(CONFIG_THREE_FB_BUFFER)
+
+========== DISPLAY BUILD FILES ==========
+drivers/video/Kconfig
+drivers/video/Makefile
+drivers/video/aty/Makefile
+drivers/video/backlight/Kconfig
+drivers/video/backlight/Makefile
+drivers/video/console/Kconfig
+drivers/video/console/Makefile
+drivers/video/display/Kconfig
+drivers/video/display/Makefile
+drivers/video/display/screen/Kconfig
+drivers/video/display/screen/Makefile
+drivers/video/display/transmitter/Kconfig
+drivers/video/display/transmitter/Makefile
+drivers/video/geode/Kconfig
+drivers/video/geode/Makefile
+drivers/video/hdmi/Kconfig
+drivers/video/hdmi/Makefile
+drivers/video/hdmi/chips/Kconfig
+drivers/video/hdmi/chips/Makefile
+drivers/video/i810/Makefile
+drivers/video/intelfb/Makefile
+drivers/video/kyro/Makefile
+drivers/video/logo/Kconfig
+drivers/video/logo/Makefile
+drivers/video/matrox/Makefile
+drivers/video/mb862xx/Makefile
+drivers/video/mbx/Makefile
+drivers/video/msm/Makefile
+drivers/video/nvidia/Makefile
+drivers/video/omap/Kconfig
+drivers/video/omap/Makefile
+drivers/video/omap2/Kconfig
+drivers/video/omap2/Makefile
+drivers/video/omap2/displays/Kconfig
+drivers/video/omap2/displays/Makefile
+drivers/video/omap2/dss/Kconfig
+drivers/video/omap2/dss/Makefile
+drivers/video/omap2/omapfb/Kconfig
+drivers/video/omap2/omapfb/Makefile
+drivers/video/pnx4008/Makefile
+drivers/video/riva/Makefile
+drivers/video/rockchip/Kconfig
+drivers/video/rockchip/Makefile
+drivers/video/rockchip/hdmi/Kconfig
+drivers/video/rockchip/hdmi/Makefile
+drivers/video/rockchip/hdmi/it66121/Kconfig
+drivers/video/rockchip/hdmi/it66121/Makefile
+drivers/video/rockchip/hdmi/rk2928/Kconfig
+drivers/video/rockchip/hdmi/rk2928/Makefile
+drivers/video/rockchip/hdmi/rk30/Kconfig
+drivers/video/rockchip/hdmi/rk30/Makefile
+drivers/video/rockchip/hdmi/rk30/hdcp/Kconfig
+drivers/video/rockchip/hdmi/rk30/hdcp/Makefile
+drivers/video/rockchip/hdmi/sii902xa/Kconfig
+drivers/video/rockchip/hdmi/sii902xa/Makefile
+drivers/video/rockchip/hdmi/softcec/Kconfig
+drivers/video/rockchip/hdmi/softcec/Makefile
+drivers/video/rockchip/lcdc/Kconfig
+drivers/video/rockchip/lcdc/Makefile
+drivers/video/rockchip/lvds/Kconfig
+drivers/video/rockchip/lvds/Makefile
+drivers/video/rockchip/rga/Kconfig
+drivers/video/rockchip/rga/Makefile
+drivers/video/rockchip/tvencoder/Kconfig
+drivers/video/rockchip/tvencoder/Makefile
+drivers/video/rockchip/tvencoder/ch7025/Kconfig
+drivers/video/rockchip/tvencoder/ch7025/Makefile
+drivers/video/rockchip/tvencoder/rk1000/Kconfig
+drivers/video/rockchip/tvencoder/rk1000/Makefile
+drivers/video/rockchip/tvencoder/rk610/Kconfig
+drivers/video/rockchip/tvencoder/rk610/Makefile
+drivers/video/savage/Makefile
+drivers/video/sis/Makefile
+drivers/video/vermilion/Makefile
+drivers/video/via/Makefile

@@ -1,0 +1,52 @@
+MINIX X7 FRAMEBUFFER RUNTIME PROBE
+
+========== DEVICE ==========
+NEO-X7-216A
+
+ADB_EXIT_CODE=0
+
+========== SHELL IDENTITY ==========
+uid=2000(shell) gid=2000(shell) groups=1003(graphics),1004(input),1007(log),1009(mount),1011(adb),1015(sdcard_rw),1028(sdcard_r),3001(net_bt_admin),3002(net_bt),3003(inet),3006(net_bw_stats)
+
+ADB_EXIT_CODE=0
+
+========== FRAMEBUFFER DEVICES ==========
+0 fb0
+
+1 fb1
+
+ADB_EXIT_CODE=0
+
+========== FRAMEBUFFER SYSFS ==========
+/system/bin/sh: syntax error: 'do' unexpected
+
+ADB_EXIT_CODE=0
+
+========== ANDROID WINDOW SIZE ==========
+Physical size: 1920x1080
+
+ADB_EXIT_CODE=0
+
+========== ANDROID UI FAKE SIZE ==========
+1920x1080
+
+ADB_EXIT_CODE=0
+
+========== SURFACE FLINGER DISPLAY ==========
+/system/bin/sh: resolution: not found
+
+/system/bin/sh: 1080: not found
+
+/system/bin/sh: 720: not found
+
+/system/bin/sh: 1920: not found
+
+/system/bin/sh: 1280: not found
+
+/system/bin/sh: framebuffer: not found
+
+/system/bin/sh: head: not found
+
+ADB_EXIT_CODE=0
+
+========== ROOT ACCESS AND MEMORY DIAGNOSTICS VIA SU ==========

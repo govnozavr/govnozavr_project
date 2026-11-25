@@ -1,0 +1,263 @@
+========== 720P FB SIZE IMPLEMENTATION ==========
+	/* Swap rule */
+    screen->swap_rb = SWAP_RB;
+    screen->swap_rg = 0;
+    screen->swap_gb = 0;
+    screen->swap_delta = 0;
+    screen->swap_dumy = 0;
+
+    /* Operation function*/
+    screen->init = NULL;
+    screen->standby = NULL;
+}
+
+size_t get_fb_size(void)
+{
+	size_t size = 0;
+	#if defined(CONFIG_THREE_FB_BUFFER)
+		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+	#else
+		size = ((H_VD)*(V_VD)<<2)<<1; //two buffer
+	#endif
+	return ALIGN(size,SZ_1M);
+}
+
+
+========== 1080P FB SIZE IMPLEMENTATION ==========
+	/* Swap rule */
+    screen->swap_rb = SWAP_RB;
+    screen->swap_rg = 0;
+    screen->swap_gb = 0;
+    screen->swap_delta = 0;
+    screen->swap_dumy = 0;
+
+    /* Operation function*/
+    screen->init = NULL;
+    screen->standby = NULL;
+}
+
+size_t get_fb_size(void)
+{
+	size_t size = 0;
+	#if defined(CONFIG_THREE_FB_BUFFER)
+		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+	#else
+		size = ((H_VD)*(V_VD)<<2)<<1; //two buffer
+	#endif
+	return ALIGN(size,SZ_1M);
+}
+
+========== SCREEN KCONFIG ==========
+127-config LCD_DS1006H
+128-          bool "Lvds screen for ds1006h(RK3168)"
+129-
+130-#$_rbox_$_modify_$_zhengyang added for box default framebuffer size
+131-config BOX_FB_480P
+132-	bool "ITV framebuffer size and timing is 480P"
+133-	---help---
+134-	For itv box, default framebuffer size and timing as 720x480p-60 if you say yes."
+135:config BOX_FB_720P
+136-	bool "ITV framebuffer size and timing is 720P"
+137-	---help---
+138-	For itv box, default framebuffer size and timing as 1280x720p-60 if you say yes."
+139:config BOX_FB_1080P
+140-	bool "ITV framebuffer size and timing is 1080P"
+141-	---help---
+142-	For itv box, default framebuffer size and timing as 1920x1080p-60 if you say yes."
+143-#$_rbox_$_modify_$_end
+144-endchoice
+145-
+146-
+
+========== SCREEN MAKEFILE ==========
+obj-$(CONFIG_LCD_IPS1P5680_V1_E) += lcd_ips1p5680_v1_e.o
+obj-$(CONFIG_LCD_MCU_TFT480800_25_E) += lcd_mcu_tft480800_25_e.o
+obj-$(CONFIG_LCD_AT070TNA2)    += lcd_AT070TNA2.o
+obj-$(CONFIG_LCD_TX23D88VM) += lcd_tx23d88vm.o
+obj-$(CONFIG_LCD_AT070TN93)    += lcd_at070tn93.o
+obj-$(CONFIG_LCD_A050VL01)    += lcd_A050VL01.o
+#$_rbox_$_modify_$_zhengyang added for box default framebuffer size
+obj-$(CONFIG_BOX_FB_480P) += lcd_480p.o
+obj-$(CONFIG_BOX_FB_720P) += lcd_720p.o
+obj-$(CONFIG_BOX_FB_1080P) += lcd_1080p.o
+#$_rbox_$_modify_$_end
+obj-$(CONFIG_LCD_B101EW05)    += lcd_b101ew05.o
+obj-$(CONFIG_LCD_HJ050NA_06A)    += lcd_hj050na_06a.o
+obj-$(CONFIG_LCD_HSD100PXN_FOR_TDW851) += lcd_hsd100pxn_for_tdw851.o
+obj-$(CONFIG_LCD_HV070WSA100)    += lcd_hv070wsa.o
+obj-$(CONFIG_LCD_COMMON)    += lcd_common.o
+
+========== RK3188 BOARD FB RESERVATION ==========
+522-
+523-#if defined(CONFIG_LCDC1_RK3188)
+524-struct rk29fb_info lcdc1_screen_info = {
+525-	.prop	   = PRMRY,		//primary display device
+526-	.io_init   = rk_fb_io_init,
+527-	.io_disable = rk_fb_io_disable,
+528-	.io_enable = rk_fb_io_enable,
+529-	.set_screen_info = set_lcd_info,
+530-	
+531-};
+532-#endif
+533-
+534:static struct resource resource_fb[] = {
+535-	[0] = {
+536-		.name  = "fb0 buf",
+537-		.start = 0,
+538-		.end   = 0,//RK30_FB0_MEM_SIZE - 1,
+539-		.flags = IORESOURCE_MEM,
+540-	},
+541-	[1] = {
+542-		.name  = "ipp buf",  //for rotate
+543-		.start = 0,
+544-		.end   = 0,//RK30_FB0_MEM_SIZE - 1,
+545-		.flags = IORESOURCE_MEM,
+546-	},
+547-	[2] = {
+548-		.name  = "fb2 buf",
+549-		.start = 0,
+550-		.end   = 0,//RK30_FB0_MEM_SIZE - 1,
+551-		.flags = IORESOURCE_MEM,
+552-	},
+553-};
+554-
+555-static struct platform_device device_fb = {
+556-	.name		= "rk-fb",
+557-	.id		= -1,
+558:	.num_resources	= ARRAY_SIZE(resource_fb),
+559:	.resource	= resource_fb,
+560-};
+561-#endif
+562-
+563-#if defined(CONFIG_LCDC0_RK3188)
+564-static struct resource resource_lcdc0[] = {
+565-	[0] = {
+566-		.name  = "lcdc0 reg",
+567-		.start = RK30_LCDC0_PHYS,
+568-		.end   = RK30_LCDC0_PHYS + RK30_LCDC0_SIZE - 1,
+569-		.flags = IORESOURCE_MEM,
+570-	},
+571-	
+--
+677-		gpio_set_value(RK_HDMI_RST_PIN, GPIO_LOW);
+678-		msleep(100);
+679-		gpio_set_value(RK_HDMI_RST_PIN, GPIO_HIGH);
+680-		msleep(50);
+681-	}
+682-	return 0;
+683-}
+684-static struct rk_hdmi_platform_data rk_hdmi_pdata = {
+685-	//.io_init = rk_hdmi_power_init,
+686-};
+687-#endif
+688-#ifdef CONFIG_ION
+689:#define ION_RESERVE_SIZE        (120 * SZ_1M)
+690-static struct ion_platform_data rk30_ion_pdata = {
+691-	.nr = 1,
+692-	.heaps = {
+693-		{
+694-			.type = ION_HEAP_TYPE_CARVEOUT,
+695-			.id = ION_NOR_HEAP_ID,
+696-			.name = "norheap",
+697:			.size = ION_RESERVE_SIZE,
+698-		}
+699-	},
+700-};
+701-
+702-static struct platform_device device_ion = {
+703-	.name = "ion-rockchip",
+704-	.id = 0,
+705-	.dev = {
+706-		.platform_data = &rk30_ion_pdata,
+707-	},
+708-};
+709-#endif
+--
+2038-	rk29sdk_wifi_bt_gpio_control_init();
+2039-#endif
+2040-
+2041-#if defined(CONFIG_MT6620)
+2042-	    clk_set_rate(clk_get_sys("rk_serial.1", "uart"), 48*1000000);
+2043-#endif
+2044-
+2045-#if defined(CONFIG_MT5931_MT6622)
+2046-		clk_set_rate(clk_get_sys("rk_serial.0", "uart"), 24*1000000);
+2047-#endif		
+2048-}
+2049-
+2050:static void __init rk30_reserve(void)
+2051-{
+2052-#ifdef CONFIG_ION
+2053:	rk30_ion_pdata.heaps[0].base = board_mem_reserve_add("ion", ION_RESERVE_SIZE);
+2054-#endif
+2055-
+2056-#ifdef CONFIG_FB_ROCKCHIP
+2057:	resource_fb[0].start = board_mem_reserve_add("fb0 buf", get_fb_size());
+2058:	resource_fb[0].end = resource_fb[0].start + get_fb_size()- 1;
+2059-#if 0
+2060:	resource_fb[1].start = board_mem_reserve_add("ipp buf", RK30_FB0_MEM_SIZE);
+2061:	resource_fb[1].end = resource_fb[1].start + RK30_FB0_MEM_SIZE - 1;
+2062-#endif
+2063-
+2064-#if defined(CONFIG_FB_ROTATE) || !defined(CONFIG_THREE_FB_BUFFER)
+2065:	resource_fb[2].start = board_mem_reserve_add("fb2 buf",get_fb_size());
+2066:	resource_fb[2].end = resource_fb[2].start + get_fb_size() - 1;
+2067-#endif
+2068-#endif
+2069-
+2070-
+2071-#ifdef CONFIG_VIDEO_RK29
+2072-	rk30_camera_request_reserve_mem();
+2073-#endif
+2074-	
+2075-#ifdef CONFIG_GPS_RK
+2076-	//it must be more than 8MB
+2077-	rk_gps_info.u32MemoryPhyAddr = board_mem_reserve_add("gps", SZ_8M);
+2078-#endif
+--
+2235-	if (rk_pll_flag() == 0)
+2236-		dvfs_set_freq_volt_table(clk_get(NULL, "ddr"), dvfs_ddr_table);
+2237-	else
+2238-		dvfs_set_freq_volt_table(clk_get(NULL, "ddr"), dvfs_ddr_table_t);
+2239-#else
+2240-	dvfs_set_freq_volt_table(clk_get(NULL, "ddr"), dvfs_ddr_table);
+2241-#endif
+2242-}
+2243-
+2244-MACHINE_START(RK30, "RK30board")
+2245-	.boot_params	= PLAT_PHYS_OFFSET + 0x800,
+2246-	.fixup		= rk30_fixup,
+2247:	.reserve	= &rk30_reserve,
+2248-	.map_io		= rk30_map_io,
+2249-	.init_irq	= rk30_init_irq,
+2250-	.timer		= &rk30_timer,
+2251-	.init_machine	= machine_rk30_board_init,
+2252-MACHINE_END
+
+========== ALL FRAMEBUFFER SIZE REFERENCES ==========
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c:480:		.end   = 0,//RK30_FB0_MEM_SIZE - 1,
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c:486:		.end   = 0,//RK30_FB0_MEM_SIZE - 1,
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c:492:		.end   = 0,//RK30_FB0_MEM_SIZE - 1,
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c:1859:	resource_fb[0].start = board_mem_reserve_add("fb0 buf", get_fb_size());
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c:1860:	resource_fb[0].end = resource_fb[0].start + get_fb_size()- 1;
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c:1862:	resource_fb[1].start = board_mem_reserve_add("ipp buf", RK30_FB0_MEM_SIZE);
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c:1863:	resource_fb[1].end = resource_fb[1].start + RK30_FB0_MEM_SIZE - 1;
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c:1867:	resource_fb[2].start = board_mem_reserve_add("fb2 buf",get_fb_size());
+arch/arm/mach-rk3188/board-rk3188-ds1006h.c:1868:	resource_fb[2].end = resource_fb[2].start + get_fb_size() - 1;
+arch/arm/mach-rk3188/board-rk3188-box.c:538:		.end   = 0,//RK30_FB0_MEM_SIZE - 1,
+arch/arm/mach-rk3188/board-rk3188-box.c:544:		.end   = 0,//RK30_FB0_MEM_SIZE - 1,
+arch/arm/mach-rk3188/board-rk3188-box.c:550:		.end   = 0,//RK30_FB0_MEM_SIZE - 1,
+arch/arm/mach-rk3188/board-rk3188-box.c:2057:	resource_fb[0].start = board_mem_reserve_add("fb0 buf", get_fb_size());
+arch/arm/mach-rk3188/board-rk3188-box.c:2058:	resource_fb[0].end = resource_fb[0].start + get_fb_size()- 1;
+arch/arm/mach-rk3188/board-rk3188-box.c:2060:	resource_fb[1].start = board_mem_reserve_add("ipp buf", RK30_FB0_MEM_SIZE);
+arch/arm/mach-rk3188/board-rk3188-box.c:2061:	resource_fb[1].end = resource_fb[1].start + RK30_FB0_MEM_SIZE - 1;
+arch/arm/mach-rk3188/board-rk3188-box.c:2065:	resource_fb[2].start = board_mem_reserve_add("fb2 buf",get_fb_size());
+arch/arm/mach-rk3188/board-rk3188-box.c:2066:	resource_fb[2].end = resource_fb[2].start + get_fb_size() - 1;
+drivers/video/display/screen/lcd_720p.c:72:size_t get_fb_size(void)
+drivers/video/display/screen/lcd_LP097QX1.c:121:size_t get_fb_size(void)
+drivers/video/display/screen/lcd_hsd100pxn.c:298:size_t get_fb_size(void)
+drivers/video/display/screen/lcd_ds1006h.c:337:size_t get_fb_size(void)
+drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c:186:size_t get_fb_size(void)
+drivers/video/display/screen/lcd_hsd07pfw1.c:341:size_t get_fb_size(void)
+drivers/video/display/screen/lcd_1080p.c:72:size_t get_fb_size(void)
+drivers/video/display/screen/lcd_b101ew05.c:344:size_t get_fb_size(void)
