@@ -1,0 +1,173 @@
+========== ENVIRONMENT ==========
+2026-11-26T02:33:54+03:00
+/home/snowleopard/src/minix-x7-port-audit/rockchip-kernel-4.19
+ M arch/arm/boot/compressed/big-endian.S
+ M arch/arm/boot/compressed/head.S
+ M arch/arm/boot/compressed/piggy.S
+ M arch/arm/boot/dts/rk3188.dtsi
+ M arch/arm/mm/proc-v7.S
+ M drivers/media/platform/rockchip/cif/capture.c
+ M drivers/power/supply/rk818_battery.c
+ M drivers/soc/rockchip/pm_domains.c
+ M drivers/staging/android/ion/Makefile
+ M drivers/staging/android/ion/ion-ioctl.c
+ M drivers/staging/android/ion/ion.c
+ M drivers/staging/android/ion/ion.h
+ M drivers/staging/android/ion/ion_carveout_heap.c
+ M drivers/video/rockchip/Kconfig
+ M drivers/video/rockchip/Makefile
+ M drivers/video/rockchip/rga/rga_drv.c
+ M drivers/video/rockchip/rga/rga_reg_info.c
+ M kernel/extable.c
+ M kernel/profile.c
+ M kernel/workqueue.c
+ M mm/page_alloc.c
+ M net/core/dev.c
+ M net/ethernet/eth.c
+?? arch/arm/boot/compressed/big-endian.S.before_gas_compat
+?? arch/arm/boot/compressed/head.S.before_gas_compat
+?? arch/arm/boot/compressed/piggy.S.before_gas_compat
+?? arch/arm/boot/dts/rk3188.dtsi.before_vpu_node
+?? drivers/staging/android/ion/ion-legacy.c
+?? drivers/staging/android/ion/ion-legacy.c.before_cacheop_fix_20261125_020536
+?? drivers/staging/android/ion/ion-legacy.c.before_cacheop_fix_retry_20261125_020846
+?? drivers/staging/android/ion/ion-legacy.c.before_share_fd_compat_20261125_022044
+?? drivers/staging/android/ion/ion-legacy.c.before_vaddr_exact_20261125_021235
+?? drivers/video/rockchip/vpu_service/
+?? include/dt-bindings/power/rk3188-power.h
+
+========== CURRENT CONFIG ==========
+# CONFIG_ROCKCHIP_ONE_INITRD is not set
+CONFIG_ARCH_ROCKCHIP=y
+CONFIG_ROCKCHIP_SIP=y
+CONFIG_OF=y
+# CONFIG_OF_UNITTEST is not set
+CONFIG_OF_FLATTREE=y
+CONFIG_OF_EARLY_FLATTREE=y
+CONFIG_OF_KOBJ=y
+CONFIG_OF_ADDRESS=y
+CONFIG_OF_IRQ=y
+CONFIG_OF_NET=y
+CONFIG_OF_MDIO=y
+CONFIG_OF_RESERVED_MEM=y
+# CONFIG_OF_OVERLAY is not set
+# CONFIG_ROCKCHIP_SCR is not set
+CONFIG_ROCKCHIP_PHY=y
+CONFIG_ROCKCHIP_REMOTECTL=y
+CONFIG_ROCKCHIP_REMOTECTL_PWM=y
+CONFIG_OF_GPIO=y
+CONFIG_ROCKCHIP_IODOMAIN=y
+CONFIG_ROCKCHIP_THERMAL=y
+CONFIG_ROCKCHIP_CIF_WORKMODE_PINGPONG=y
+# CONFIG_ROCKCHIP_CIF_WORKMODE_ONEFRAME is not set
+CONFIG_ROCKCHIP_CIF_USE_DUMMY_BUF=y
+# CONFIG_ROCKCHIP_CIF_USE_NONE_DUMMY_BUF is not set
+# CONFIG_ROCKCHIP_DRM_DEBUG is not set
+CONFIG_ROCKCHIP_VOP=y
+CONFIG_ROCKCHIP_VOP2=y
+CONFIG_ROCKCHIP_PSR=y
+CONFIG_ROCKCHIP_ANALOGIX_DP=y
+# CONFIG_ROCKCHIP_CDN_DP is not set
+CONFIG_ROCKCHIP_DW_HDMI=y
+CONFIG_ROCKCHIP_DW_MIPI_DSI=y
+CONFIG_ROCKCHIP_INNO_HDMI=y
+CONFIG_ROCKCHIP_LVDS=y
+CONFIG_ROCKCHIP_DRM_TVE=y
+CONFIG_ROCKCHIP_RGB=y
+# CONFIG_ROCKCHIP_EBC_DEV is not set
+CONFIG_ROCKCHIP_RGA=y
+# CONFIG_ROCKCHIP_RGA2 is not set
+# CONFIG_ROCKCHIP_MULTI_RGA is not set
+# CONFIG_ROCKCHIP_MPP_SERVICE is not set
+CONFIG_ROCKCHIP_VPU_SERVICE=y
+CONFIG_ION=y
+# CONFIG_ION_PROTECTED_HEAP is not set
+CONFIG_ION_SYSTEM_HEAP=y
+CONFIG_ION_CARVEOUT_HEAP=y
+# CONFIG_ION_CHUNK_HEAP is not set
+CONFIG_ION_CMA_HEAP=y
+CONFIG_ION_FORCE_DMA_SYNC=y
+# CONFIG_ROCKCHIP_CLK_COMPENSATION is not set
+# CONFIG_ROCKCHIP_CLK_BOOST is not set
+CONFIG_ROCKCHIP_CLK_INV=y
+CONFIG_ROCKCHIP_CLK_PVTM=y
+CONFIG_ROCKCHIP_DCLK_DIV=y
+# CONFIG_ROCKCHIP_DDRCLK_SCPI is not set
+# CONFIG_ROCKCHIP_DDRCLK_SIP is not set
+CONFIG_ROCKCHIP_PLL_RK3066=y
+# CONFIG_ROCKCHIP_PLL_RK3399 is not set
+CONFIG_ROCKCHIP_TIMER=y
+CONFIG_OF_IOMMU=y
+CONFIG_ROCKCHIP_IOMMU=y
+# CONFIG_ROCKCHIP_AMP is not set
+CONFIG_ROCKCHIP_CPUINFO=y
+CONFIG_ROCKCHIP_GRF=y
+# CONFIG_ROCKCHIP_HW_DECOMPRESS is not set
+CONFIG_ROCKCHIP_IPA=y
+CONFIG_ROCKCHIP_OPP=y
+CONFIG_ROCKCHIP_PM_DOMAINS=y
+CONFIG_ROCKCHIP_PVTM=y
+# CONFIG_ROCKCHIP_RAMDISK is not set
+CONFIG_ROCKCHIP_SUSPEND_MODE=y
+CONFIG_ROCKCHIP_SYSTEM_MONITOR=y
+CONFIG_ROCKCHIP_VENDOR_STORAGE_UPDATE_LOADER=y
+CONFIG_ROCKCHIP_DEBUG=y
+# CONFIG_ROCKCHIP_LOW_PERFORMANCE is not set
+# CONFIG_ROCKCHIP_THUNDER_BOOT is not set
+CONFIG_ROCKCHIP_SCHED_PERFORMANCE_BIAS=y
+CONFIG_ROCKCHIP_SARADC=y
+# CONFIG_ROCKCHIP_SARADC_TEST_CHN is not set
+CONFIG_ROCKCHIP_EFUSE=y
+# CONFIG_ROCKCHIP_OTP is not set
+# CONFIG_ROCKCHIP_RKNPU is not set
+
+========== LEGACY: MEMORY RESERVATION ==========
+
+========== LEGACY: ION HEAP DEFINITIONS ==========
+
+========== CURRENT 4.19: ION HEAP IMPLEMENTATION ==========
+Command 'rg' not found, but can be installed with:
+sudo snap install ripgrep  # version 12.1.0, or
+sudo apt  install ripgrep  # version 15.1.0-1ubuntu1
+See 'snap info ripgrep' for additional versions.
+
+========== CURRENT 4.19: LEGACY ION ==========
+Command 'rg' not found, but can be installed with:
+sudo snap install ripgrep  # version 12.1.0, or
+sudo apt  install ripgrep  # version 15.1.0-1ubuntu1
+See 'snap info ripgrep' for additional versions.
+
+========== CURRENT 4.19: RESERVED MEMORY / DTS ==========
+Command 'rg' not found, but can be installed with:
+sudo snap install ripgrep  # version 12.1.0, or
+sudo apt  install ripgrep  # version 15.1.0-1ubuntu1
+See 'snap info ripgrep' for additional versions.
+
+========== CURRENT 4.19: MEMORY RESERVATION HELPERS ==========
+Command 'rg' not found, but can be installed with:
+sudo snap install ripgrep  # version 12.1.0, or
+sudo apt  install ripgrep  # version 15.1.0-1ubuntu1
+See 'snap info ripgrep' for additional versions.
+
+========== RELEVANT SOURCE FILES ==========
+drivers/staging/android/ion/.ion-legacy.o.cmd
+drivers/staging/android/ion/.ion_carveout_heap.o.cmd
+drivers/staging/android/ion/.ion_cma_heap.o.cmd
+drivers/staging/android/ion/.ion_heap.o.cmd
+drivers/staging/android/ion/.ion_system_heap.o.cmd
+drivers/staging/android/ion/ion-legacy.c
+drivers/staging/android/ion/ion-legacy.c.before_cacheop_fix_20261125_020536
+drivers/staging/android/ion/ion-legacy.c.before_cacheop_fix_retry_20261125_020846
+drivers/staging/android/ion/ion-legacy.c.before_share_fd_compat_20261125_022044
+drivers/staging/android/ion/ion-legacy.c.before_vaddr_exact_20261125_021235
+drivers/staging/android/ion/ion-legacy.o
+drivers/staging/android/ion/ion_carveout_heap.c
+drivers/staging/android/ion/ion_carveout_heap.o
+drivers/staging/android/ion/ion_chunk_heap.c
+drivers/staging/android/ion/ion_cma_heap.c
+drivers/staging/android/ion/ion_cma_heap.o
+drivers/staging/android/ion/ion_heap.c
+drivers/staging/android/ion/ion_heap.o
+drivers/staging/android/ion/ion_protected_heap.c
+drivers/staging/android/ion/ion_system_heap.c
+drivers/staging/android/ion/ion_system_heap.o
