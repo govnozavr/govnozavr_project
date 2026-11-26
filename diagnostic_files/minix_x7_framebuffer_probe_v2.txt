@@ -1,0 +1,1074 @@
+MINIX X7 ROOT AND FRAMEBUFFER DIAGNOSTICS
+
+========== ADB DEVICES ==========
+List of devices attached
+WAWJMGXDX3             device product:rk3188 model:NEO_X7_216A device:rk3188 transport_id:5
+
+
+ADB_EXIT_CODE=0
+
+========== SHELL IDENTITY ==========
+uid=2000(shell) gid=2000(shell) groups=1003(graphics),1004(input),1007(log),1009(mount),1011(adb),1015(sdcard_rw),1028(sdcard_r),3001(net_bt_admin),3002(net_bt),3003(inet),3006(net_bw_stats)
+
+ADB_EXIT_CODE=0
+
+========== ROOT IDENTITY VIA SU ==========
+uid=0(root) gid=0(root)
+
+ADB_EXIT_CODE=0
+ROOT_CONFIRMED=YES
+
+========== KERNEL CMDLINE ==========
+Unknown id: /proc/cmdline
+
+ADB_EXIT_CODE=0
+
+========== MEMORY ZONES ==========
+Unknown id: /proc/zoneinfo
+
+ADB_EXIT_CODE=0
+
+========== BUDDYINFO ==========
+Unknown id: /proc/buddyinfo
+
+ADB_EXIT_CODE=0
+
+========== BOOT MEMORY LOG ==========
+<6>[    0.000000] Initializing cgroup subsys cpu
+<5>[    0.000000] Linux version 3.0.36+ (gufone@forest) (gcc version 4.7.4 (Ubuntu/Linaro 4.7.4-2ubuntu1) ) #1 SMP PREEMPT Mon Dec 21 16:26:08 CET 2015
+<4>[    0.000000] CPU: ARMv7 Processor [413fc090] revision 0 (ARMv7), cr=10c5387d
+<4>[    0.000000] CPU: VIPT nonaliasing data cache, VIPT aliasing instruction cache
+<4>[    0.000000] Machine: RK30board
+<4>[    0.000000] ddr size = 2048 M, set ion_reserve_size size to 125829120
+<6>[    0.000000] memory reserve: Memory(base:0x98800000 size:120M) reserved for <ion>
+<6>[    0.000000] memory reserve: Memory(base:0x97000000 size:24M) reserved for <fb0 buf>
+<6>[    0.000000] memory reserve: Total reserved 144M
+<4>[    0.000000] Memory policy: ECC disabled, Data cache writeback
+<6>[    0.000000] bootconsole [earlycon0] enabled
+<4>[    0.000000] CPU SRAM: copied sram code from c0ebe000 to fef00100 - fef02098
+<4>[    0.000000] CPU SRAM: copied sram data from c0ebff98 to fef02098 - fef029c8
+<4>[    0.000000] sram_log:   @      0q   @       P    1      /  !    aB@ 2   `" 2q    : 4q 
+<4>[    0.000000] CLKDATA_MSG: pll_flag = 0x00
+<6>[    0.000000] L310 cache controller enabled
+<6>[    0.000000] l2x0: 16 ways, CACHE_ID 0x4100c0c8, AUX_CTRL 0x76050001, Cache size: 524288 B
+<4>[    0.000000] DDR DEBUG: version 1.00 20131106 
+<4>[    0.000000] DDR DEBUG: DDR3 Device
+<4>[    0.000000] DDR DEBUG: Bus Width=32 Col=10 Bank=8 Row=15 CS=2 Total Capability=2048MB
+<4>[    0.000000] DDR DEBUG: init success!!! freq=300MHz
+<4>[    0.000000] DDR DEBUG: DTONE=0x1, DTERR=0x0, DTIERR=0x0, DTPASS=0x1b, DGSL=0 extra clock, DGPS=360
+<4>[    0.000000] DDR DEBUG: DTONE=0x1, DTERR=0x0, DTIERR=0x0, DTPASS=0x23, DGSL=0 extra clock, DGPS=360
+<4>[    0.000000] DDR DEBUG: DTONE=0x1, DTERR=0x0, DTIERR=0x0, DTPASS=0x24, DGSL=0 extra clock, DGPS=270
+<4>[    0.000000] DDR DEBUG: DTONE=0x1, DTERR=0x0, DTIERR=0x0, DTPASS=0x23, DGSL=0 extra clock, DGPS=360
+<4>[    0.000000] DDR DEBUG: ZERR=0, ZDONE=0, ZPD=0x0, ZPU=0x0, OPD=0x0, OPU=0x0
+<4>[    0.000000] DDR DEBUG: DRV Pull-Up=0xb, DRV Pull-Dwn=0xb
+<4>[    0.000000] DDR DEBUG: ODT Pull-Up=0x2, ODT Pull-Dwn=0x2
+<7>[    0.000000] On node 0 totalpages: 487424
+<7>[    0.000000] free_area_init_node: node 0, pgdat c0ebb9c0, node_mem_map c2150000
+<7>[    0.000000]   Normal zone: 976 pages used for memmap
+<7>[    0.000000]   Normal zone: 0 pages reserved
+<7>[    0.000000]   Normal zone: 123952 pages, LIFO batch:31
+<7>[    0.000000]   HighMem zone: 3120 pages used for memmap
+<7>[    0.000000]   HighMem zone: 359376 pages, LIFO batch:31
+<6>[    0.000000] PERCPU: Embedded 7 pages/cpu @c315d000 s7040 r8192 d13440 u32768
+<7>[    0.000000] pcpu-alloc: s7040 r8192 d13440 u32768 alloc=8*4096
+<7>[    0.000000] pcpu-alloc: [0] 0 [0] 1 [0] 2 [0] 3 
+<4>[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 483328
+<5>[    0.000000] Kernel command line: console=ttyFIQ0 androidboot.console=ttyFIQ0 init=/init initrd=0x62000000,0x00150000 mtdparts=rk29xxnand:0x00002000@0x00002000(misc),0x00006000@0x00004000(kernel),0x00006000@0x0000A000(boot),0x00010000@0x00010000(recovery),0x00020000@0x00020000(backup),0x00040000@0x00040000(cache),0x01000000@0x00080000(userdata),0x00002000@0x01080000(metadata),0x00002000@0x01082000(kpanic),0x001F4000@0x01084000(system),-@0x01278000(user) bootver=2014-03-03#2.13 firmware_ver=4.4.2
+<6>[    0.000000] PID hash table entries: 2048 (order: 1, 8192 bytes)
+<6>[    0.000000] Dentry cache hash table entries: 65536 (order: 6, 262144 bytes)
+<6>[    0.000000] Inode-cache hash table entries: 32768 (order: 5, 131072 bytes)
+<6>[    0.000000] allocated 8388608 bytes of page_cgroup
+<6>[    0.000000] please try 'cgroup_disable=memory' option if you don't want memory cgroups
+<6>[    0.000000] Memory: 880MB 1024MB = 1904MB total
+<5>[    0.000000] Memory: 1901176k/1901176k available, 195976k reserved, 1449984K highmem
+<5>[    0.000000] Virtual kernel memory layout:
+<5>[    0.000000]     vector  : 0xffff0000 - 0xffff1000   (   4 kB)
+<5>[    0.000000]     fixmap  : 0xfff00000 - 0xfffe0000   ( 896 kB)
+<5>[    0.000000]     DMA     : 0xff600000 - 0xffe00000   (   8 MB)
+<5>[    0.000000]     vmalloc : 0xdf000000 - 0xfe800000   ( 504 MB)
+<5>[    0.000000]     lowmem  : 0xc0000000 - 0xde800000   ( 488 MB)
+<5>[    0.000000]     pkmap   : 0xbfe00000 - 0xc0000000   (   2 MB)
+<5>[    0.000000]     modules : 0xbf000000 - 0xbfe00000   (  14 MB)
+<5>[    0.000000]       .init : 0xc0408000 - 0xc0630000   (2208 kB)
+<5>[    0.000000]       .text : 0xc0630000 - 0xc0e4a95c   (8299 kB)
+<5>[    0.000000]       .data : 0xc0e4c000 - 0xc0ebd7e8   ( 454 kB)
+<5>[    0.000000]        .bss : 0xc0ec1024 - 0xc1980160   (11005 kB)
+<6>[    0.000000] SLUB: Genslabs=13, HWalign=32, Order=0-3, MinObjects=0, CPUs=4, Nodes=1
+<6>[    0.000000] Preemptible hierarchical RCU implementation.
+<6>[    0.000000] NR_IRQS:352
+<4>[    0.000000] rk30_gpio_init: 128 gpio irqs in 4 banks
+<6>[    0.000000] sched_clock: 32 bits at 24MHz, resolution 41ns, wraps every 178956ms
+<4>[    0.000000] rk_timer: version 1.3
+<6>[    0.003757] Calibrating delay loop (skipped) preset value.. 1583.48 BogoMIPS (lpj=7917420)
+<6>[    0.012926] pid_max: default: 32768 minimum: 301
+<6>[    0.018210] Security Framework initialized
+<6>[    0.022858] Mount-cache hash table entries: 512
+<6>[    0.028438] Initializing cgroup subsys debug
+<6>[    0.033217] Initializing cgroup subsys cpuacct
+<6>[    0.038207] Initializing cgroup subsys memory
+<6>[    0.043097] Initializing cgroup subsys freezer
+<6>[    0.048088] CPU: Testing write buffer coherency: ok
+<4>[    0.134348] CPU1: Booted secondary processor
+<4>[    0.174339] CPU2: Booted secondary processor
+<4>[    0.214338] CPU3: Booted secondary processor
+<6>[    0.214377] Brought up 4 CPUs
+<6>[    0.232040] SMP: Total of 4 processors activated (6333.93 BogoMIPS).
+<6>[    0.239444] devtmpfs: initialized
+<6>[    0.249520] NET: Registered protocol family 16
+<6>[    0.254604] last_log: 0xde100000 map to 0xdf004000 and copy to 0xc0ec51a0 (version 2.1)
+<4>[    0.278452] DVFS MSG:	AVS Value(index=0): 189 6 188 7 189 6 190 6 190 6 
+<6>[    0.296507] warning:lcdc0 not add to system!
+<6>[    0.301302] lcdc1 is used as primary display device controller!
+<4>[    0.308065] ********rk29_sdmmc_gpio_open device_id=1**********nition
+<4>[    0.315175] ********************rksdmmc1_gpio_init-------off************nition
+<6>[    0.423276] rk29sdk_wifi_bt_gpio_control_init: init finished
+<6>[    0.430920] console [ttyFIQ0] enabled, bootconsole disabled
+<6>[    0.440078] Registered FIQ tty driver de035cc0
+<6>[    0.440663] Loaded driver for PL330 DMAC-1 rk29-pl330
+<6>[    0.440705] 	DBUFF-32x8bytes Num_Chans-6 Num_Peri-12 Num_Events-12
+<6>[    0.440892] Loaded driver for PL330 DMAC-2 rk29-pl330
+<6>[    0.440932] 	DBUFF-64x8bytes Num_Chans-7 Num_Peri-20 Num_Events-14
+<6>[    0.472750] bio: create slab <bio-0> at 0
+<5>[    0.477180] SCSI subsystem initialized
+<6>[    0.477385] usbcore: registered new interface driver usbfs
+<6>[    0.477498] usbcore: registered new interface driver hub
+<6>[    0.491756] usbcore: registered new device driver usb
+<6>[    0.491999] rk30_i2c rk30_i2c.0: i2c-0: RK30 I2C adapter
+<6>[    0.492251] rk30_i2c rk30_i2c.1: i2c-1: RK30 I2C adapter
+<6>[    0.492436] rk30_i2c rk30_i2c.2: i2c-2: RK30 I2C adapter
+<6>[    0.492567] rk30_i2c rk30_i2c.3: i2c-3: RK30 I2C adapter
+<6>[    0.492759] rk30_i2c rk30_i2c.4: i2c-4: RK30 I2C adapter
+<6>[    0.523340] rk30-adc rk30-adc: rk30 adc: driver initialized
+<6>[    0.523437] RK29 Watchdog Timer, (c) 2011 Rockchip Electronics
+<6>[    0.523637] rk29-wdt rk29-wdt.0: starting watchdog timer
+<6>[    0.523900] Advanced Linux Sound Architecture Driver Version 1.0.24.
+<6>[    0.524323] Bluetooth: Core ver 2.16
+<6>[    0.524391] NET: Registered protocol family 31
+<6>[    0.524427] Bluetooth: HCI device and connection manager initialized
+<6>[    0.524475] Bluetooth: HCI socket layer initialized
+<6>[    0.524512] Bluetooth: L2CAP socket layer initialized
+<6>[    0.524563] Bluetooth: SCO socket layer initialized
+<4>[    0.525633] rk fb probe ok!
+<4>[    0.530301] act8846_set_init,line=17
+<4>[    0.530333] act8846_set_init:g_pmic_type=3
+<4>[    0.532018] act8846_set_init  act_dcdc1 =1200000mV end
+<4>[    0.533796] act8846_set_init  vdd_core =1000000mV end
+<4>[    0.535569] act8846_set_init  vdd_cpu =1000000mV end
+<4>[    0.537342] act8846_set_init  act_dcdc4 =3300000mV end
+<4>[    0.538521] act8846_set_init  act_ldo1 =1000000mV end
+<4>[    0.540193] act8846_set_init  act_ldo2 =1200000mV end
+<4>[    0.541866] act8846_set_init  act_ldo3 =1800000mV end
+<4>[    0.543538] act8846_set_init  act_ldo4 =3300000mV end
+<4>[    0.545213] act8846_set_init  act_ldo5 =3300000mV end
+<4>[    0.546885] act8846_set_init  act_ldo6 =1800000mV end
+<4>[    0.547962] act8846_set_init  act_ldo7 =1800000mV end
+<4>[    0.549631] act8846_set_init  act_ldo8 =2800000mV end
+<4>[    0.549676] act8846_set_init,line=78 END
+<4>[    0.549927] act8846 0xe4 = 143******************nition-1
+<4>[    0.550349] act8846 0xe4 = 143******************nition-2
+<4>[    0.550425] i2c-core: driver [act8846] using legacy suspend method
+<4>[    0.550470] i2c-core: driver [act8846] using legacy resume method
+<6>[    0.550539] Switching to clocksource rk_timer
+<6>[    0.553724] Switched to NOHz mode on CPU #0
+<6>[    0.554377] Switched to NOHz mode on CPU #2
+<6>[    0.554393] Switched to NOHz mode on CPU #3
+<6>[    0.554406] Switched to NOHz mode on CPU #1
+<4>[    0.557718] lcdc1:reg_phy_base = 0x1010e000,reg_vir_base:0xdf0ac000
+<4>[    0.557805] fb0:win0
+<4>[    0.557810] fb1:win1
+<4>[    0.557815] fb2:win2
+<4>[    0.557953] rk3188 lcdc1 clk enable...
+<4>[    0.583105] rk3188 lcdc1 clk disable...
+<4>[    0.642285] fb0:phy:97000000>>vir:e0000000>>len:0x1800000
+<4>[    0.642573] rk_fb_register>>>>>fb0
+<4>[    0.642885] rk_fb_register>>>>>fb1
+<4>[    0.675354] rk3188 lcdc1 probe ok!
+<6>[    0.729706] cfg80211: Calling CRDA to update world regulatory domain
+<6>[    0.736558] IT66121 probe success.
+<3>[    0.739890] emmc emmc: internal_storage is NOT emmc
+<6>[    0.740091] NET: Registered protocol family 2
+<6>[    0.740235] IP route cache hash table entries: 16384 (order: 4, 65536 bytes)
+<6>[    0.740578] TCP established hash table entries: 65536 (order: 7, 524288 bytes)
+<6>[    0.741617] TCP bind hash table entries: 65536 (order: 7, 786432 bytes)
+<6>[    0.743073] TCP: Hash tables configured (established 65536 bind 65536)
+<6>[    0.743121] TCP reno registered
+<6>[    0.743150] UDP hash table entries: 256 (order: 1, 8192 bytes)
+<6>[    0.743207] UDP-Lite hash table entries: 256 (order: 1, 8192 bytes)
+<6>[    0.743515] NET: Registered protocol family 1
+<6>[    0.796263] RPC: Registered named UNIX socket transport module.
+<6>[    0.796311] RPC: Registered udp transport module.
+<6>[    0.796354] RPC: Registered tcp transport module.
+<6>[    0.796389] RPC: Registered tcp NFSv4.1 backchannel transport module.
+<4>[    0.796602] RK29 Backlight Driver Initialized.
+<6>[    0.796834] Unpacking initramfs...
+<6>[    0.863346] Freeing initrd memory: 1344K
+<6>[    0.863460] PMU: registered new PMU device of type 0
+<4>[    0.863578] efuse_version_val: efuse version = 51
+<4>[    0.863618] DVFS MSG: core: dvfs_adjust_table_lmtvolt get leakage_level = 10000
+<4>[    0.863671] 		adjust table freq=1608000 KHz, index=1350000 mV to index=1300000 mV
+<4>[    0.863726] efuse_version_val: efuse version = 51
+<4>[    0.863762] DVFS MSG: aclk_gpu: dvfs_adjust_table_lmtvolt get leakage_level = 10000
+<4>[    0.904150] rk3188 cpufreq version 2.2, suspend freq 816 MHz
+<4>[    0.904430] vpu: power on
+<6>[    0.904539] VPU_SERVICE: checking hw id 4831
+<4>[    0.917055] vpu: power off...done
+<6>[    0.917113] VPU_SERVICE: init success
+<6>[    0.917421] audit: initializing netlink socket (disabled)
+<5>[    0.917496] type=2000 audit(0.850:1): initialized
+<4>[    0.920034] highmem bounce pool size: 64 pages
+<6>[    0.920211] ashmem: initialized
+<6>[    0.946190] Installing knfsd (copyright (C) 1996 okir@monad.swb.de).
+<6>[    0.946987] fuse init (API version 7.16)
+<6>[    0.947422] ceph: loaded (mds proto 32)
+<6>[    0.961183] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 252)
+<6>[    0.961237] io scheduler noop registered
+<6>[    0.961273] io scheduler deadline registered
+<6>[    0.961348] io scheduler cfq registered (default)
+<6>[    0.981596] rga: Driver loaded succesfully
+<4>[    0.981787] rk_serial.c v1.6 2013-12-23
+<6>[    0.981881] rk_serial.0: ttyS0 at MMIO 0x10124000 (irq = 66) is a rk29_serial.0
+<6>[    0.982028] rk_serial rk_serial.0: membase 0xdf0c4000
+<6>[    0.982097] rk_serial.3: ttyS3 at MMIO 0x20068000 (irq = 69) is a rk29_serial.3
+<6>[    0.982231] rk_serial rk_serial.3: membase 0xdf0c8000
+<6>[    0.982447] Rockchip ion module(version: 1.0) is successfully loaded
+<6>[    0.984557] loop: module loaded
+<6>[    0.984608] Android kernel panic handler initialized (bind=kpanic)
+<6>[    0.985185] PPP generic driver version 2.4.2
+<6>[    0.985319] PPP Deflate Compression module registered
+<6>[    0.985354] PPP BSD Compression module registered
+<6>[    1.044103] PPP MPPE Compression module registered
+<6>[    1.044139] NET: Registered protocol family 24
+<6>[    1.044229] usbcore: registered new interface driver asix
+<6>[    1.044288] usbcore: registered new interface driver cdc_ether
+<6>[    1.044340] usbcore: registered new interface driver dm9620
+<6>[    1.044391] usbcore: registered new interface driver SR9700_android
+<6>[    1.044463] usbcore: registered new interface driver CoreChips
+<6>[    1.044515] usbcore: registered new interface driver net1080
+<6>[    1.044564] usbcore: registered new interface driver cdc_subset
+<6>[    1.044614] usbcore: registered new interface driver zaurus
+<6>[    1.044653] cdc_ncm: 04-Aug-2011
+<6>[    1.044692] usbcore: registered new interface driver cdc_ncm
+<4>[    1.044723] Rockchip WiFi SYS interface (V1.00) ... 
+<6>[    1.044774] Initializing USB Mass Storage driver...
+<6>[    1.044826] usbcore: registered new interface driver usb-storage
+<6>[    1.044859] USB Mass Storage support registered.
+<6>[    1.044944] usbcore: registered new interface driver usbserial
+<6>[    1.044994] USB Serial support registered for generic
+<6>[    1.045051] usbcore: registered new interface driver usbserial_generic
+<6>[    1.045087] usbserial: USB Serial Driver core
+<6>[    1.045128] USB Serial support registered for GSM modem (1-port)
+<6>[    1.045183] usbcore: registered new interface driver option
+<6>[    1.045214] option: v0.7.2:USB Driver for GSM modems
+<6>[    1.045257] USB Serial support registered for usi-modem
+<6>[    1.045312] usbcore: registered new interface driver usi-modem
+<6>[    1.266974] DWC_OTG: ^^^^^^^^^^^^^^^^^^Host Mode
+<6>[    1.267012] usb20_otg usb20_otg: DWC OTG Controller
+<6>[    1.267122] usb20_otg usb20_otg: new USB bus registered, assigned bus number 1
+<6>[    1.267183] usb20_otg usb20_otg: irq 48, io mem 0x00000000
+<6>[    1.267237] DWC_OTG: Init: Port Power? op_state=1
+<6>[    1.267264] DWC_OTG: Init: Power Port (0)
+<6>[    1.267324] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002
+<6>[    1.267362] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+<6>[    1.267402] usb usb1: Product: DWC OTG Controller
+<6>[    1.267428] usb usb1: Manufacturer: Linux 3.0.36+ dwc_otg_hcd
+<6>[    1.267460] usb usb1: SerialNumber: usb20_otg
+<6>[    1.267732] hub 1-0:1.0: USB hub found
+<6>[    1.267761] hub 1-0:1.0: 1 port detected
+<6>[    1.270337] DWC_OTG: host20_driver_probe host2.0 reg addr: 0x101c0000 remap:0xdf180000
+<6>[    1.480770] DWC_OTG: ^^^^^^^^^^^^^^^^^^Host Mode
+<6>[    1.480823] usb20_host usb20_host: DWC OTG Controller
+<6>[    1.480875] usb20_host usb20_host: new USB bus registered, assigned bus number 2
+<6>[    1.480931] usb20_host usb20_host: irq 49, io mem 0x00000000
+<6>[    1.480999] DWC_OTG: Init: Port Power? op_state=1
+<6>[    1.481025] DWC_OTG: Init: Power Port (0)
+<6>[    1.481089] usb usb2: New USB device found, idVendor=1d6b, idProduct=0002
+<6>[    1.481128] usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+<6>[    1.481167] usb usb2: Product: DWC OTG Controller
+<6>[    1.481194] usb usb2: Manufacturer: Linux 3.0.36+ host20_hcd
+<6>[    1.481225] usb usb2: SerialNumber: usb20_host
+<6>[    1.481483] hub 2-0:1.0: USB hub found
+<6>[    1.481512] hub 2-0:1.0: 1 port detected
+<4>[    1.481858] DWC_OTG: Mode Mismatch Interrupt: currently in Host mode
+<6>[    1.554763] android_usb gadget: Mass Storage Function, version: 2009/09/11
+<6>[    1.554805] android_usb gadget: Number of LUNs=2
+<6>[    1.554843]  lun0: LUN: removable file: (no medium)
+<6>[    1.554872]  lun1: LUN: removable file: (no medium)
+<6>[    1.555087] android_usb gadget: android_usb ready
+<6>[    1.555268] input: rk29-keypad as /devices/platform/rk29-keypad/input/input0
+<6>[    1.555474] usbcore: registered new interface driver xpad
+<6>[    1.555632] ++++++++remotectl_init
+<4>[    1.555673] ++++++++remotectl_probe
+<4>[    1.555712] remotectl probe j=0x0
+<4>[    1.555733] remotectl probe j=0x1
+<4>[    1.555752] remotectl probe j=0x2
+<4>[    1.555772] remotectl probe j=0x3
+<4>[    1.555791] remotectl probe j=0x4
+<4>[    1.555811] remotectl probe j=0x5
+<6>[    1.555926] input: rkxx-remotectl as /devices/platform/rkxx-remotectl/input/input1
+<6>[    1.560224] using rtc device, rtc_hym8563, for alarms
+<6>[    1.560271] rtc_hym8563 1-0051: rtc core: registered rtc_hym8563 as rtc0
+<6>[    1.560330] i2c /dev entries driver
+<6>[    1.560782] lirc_dev: IR Remote Control driver registered, major 250 
+<6>[    1.560819] IR NEC protocol handler initialized
+<6>[    1.560845] IR RC5(x) protocol handler initialized
+<6>[    1.560872] IR RC6 protocol handler initialized
+<6>[    1.560897] IR JVC protocol handler initialized
+<6>[    1.560922] IR Sony protocol handler initialized
+<6>[    1.560948] IR RC5 (streamzap) protocol handler initialized
+<6>[    1.560978] IR LIRC bridge handler initialized
+<6>[    1.561002] Linux video capture interface: v2.00
+<6>[    1.561081] usbcore: registered new interface driver uvcvideo
+<6>[    1.561113] USB Video Class driver (v1.1.0)
+<4>[    1.561161] def_ref_volt: 1800mV, curr_ref_volt: 1800mV
+<6>[    1.561459] device-mapper: uevent: version 1.0.3
+<6>[    1.561666] device-mapper: ioctl: 4.20.0-ioctl (2011-02-02) initialised: dm-devel@redhat.com
+<6>[    1.561845] Bluetooth: HCI UART driver ver 2.2
+<6>[    1.561873] Bluetooth: HCI H4 protocol initialized
+<6>[    1.561900] Bluetooth: HCILL protocol initialized
+<6>[    1.561966] cpuidle: using governor ladder
+<6>[    1.561991] cpuidle: using governor menu
+<4>[    1.577243] ********rk29_sdmmc_gpio_open device_id=0**********nition
+<6>[    1.607525] 
+<6>[    1.607528] drivers/mmc/core/core.c...2019..  ===== mmc_rescan Begin....[mmc0]
+<4>[    1.607573] 
+<4>[    1.607576] =================
+<4>[    1.607579] sdmmc_rescan..2026..  ====find no SDMMC host. [mmc0]
+<6>[    1.607646] .Line4018..The End of SDMMC-probe Ver.6.07 The last modify date is 2013-12-20.  [sd_mmc]
+<6>[    1.607799] 
+<6>[    1.607801] drivers/mmc/core/core.c...2019..  ===== mmc_rescan Begin....[mmc1]
+<6>[    1.607852] .Line4018..The End of SDMMC-probe Ver.6.07 The last modify date is 2013-12-20.  [sdio]
+<6>[    1.608961] usbcore: registered new interface driver usbhid
+<6>[    1.608992] usbhid: USB HID core driver
+<6>[    1.609236] logger: created 256K log 'log_main'
+<6>[    1.609308] logger: created 256K log 'log_events'
+<6>[    1.609375] logger: created 256K log 'log_radio'
+<6>[    1.609440] logger: created 256K log 'log_system'
+<6>[    1.609696] zram: Created 1 device(s) ...
+<4>[    1.610041] enter rt5616_modinit
+<4>[    1.610079] enter rt5616_i2c_probe
+<6>[    1.630468] rk29_sdmmc_change_clk_div..1684..  newDiv=40, newCLK=300Khz [sdio]
+<4>[    1.630786] enter rt5616_probe
+<3>[    1.657954] rt5616 4-001b: Failed to add route Mic Jack->Mic Bias1
+<3>[    1.657993] rt5616 4-001b: dapm: unknown pin HP_L
+<3>[    1.658022] rt5616 4-001b: dapm: unknown pin HP_R
+<6>[    1.663491] asoc: rt5616-aif1 <-> rk29_i2s.1 mapping ok
+<6>[    1.663799] ALSA device list:
+<6>[    1.663818]   #0: RK29_RT5616
+<6>[    1.663923] GACT probability NOT on
+<6>[    1.663950] Mirror/redirect action on
+<6>[    1.663972] u32 classifier
+<6>[    1.663987]     Actions configured
+<6>[    1.664009] Netfilter messages via NETLINK v0.30.
+<6>[    1.664071] nf_conntrack version 0.5.0 (16384 buckets, 65536 max)
+<6>[    1.664359] ctnetlink v0.93: registering with nfnetlink.
+<6>[    1.664413] NF_TPROXY: Transparent proxy support initialized, version 4.1.0
+<6>[    1.664451] NF_TPROXY: Copyright (c) 2006-2007 BalaBit IT Ltd.
+<6>[    1.664717] xt_time: kernel timezone is -0000
+<6>[    1.664761] IPv4 over IPv4 tunneling driver
+<6>[    1.665118] ip_tables: (C) 2000-2006 Netfilter Core Team
+<6>[    1.665262] arp_tables: (C) 2002 David S. Miller
+<6>[    1.665321] TCP cubic registered
+<6>[    1.665341] Initializing XFRM netlink socket
+<6>[    1.665699] NET: Registered protocol family 10
+<6>[    1.666297] Mobile IPv6
+<6>[    1.666333] ip6_tables: (C) 2000-2006 Netfilter Core Team
+<6>[    1.666460] IPv6 over IPv4 tunneling driver
+<6>[    1.666991] NET: Registered protocol family 17
+<6>[    1.667036] NET: Registered protocol family 15
+<6>[    1.667288] Bluetooth: RFCOMM TTY layer initialized
+<6>[    1.667340] Bluetooth: RFCOMM socket layer initialized
+<6>[    1.667369] Bluetooth: RFCOMM ver 1.11
+<6>[    1.667392] Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+<6>[    1.667422] Bluetooth: HIDP (Human Interface Emulation) ver 1.2
+<6>[    1.667544] L2TP core driver, V2.0
+<6>[    1.667564] L2TP IP encapsulation support (L2TPv3)
+<6>[    1.667702] L2TP netlink interface
+<6>[    1.667734] L2TP ethernet pseudowire support (L2TPv3)
+<6>[    1.667774] L2TP debugfs support
+<6>[    1.667818] NET: Registered protocol family 35
+<6>[    1.667892] [BT_RFKILL]: Enter rfkill_rk_init
+<6>[    1.667988] [BT_RFKILL]: Request irq for bt wakeup host
+<6>[    1.668030] [BT_RFKILL]: ** disable irq
+<6>[    1.690635] [BT_RFKILL]: bt shut off power
+<6>[    1.720606] [BT_RFKILL]: ap6330 device registered.
+<5>[    1.720673] Registering the dns_resolver key type
+<6>[    1.720740] libceph: loaded (mon/osd proto 15/24, osdmap 5/6 5/6)
+<4>[    1.720774] pmic set pm_suspend_volt:
+<6>[    1.720801] VFP support v0.3: implementor 41 architecture 3 part 30 variant 9 rev 4
+<5>[    1.720857] Registering SWP/SWPB emulation handler
+<6>[    1.721338] ddrfreq: verion 3.2 20131126
+<6>[    1.721363] ddrfreq: fix cpu pause bug
+<6>[    1.721386] ddrfreq: normal 720MHz video 600MHz video_low 0MHz dualview 0MHz idle 0MHz suspend 198MHz reboot 300MHz
+<6>[    1.722228] ddrfreq: change freq to 720 MHz when normal
+<3>[    1.722545] otg_wakelock_init: No OTG transceiver found
+<6>[    1.723073] rtc_hym8563 1-0051: setting system clock to 2026-11-20 22:55:58 UTC (1795215358)
+<6>[    1.725859] asoc: dit-hifi <-> rk-spdif mapping ok
+<6>[    1.726239] usbcore: registered new interface driver snd-usb-audio
+<6>[    1.726517] Freeing init memory: 2208K
+<6>[    1.910625] usb 2-1: new high speed USB device number 2 using usb20_host
+<6>[    2.120940] usb 2-1: New USB device found, idVendor=0424, idProduct=2514
+<6>[    2.120971] usb 2-1: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+<6>[    2.121268] hub 2-1:1.0: USB hub found
+<6>[    2.121441] hub 2-1:1.0: 4 ports detected
+<6>[    2.400690] usb 2-1.1: new high speed USB device number 3 using usb20_host
+<4>[    2.425339] init (1): /proc/1/oom_adj is deprecated, please use /proc/1/oom_score_adj instead.
+<6>[    2.503453] usb 2-1.1: New USB device found, idVendor=0bda, idProduct=8152
+<6>[    2.503486] usb 2-1.1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+<6>[    2.503528] usb 2-1.1: Product: USB 10/100 LAN
+<6>[    2.503547] usb 2-1.1: Manufacturer: Realtek
+<6>[    2.503565] usb 2-1.1: SerialNumber: 100000266992
+<6>[    2.504622] cdc_ether 2-1.1:2.0: eth0: register 'cdc_ether' at usb-usb20_host-1.1, CDC Ethernet Device, 10:00:00:26:69:92
+<3>[    2.839747] init: /dev/hw_random not found
+<6>[    2.839812] keychord: using input dev rk29-keypad for fevent
+<6>[    2.839837] keychord: using input dev rkxx-remotectl for fevent
+<4>[    3.274584] gp_rknand_info = : 0xde2dc900
+<4>[    3.274668] rk30_chip_set:1 
+<4>[    3.274732] FtlInit!
+<4>[    3.274755] No.1 FLASH ID:ad de 94 eb 74 44
+<4>[    3.274782] No.3 FLASH ID:ad de 94 eb 74 44
+<4>[    3.278494] FTL version: 5.0.12 20140214
+<4>[    3.675007] gBootMedia = 1 gSdmmcFwPartOffset =0!
+<4>[    3.675032] rknand_buffer.c version: 4.40 20130830!
+<5>[    3.684641] 11 cmdlinepart partitions found on MTD device rk29xxnand
+<5>[    3.684671] Creating 11 MTD partitions on "rk29xxnand":
+<5>[    3.684700] 0x000000400000-0x000000800000 : "misc"
+<5>[    3.701378] 0x000000800000-0x000001400000 : "kernel"
+<5>[    3.706695] 0x000001400000-0x000002000000 : "boot"
+<5>[    3.711828] 0x000002000000-0x000004000000 : "recovery"
+<5>[    3.717298] 0x000004000000-0x000008000000 : "backup"
+<5>[    3.722610] 0x000008000000-0x000010000000 : "cache"
+<5>[    3.727858] 0x000010000000-0x000210000000 : "userdata"
+<5>[    3.733359] 0x000210000000-0x000210400000 : "metadata"
+<5>[    3.738854] 0x000210400000-0x000210800000 : "kpanic"
+<6>[    3.745187] apanic: Bound to mtd partition 'kpanic'
+<6>[    3.745209] apanic: No panic data available
+<5>[    3.745358] 0x000210800000-0x00024f000000 : "system"
+<5>[    3.759569] 0x00024f000000-0x0003a8000000 : "user"
+<3>[    3.767631] fs_mgr: parse_link_device /dev/block/mtdblock10: in
+<3>[    3.773414] fs_mgr: parse_link_device : ---- part_num = 10, path = /devices/virtual/mtd/mtd10/mtdblock10, is_emmc = 0
+<3>[    3.784237] fs_mgr: parse_link_device : path = NULL
+<3>[    3.788967] fs_mgr: parse_link_device : path = NULL
+<3>[    3.793873] fs_mgr: parse_link_device : path = NULL
+<3>[    3.798776] fs_mgr: parse_link_device : path = NULL
+<3>[    3.803679] fs_mgr: parse_link_device : path = NULL
+<3>[    3.808579] fs_mgr: parse_link_device : path = NULL
+<3>[    3.813482] fs_mgr: parse_link_device : path = NULL
+<6>[    3.818397] fs_mgr: ---------------resize_fs blk_dev /dev/block/mtd/by-name/system, type ext4
+<6>[    3.826942] fs_mgr: Running /sbin/resize2fs on /dev/block/mtd/by-name/system
+<6>[    3.835059] resize2fs: resize2fs 1.41.14 (22-Dec-2010)
+<6>[    3.843722] resize2fs: The filesystem is already 256000 blocks long.  Nothing to do!
+<6>[    3.851488] resize2fs: 
+<6>[    3.866496] EXT4-fs (mtdblock9): mounted filesystem with ordered data mode. Opts: noauto_da_alloc,discard
+<6>[    3.881163] EXT4-fs (mtdblock5): mounted filesystem with ordered data mode. Opts: noauto_da_alloc,discard
+<4>[    3.893185] EXT4-fs (mtdblock7): warning: mounting unchecked fs, running e2fsck is recommended
+<6>[    3.893360] EXT4-fs (mtdblock7): mounted filesystem without journal. Opts: noauto_da_alloc,discard
+<7>[    3.920716] EXT4-fs (mtdblock6): ext4_orphan_cleanup: deleting unreferenced inode 1083
+<7>[    3.921981] EXT4-fs (mtdblock6): ext4_orphan_cleanup: deleting unreferenced inode 1147
+<7>[    3.922130] EXT4-fs (mtdblock6): ext4_orphan_cleanup: deleting unreferenced inode 1148
+<7>[    3.932339] EXT4-fs (mtdblock6): ext4_orphan_cleanup: deleting unreferenced inode 919
+<7>[    3.932418] EXT4-fs (mtdblock6): ext4_orphan_cleanup: deleting unreferenced inode 908
+<7>[    3.932476] EXT4-fs (mtdblock6): ext4_orphan_cleanup: deleting unreferenced inode 892
+<7>[    3.932530] EXT4-fs (mtdblock6): ext4_orphan_cleanup: deleting unreferenced inode 472
+<6>[    3.932577] EXT4-fs (mtdblock6): 7 orphan inodes deleted
+<6>[    3.932601] EXT4-fs (mtdblock6): recovery complete
+<6>[    3.948837] EXT4-fs (mtdblock6): mounted filesystem with ordered data mode. Opts: noauto_da_alloc,discard
+<4>[    3.990952] UMP: Using OS memory backend, allocation limit: 1073741824
+<4>[    3.990990] UMP: UMP device driver -0d88e3e loaded
+<4>[    4.014909] Mali: Mali400 inside of rk3188!
+<4>[    4.014939] Mali: mali freq table num : 6 
+<4>[    4.014958] Mali: mali freq table :Mali: 128,Mali: 198,Mali: 256,Mali: 297,Mali: 384,Mali: 594,Mali: 
+<4>[    4.015012] Mali: init mali clock success 
+<4>[    4.046867] Mali: Mali device driver loaded
+<4>[    4.050882] rk30_mirroring: Unknown symbol video_data_to_mirroring (err 0)
+<4>[    4.050936] rk30_mirroring: Unknown symbol audio_data_to_mirroring (err 0)
+<4>[    4.052340] rk29_ipp: module is from the staging directory, the quality is unknown, you have been warned.
+<4>[    4.053086] ipp irq 47
+<4>[    4.053231] IPP init, version rk30-ipp 1.003
+<6>[    4.059887] tun: Universal TUN/TAP device driver, 1.6
+<6>[    4.059909] tun: (C) 1999-2004 Max Krasnyansky <maxk@qualcomm.com>
+<3>[    4.103512] init: /dev/hw_random not found
+<3>[    4.118763] healthd: No charger supplies found
+<4>[    4.118794] healthd: BatteryStatusPath not found
+<4>[    4.118821] healthd: BatteryHealthPath not found
+<4>[    4.119688] healthd: BatteryPresentPath not found
+<4>[    4.119709] healthd: BatteryCapacityPath not found
+<4>[    4.119728] healthd: BatteryVoltagePath not found
+<4>[    4.119747] healthd: BatteryTemperaturePath not found
+<4>[    4.119767] healthd: BatteryTechnologyPath not found
+<6>[    4.119801] binder: 96:96 transaction failed 29189, size 0-0
+<3>[    4.128824] init: cannot find '/system/vendor/bin/pvrsrvctl', disabling 'pvrsrvctl'
+<3>[    4.135399] init: cannot find '/system/bin/rild3', disabling 'ril-daemon3'
+<3>[    4.369963] init: cannot find '/system/bin/bplus_helper', disabling 'bplus_helper'
+<3>[    4.371010] init: property 'ro.serialno' doesn't exist while expanding '${ro.serialno}'
+<3>[    4.371045] init: cannot expand '${ro.serialno}' while writing to '/sys/class/android_usb/android0/iSerial'
+<3>[    4.371228] init: using deprecated syntax for specifying property 'ro.product.usbfactory', use ${name} instead
+<3>[    4.470829] init: property 'sys.powerctl' doesn't exist while expanding '${sys.powerctl}'
+<3>[    4.470892] init: powerctl: cannot expand '${sys.powerctl}'
+<3>[    4.470936] init: property 'sys.sysctl.extra_free_kbytes' doesn't exist while expanding '${sys.sysctl.extra_free_kbytes}'
+<3>[    4.470987] init: cannot expand '${sys.sysctl.extra_free_kbytes}' while writing to '/proc/sys/vm/extra_free_kbytes'
+<3>[    4.471553] android_usb: already disabled
+<6>[    4.481676] adb_open
+<4>[    4.536583] RKNAND_GET_DRM_KEY
+<4>[    4.539657] return ret = 0
+<3>[    4.703744] fs_mgr: parse_link_device /dev/block/mtdblock10: in
+<3>[    4.704563] fs_mgr: parse_link_device : ---- part_num = 10, path = /devices/virtual/mtd/mtd10/mtdblock10, is_emmc = 0
+<3>[    4.704623] fs_mgr: parse_link_device : path = NULL
+<3>[    4.704660] fs_mgr: parse_link_device : path = NULL
+<3>[    4.704693] fs_mgr: parse_link_device : path = NULL
+<3>[    4.704724] fs_mgr: parse_link_device : path = NULL
+<3>[    4.704756] fs_mgr: parse_link_device : path = NULL
+<3>[    4.704790] fs_mgr: parse_link_device : path = NULL
+<3>[    4.704840] fs_mgr: parse_link_device : path = NULL
+<6>[    4.704980] .204.. MMC0 receive the message sd-No-Media from VOLD.[sd_mmc]
+<6>[    4.705008] .235.. MMC0 receive the message No-Media from VOLD. waitTimes=0 [sd_mmc]
+<4>[    5.222482] rk fb use 3 buffers
+<6>[    5.264002] lcdc1 win1 open,atv layer:0
+<6>[    5.264025] lcdc1 win0 closed,atv layer:0
+<3>[    7.036996] init: sys_prop: permission denied uid:1000  name:sys_graphic.cam_hal.ver
+<4>[    7.100589] rt5616_playback_path_get : playback_path 0
+<4>[    7.101834] rt5616_playback_path_get : playback_path 0
+<3>[    7.253035] not equal..
+<3>[    7.253053] not equal..
+<7>[    7.253488] i2s dma info:periodsize(8192),limit(3),buffersize(24576),over(0)
+<7>[    7.669619] i2s dma info:periodsize(8192),limit(3),buffersize(24576),over(0)
+<6>[   18.573010] warning: `zygote' uses 32-bit capabilities (legacy support in use)
+<6>[   40.308391] request_suspend_state: wakeup (3->0) at 40247790632 (2026-11-20 22:56:37.068432505 UTC)
+<4>[   40.882990] wifi_driver_write: wifi driver already rmmod
+<6>[   41.285799] acc_open
+<6>[   41.285823] acc_release
+<6>[   41.322762] ADDRCONF(NETDEV_UP): eth0: link is not ready
+<4>[   42.388009] =======================================================
+<4>[   42.388037] ==== Launching Wi-Fi driver! (Powered by Rockchip) ====
+<4>[   42.388072] =======================================================
+<4>[   42.388095]  WiFi driver (Powered by Rockchip,Ver 4.74.WFD.OOB) init.
+<4>[   42.388605] =========== WLAN placed in POWER ON ========
+<3>[   42.388660] ANDROID-ERROR) wifi_set_power = 1
+<6>[   42.388680] rk29sdk_wifi_power: 1
+<4>[   42.388695] ****rk29sdk_wifi_power power up *********----------nition
+<4>[   42.442518] ********rk29_sdmmc_gpio_open device_id=1**********nition
+<4>[   42.442546] ********************rksdmmc1_gpio_init------on************nition
+<6>[   42.668117] wifi turn on power
+<3>[   42.870667] ANDROID-ERROR) wifi_set_carddetect = 1
+<6>[   42.870721] rk29sdk_wifi_set_carddetect:1
+<6>[   42.870743] mmc1: slot status change detected(0-1)
+<4>[   42.870764] rk29_sdmmc_set_iomux_mmc1************************nition
+<6>[   43.070644] 
+<6>[   43.070649] drivers/mmc/core/core.c...2019..  ===== mmc_rescan Begin....[mmc1]
+<6>[   43.114696] 
+<6>[   43.114711] mmc_attach_sdio..1112..  ===== Begin to identify card as SDIO-card. [mmc1]
+<7>[   43.127573] mmc1: queuing unknown CIS tuple 0x80 (2 bytes)
+<7>[   43.129639] mmc1: queuing unknown CIS tuple 0x80 (3 bytes)
+<7>[   43.131670] mmc1: queuing unknown CIS tuple 0x80 (3 bytes)
+<7>[   43.135366] mmc1: queuing unknown CIS tuple 0x80 (7 bytes)
+<6>[   43.192792] rk29_sdmmc_change_clk_div..1684..  newDiv=0, newCLK=24000Khz [sdio]
+<4>[   43.192911] rk29_sdmmc_set_iomux_mmc1************************nition
+<6>[   43.195020] mmc1: new high speed SDIO card at address 0001
+<6>[   43.195474] sdmmc_rescan_try_freq..1867..  ===== Initialize SDIO successfully. [mmc1]
+<4>[   43.195593] bcmsdh_register: Linux Kernel SDIO/MMC Driver
+<4>[   43.211589] FW_PATH = /system/etc/firmware/fw_RK903_ag.bin
+<4>[   43.211599] NVRAM_PATH = /system/etc/firmware/nvram_AP6330.txt
+<4>[   43.226987] F1 signature OK, socitype:0x1 chip:0x4330 rev:0x4 pkg:0x0
+<4>[   43.232586] DHD: dongle ram size is set to 294912(orig 294912) at 0x0
+<4>[   43.233787] wl_create_event_handler(): thread:wl_event_handler:2c0 started
+<4>[   43.233796] tsk Enter, tsk = 0xdb8c1398
+<4>[   43.236982] p2p0: P2P Interface Registered
+<4>[   43.238831] dhd_attach(): thread:dhd_watchdog_thread:2c1 started
+<4>[   43.238915] dhd_attach(): thread:dhd_dpc:2c2 started
+<4>[   43.238983] dhd_attach(): thread:dhd_sysioc:2c3 started
+<3>[   43.239129] ANDROID-ERROR) wifi_get_mac_addr
+<4>[   43.239158] rk29sdk_wifi_mac_addr.
+<4>[   43.239191] falsh wifi_custom_mac_addr=[00:00:00:00:00:00]
+<4>[   43.239211] This mac address is not valid, ignored...
+<4>[   43.240317] Broadcom Dongle Host Driver: register interface [wlan0] MAC: 00:90:4c:11:22:33
+<4>[   43.240753] 
+<4>[   43.240759] Dongle Host Driver, version 1.88.45.1 (r420671)
+<4>[   43.240768] Compiled in drivers/net/wireless/bcmdhd on Dec 21 2015 at 16:25:33
+<3>[   43.240915] ANDROID-ERROR) wifi_set_power = 0
+<6>[   43.240947] rk29sdk_wifi_power: 0
+<4>[   43.240972] ****rk29sdk_wifi_power power down *********----------nition
+<4>[   43.241030] ********rk29_sdmmc_gpio_open device_id=1**********nition
+<4>[   43.241071] ********************rksdmmc1_gpio_init-------off************nition
+<3>[   43.388618] init: no such service 'fuse_internal_sd'
+<6>[   43.477261] wifi shut off power
+<4>[   43.481002] =========== WLAN placed in RESET ========
+<4>[   44.779366] vpu: power on
+<3>[   44.837369] init: sys_prop: permission denied uid:1001  name:media.cfg.audio.soundeffect
+<4>[   44.966329] dhd_conf_set_fw_name_by_chip: firmware_path=/system/etc/firmware/fw_RK903_ag.bin
+<4>[   44.966401] 
+<4>[   44.966406] Dongle Host Driver, version 1.88.45.1 (r420671)
+<4>[   44.966415] Compiled in drivers/net/wireless/bcmdhd on Dec 21 2015 at 16:25:33
+<4>[   44.966479] wl_android_wifi_on in 1
+<4>[   44.966495] wl_android_wifi_on in 2: g_wifi_on=0
+<3>[   44.966513] ANDROID-ERROR) wifi_set_power = 1
+<6>[   44.966532] rk29sdk_wifi_power: 1
+<4>[   44.966547] ****rk29sdk_wifi_power power up *********----------nition
+<4>[   45.019093] ********rk29_sdmmc_gpio_open device_id=1**********nition
+<4>[   45.019919] ********************rksdmmc1_gpio_init------on************nition
+<6>[   45.232453] wifi turn on power
+<3>[   45.368445] init: sys_prop: permission denied uid:1003  name:service.bootanim.exit
+<4>[   45.440639] =========== WLAN going back to live  ========
+<4>[   45.440678] sdio_reset_comm():
+<4>[   45.440705] rk29_sdmmc_set_iomux_mmc1************************nition
+<6>[   45.440770] rk29_sdmmc_change_clk_div..1684..  newDiv=40, newCLK=300Khz [sdio]
+<4>[   45.440800] rk29_sdmmc_set_iomux_mmc1************************nition
+<6>[   45.446827] rk29_sdmmc_change_clk_div..1684..  newDiv=0, newCLK=24000Khz [sdio]
+<4>[   45.447296] 
+<4>[   45.447303] 
+<4>[   45.447308] dhd_bus_devreset: == WLAN ON ==
+<4>[   45.447403] dhd_bus_devreset called when dongle is not in reset
+<4>[   45.447458] Will call dhd_bus_start instead
+<4>[   45.447539] dhd_conf_set_fw_name_by_chip: firmware_path=/system/etc/firmware/fw_RK903_ag.bin
+<4>[   45.452382] dhd_conf_download_config: dhd_doflow = 1
+<4>[   45.452413] dhd_conf_download_config: srl = 15
+<4>[   45.452434] dhd_conf_download_config: lrl = 15
+<4>[   45.452460] Final fw_path=/system/etc/firmware/fw_RK903_ag.bin
+<4>[   45.452483] Final nv_path=/system/etc/firmware/nvram_AP6330.txt
+<4>[   45.452509] Final conf_path=/system/etc/firmware/config.txt
+<4>[   45.599917] NVRAM version: AP6330_NVRAM_V1.0_20121130
+<4>[   45.601915] dhdsdio_write_vars: Download, Upload and compare of NVRAM succeeded.
+<4>[   45.870173] dhd_bus_init: enable 0x06, ready 0x06 (waited 0us)
+<4>[   45.870338] bcmsdh_set_drvdata: Enter
+<4>[   45.870358] bcmsdh_register_oob_intr: Enter 
+<4>[   45.870378] bcmsdh_register_oob_intr: IRQ=282 Type=4 
+<3>[   45.872792] ANDROID-ERROR) wifi_get_mac_addr
+<4>[   45.872817] rk29sdk_wifi_mac_addr.
+<4>[   45.872862] falsh wifi_custom_mac_addr=[00:00:00:00:00:00]
+<4>[   45.872937] This mac address is not valid, ignored...
+<4>[   45.876280] Firmware up: op_mode=0x0005, Broadcom Dongle Host Driver mac=98:3b:16:a3:71:2e
+<4>[   45.876319] dhd_conf_set_country: Set country ALL, revision 0
+<4>[   45.949316] Country code: ALL (ALL/0)
+<4>[   45.949984] dhd_conf_set_roam: Set roam_off 1
+<4>[   45.952774] dhd_conf_set_srl: set srl 15
+<4>[   45.953168] dhd_conf_set_lrl: set lrl 15
+<4>[   45.956649] dhd_preinit_ioctls buf_key_b4_m4 set failed -23
+<4>[   45.964504]   Driver: 1.88.45.1 (r420671)
+<4>[   45.964516]   Firmware: wl0: Jan  6 2014 15:11:29 version 5.90.195.89.13 FWID 01-72f124c5 
+<4>[   45.966284] wl_android_wifi_on: Success
+<4>[   45.968759] wl_cfg80211_attach_post: p2p0 p2p_dev_addr=9a:3b:16:a3:71:2e
+<4>[   48.780670] vpu: power off...done
+<6>[   49.173085] binder: 952:960 refcount change on invalid ref 58
+<6>[   49.181689] binder: 952:993 refcount change on invalid ref 58
+<6>[   49.181721] binder: 952:993 refcount change on invalid ref 58
+<3>[   49.181757] binder: transaction release 13985 bad handle 58
+<4>[   50.234863] wl_bss_connect_done succeeded with 78:32:1b:48:c3:4a
+<4>[   50.252881] wl_notify_connect_status nothing
+<4>[   50.253026] wl_bss_connect_done succeeded with 78:32:1b:48:c3:4a
+<4>[   50.364673] net_ratelimit: 3 callbacks suppressed
+<4>[   50.364713] dhd_pno_get_for_batch : wifi location service is not supported
+<3>[   50.364765] ANDROID-ERROR) failed to getting batching results
+<4>[   50.365788] dhd_pno_stop_for_batch : wifi location service is not supported
+<4>[   50.365837] NULL POINTER (_dhd_pno_clear_all_batch_results) : head->next is NULL
+<4>[   50.365882] NULL POINTER (_dhd_pno_clear_all_batch_results) : head->next is NULL
+<3>[   50.365926] ANDROID-ERROR) failed to stop batching scan
+<4>[   54.807796] ******** Show Sink Info ********
+<4>[   54.807819] Support video mode: 
+<4>[   54.807841] 	1920x1080p@60Hz.
+<4>[   54.807853] 	1920x1080p@50Hz.
+<4>[   54.807864] 	1920x1080p@30Hz.
+<4>[   54.807876] 	1920x1080p@24Hz.
+<4>[   54.807887] 	1280x720p@60Hz.
+<4>[   54.807901] 	1280x720p@50Hz.
+<4>[   54.807913] Support audio type: LPCM
+<4>[   54.807927] Support audio sample rate: 
+<4>[   54.807941] 	32000
+<4>[   54.807949] 	44100
+<4>[   54.807957] 	48000
+<4>[   54.807966] Support audio word lenght: 
+<4>[   54.807980] 	16bit
+<4>[   54.807988] 	20bit
+<4>[   54.807996] 	24bit
+<4>[   54.808005] Support audio type: AC3
+<4>[   54.808018] Support audio sample rate: 
+<4>[   54.808035] 	32000
+<4>[   54.808043] 	44100
+<4>[   54.808051] 	48000
+<4>[   54.808059] 	96000
+<4>[   54.808068] Support audio word lenght: 
+<4>[   54.808082] 	16bit
+<4>[   54.808090] 	20bit
+<4>[   54.808098] 	24bit
+<4>[   54.808107] Support audio type: E-AC3
+<4>[   54.808120] Support audio sample rate: 
+<4>[   54.808135] 	32000
+<4>[   54.808143] 	44100
+<4>[   54.808153] 	48000
+<4>[   54.808162] Support audio word lenght: 
+<4>[   54.808176] 	16bit
+<4>[   54.808184] 	20bit
+<4>[   54.808192] 	24bit
+<4>[   54.808201] ******** Show Sink Info ********
+<4>[   54.808238] rk3188 lcdc1 clk enable...
+<4>[   54.808261] lcdc1: dclk:74250000>>fps:60 
+<6>[   54.808283] rk30-lcdc rk30-lcdc.1: rk3188_load_screen for lcdc1 ok!
+<6>[   54.808308] lcdc1 wakeup from standby!
+<6>[   54.808323] lcdc1 win1 open,atv layer:2
+<6>[   54.808342] lcdc1 win0 closed,atv layer:2
+<7>[   56.180628] p2p0: no IPv6 routers present
+<6>[  100.790667] [BT_RFKILL]: bt shut off power
+<6>[  101.410721] [BT_RFKILL]: bt turn on power
+<7>[  121.398498] i2s dma info:periodsize(8192),limit(3),buffersize(24576),over(0)
+<7>[  121.404004] i2s dma info:periodsize(8192),limit(3),buffersize(24576),over(0)
+<6>[  128.708960] DWC_OTG: force_usb_mode_store 1->2
+<6>[  128.713446] DWC_OTG: PortPower off
+<6>[  129.970653] DWC_OTG: ********vbus detect*********************************************
+<6>[  130.155530] DWC_OTG: ********soft connect!!!*****************************************
+<6>[  130.161537] DWC_OTG: USB SUSPEND
+<6>[  130.255844] DWC_OTG: USB RESET
+<6>[  130.374270] android_work: sent uevent USB_STATE=CONNECTED
+<6>[  130.491084] android_usb gadget: high speed config #1: android
+<6>[  130.491231] android_work: sent uevent USB_STATE=CONFIGURED
+<4>[  130.598113] DWC_OTG: req 80.06 v0f00 i0000 l0005 protocol STALL; err -95
+<3>[  138.132201] init: untracked pid 2200 exited
+<3>[  138.134548] init: untracked pid 2204 exited
+<3>[  263.993259] init: untracked pid 2268 exited
+<3>[  264.001762] init: untracked pid 2264 exited
+<3>[  264.084072] init: untracked pid 2276 exited
+<3>[  264.088349] init: untracked pid 2280 exited
+<3>[  264.188786] init: untracked pid 2287 exited
+<3>[  264.190015] init: untracked pid 2291 exited
+<3>[  264.274256] init: untracked pid 2300 exited
+<3>[  264.275679] init: untracked pid 2304 exited
+<3>[ 1073.154206] init: untracked pid 2317 exited
+<3>[ 1073.162802] init: untracked pid 2320 exited
+<3>[ 1073.167158] init: untracked pid 2315 exited
+<3>[ 1074.153717] init: untracked pid 2310 exited
+<3>[ 1086.695690] init: untracked pid 2727 exited
+<3>[ 1086.699980] init: untracked pid 2731 exited
+<3>[ 1086.804014] init: untracked pid 2737 exited
+<3>[ 1086.861437] init: untracked pid 2746 exited
+<3>[ 1086.916857] init: untracked pid 2755 exited
+<3>[ 1086.973768] init: untracked pid 2764 exited
+<3>[ 1087.029280] init: untracked pid 2774 exited
+<3>[ 1087.088095] init: untracked pid 2783 exited
+<3>[ 1087.143363] init: untracked pid 2792 exited
+<3>[ 1087.238006] init: untracked pid 2801 exited
+<3>[ 1087.242542] init: untracked pid 2805 exited
+<3>[ 1087.294352] init: untracked pid 2811 exited
+<3>[ 1329.224979] init: untracked pid 2907 exited
+<3>[ 1329.226013] init: untracked pid 2911 exited
+<3>[ 1329.300272] init: untracked pid 2918 exited
+<3>[ 1329.300463] init: untracked pid 2922 exited
+<3>[ 1329.364127] init: untracked pid 2929 exited
+<3>[ 1329.364239] init: untracked pid 2933 exited
+<3>[ 1329.486134] init: untracked pid 2940 exited
+<3>[ 1329.486839] init: untracked pid 2944 exited
+<3>[ 1329.604859] init: untracked pid 2952 exited
+<3>[ 1329.605562] init: untracked pid 2956 exited
+<3>[ 1329.686640] init: untracked pid 2963 exited
+<3>[ 1329.687268] init: untracked pid 2967 exited
+<3>[ 1329.765894] init: untracked pid 2974 exited
+<3>[ 1329.765975] init: untracked pid 2978 exited
+<3>[ 1329.851646] init: untracked pid 2985 exited
+<3>[ 1329.853135] init: untracked pid 2989 exited
+<3>[ 1329.951429] init: untracked pid 2996 exited
+<3>[ 1329.951778] init: untracked pid 3000 exited
+<6>[ 3617.495069] DWC_OTG: USB SUSPEND
+<6>[ 3619.887258] request_suspend_state: sleep (0->3) at 3619826638432 (2026-11-20 23:56:15.324604800 UTC)
+<4>[ 3619.887781] it66121_early_suspend
+<6>[ 3619.910437] lcdc1 win1 closed,atv layer:2
+<4>[ 3619.916158] rk3188 lcdc1 clk disable...
+<6>[ 3619.916220] ddrfreq: change auto self refresh to 1 when suspend
+<6>[ 3619.917386] ddrfreq: change freq to 198 MHz when suspend
+<4>[ 3620.042563] dhd_set_suspend: force extra Suspend setting
+<4>[ 3620.058810] dhd_get_suspend_bcn_li_dtim beacon=100 bcn_li_dtim=3 DTIM=1 Listen=10
+<6>[36881.012090] request_suspend_state: wakeup (3->0) at 36880951450648 (2026-11-21 09:10:36.449414766 UTC)
+<6>[36881.012441] ddrfreq: change auto self refresh to 0 when normal
+<4>[36881.012778] rk3188 lcdc1 clk enable...
+<4>[36881.013020] it66121_early_resume
+<6>[36881.014353] ddrfreq: change freq to 720 MHz when normal
+<4>[36881.089262] dhd_set_suspend: Remove extra suspend setting
+<4>[36881.310711] DWC_OTG: req 80.06 v0f00 i0000 l0005 protocol STALL; err -95
+<4>[41523.297307] dhd_pno_get_for_batch : wifi location service is not supported
+<3>[41523.297398] ANDROID-ERROR) failed to getting batching results
+<4>[41523.299373] dhd_pno_stop_for_batch : wifi location service is not supported
+<3>[41523.299460] ANDROID-ERROR) failed to stop batching scan
+<6>[42612.587586] DWC_OTG: USB SUSPEND
+<6>[43352.260746] DWC_OTG: USB SUSPEND
+<6>[43681.076941] DWC_OTG: USB SUSPEND
+<6>[43681.467515] DWC_OTG: USB SUSPEND
+<6>[43681.511689] DWC_OTG: USB SUSPEND
+<6>[43681.544566] DWC_OTG: USB SUSPEND
+<6>[43681.622680] DWC_OTG: USB SUSPEND
+<6>[43681.634608] DWC_OTG: USB SUSPEND
+<6>[43681.663015] DWC_OTG: USB SUSPEND
+<6>[43681.672255] DWC_OTG: USB SUSPEND
+<6>[43681.803716] DWC_OTG: USB SUSPEND
+<6>[43681.813231] DWC_OTG: USB SUSPEND
+<6>[43786.783986] DWC_OTG: USB SUSPEND
+<4>[44130.782166] DWC_OTG: req 80.06 v0f00 i0000 l0005 protocol STALL; err -95
+<6>[48771.533909] DWC_OTG: USB SUSPEND
+<4>[58546.472440] DWC_OTG: req 80.06 v0f00 i0000 l0005 protocol STALL; err -95
+<6>[67840.070777] DWC_OTG: USB SUSPEND
+<6>[72563.507874] DWC_OTG: USB SUSPEND
+<4>[72566.538624] DWC_OTG: req 80.06 v0f00 i0000 l0005 protocol STALL; err -95
+<6>[74367.855534] DWC_OTG: USB SUSPEND
+<4>[74502.891209] DWC_OTG: req 80.06 v0f00 i0000 l0005 protocol STALL; err -95
+<6>[80319.905776] DWC_OTG: USB SUSPEND
+<4>[80429.824757] DWC_OTG: req 80.06 v0f00 i0000 l0005 protocol STALL; err -95
+<4>[82996.045690] dhd_pno_get_for_batch : wifi location service is not supported
+<3>[82996.045751] ANDROID-ERROR) failed to getting batching results
+<4>[82996.046468] dhd_pno_stop_for_batch : wifi location service is not supported
+<3>[82996.046502] ANDROID-ERROR) failed to stop batching scan
+<3>[84966.427862] binder: release proc 21288, transaction 541545, not freed
+<6>[94626.011951] DWC_OTG: USB SUSPEND
+<4>[124468.559204] dhd_pno_get_for_batch : wifi location service is not supported
+<3>[124468.559298] ANDROID-ERROR) failed to getting batching results
+<4>[124468.561392] dhd_pno_stop_for_batch : wifi location service is not supported
+<3>[124468.561480] ANDROID-ERROR) failed to stop batching scan
+<4>[134034.107568] DWC_OTG: req 80.06 v0f00 i0000 l0005 protocol STALL; err -95
+<6>[136485.069562] DWC_OTG: USB SUSPEND
+<6>[136491.100810] DWC_OTG: ********session end intr,soft disconnect************************
+<6>[136491.100984] DWC_OTG: USB RESET
+<6>[136491.101211] adb_release
+<6>[136491.101634] android_work: sent uevent USB_STATE=DISCONNECTED
+<6>[136491.101672] adb_open
+<4>[165941.268922] dhd_pno_get_for_batch : wifi location service is not supported
+<3>[165941.268973] ANDROID-ERROR) failed to getting batching results
+<4>[165941.269838] dhd_pno_stop_for_batch : wifi location service is not supported
+<3>[165941.269886] ANDROID-ERROR) failed to stop batching scan
+<6>[166598.990625] DWC_OTG: ********vbus detect*********************************************
+<6>[166598.990733] android_work: did not send uevent (0 0   (null))
+<6>[166599.175693] DWC_OTG: ********soft connect!!!*****************************************
+<6>[166599.181700] DWC_OTG: USB SUSPEND
+<6>[166603.000683] DWC_OTG: ********soft reconnect******************************************
+<6>[166603.185744] DWC_OTG: ********soft connect!!!*****************************************
+<6>[166603.191752] DWC_OTG: USB SUSPEND
+<4>[207413.784069] dhd_pno_get_for_batch : wifi location service is not supported
+<3>[207413.784184] ANDROID-ERROR) failed to getting batching results
+<4>[207413.786926] dhd_pno_stop_for_batch : wifi location service is not supported
+<3>[207413.787030] ANDROID-ERROR) failed to stop batching scan
+<6>[218948.010678] DWC_OTG: ********vbus detect*********************************************
+<6>[218948.195543] DWC_OTG: ********soft connect!!!*****************************************
+<6>[218948.201550] DWC_OTG: USB SUSPEND
+<6>[218952.020627] DWC_OTG: ********soft reconnect******************************************
+<6>[218952.205722] DWC_OTG: ********soft connect!!!*****************************************
+<6>[218952.211730] DWC_OTG: USB SUSPEND
+<6>[245292.030615] DWC_OTG: ********vbus detect*********************************************
+<6>[245292.215672] DWC_OTG: ********soft connect!!!*****************************************
+<6>[245292.221680] DWC_OTG: USB SUSPEND
+<6>[245296.040639] DWC_OTG: ********soft reconnect******************************************
+<6>[245296.225719] DWC_OTG: ********soft connect!!!*****************************************
+<6>[245296.231727] DWC_OTG: USB SUSPEND
+<4>[248886.283707] dhd_pno_get_for_batch : wifi location service is not supported
+<3>[248886.283771] ANDROID-ERROR) failed to getting batching results
+<4>[248886.284843] dhd_pno_stop_for_batch : wifi location service is not supported
+<3>[248886.284909] ANDROID-ERROR) failed to stop batching scan
+<4>[290358.785023] dhd_pno_get_for_batch : wifi location service is not supported
+<3>[290358.785081] ANDROID-ERROR) failed to getting batching results
+<4>[290358.785980] dhd_pno_stop_for_batch : wifi location service is not supported
+<3>[290358.786028] ANDROID-ERROR) failed to stop batching scan
+<6>[296933.070638] DWC_OTG: ********vbus detect*********************************************
+<6>[296933.255647] DWC_OTG: ********soft connect!!!*****************************************
+<6>[296933.261654] DWC_OTG: USB SUSPEND
+<6>[296937.080639] DWC_OTG: ********soft reconnect******************************************
+<6>[296937.265712] DWC_OTG: ********soft connect!!!*****************************************
+<6>[296937.271719] DWC_OTG: USB SUSPEND
+<3>[331831.281870] ANDROID-ERROR) failed to getting batching results
+<4>[331831.282711] dhd_pno_stop_for_batch : wifi location service is not supported
+<3>[331831.282759] ANDROID-ERROR) failed to stop batching scan
+<3>[341141.946824] binder: release proc 29152, transaction 2304600, not freed
+<4>[373303.782358] dhd_pno_get_for_batch : wifi location service is not supported
+<3>[373303.782452] ANDROID-ERROR) failed to getting batching results
+<4>[373303.784410] dhd_pno_stop_for_batch : wifi location service is not supported
+<3>[373303.784498] ANDROID-ERROR) failed to stop batching scan
+<4>[410895.278777] ******** Show Sink Info ********
+<4>[410895.278813] Support video mode: 
+<4>[410895.278870] 	1920x1080p@60Hz.
+<4>[410895.278892] 	1920x1080p@50Hz.
+<4>[410895.278912] 	1920x1080p@30Hz.
+<4>[410895.278933] 	1920x1080p@24Hz.
+<4>[410895.278957] 	1280x720p@60Hz.
+<4>[410895.278977] 	1280x720p@50Hz.
+<4>[410895.278997] Support audio type: LPCM
+<4>[410895.279021] Support audio sample rate: 
+<4>[410895.279045] 	32000
+<4>[410895.279059] 	44100
+<4>[410895.279077] 	48000
+<4>[410895.279092] Support audio word lenght: 
+<4>[410895.279116] 	16bit
+<4>[410895.279130] 	20bit
+<4>[410895.279144] 	24bit
+<4>[410895.279159] Support audio type: AC3
+<4>[410895.279182] Support audio sample rate: 
+<4>[410895.279209] 	32000
+<4>[410895.279224] 	44100
+<4>[410895.279238] 	48000
+<4>[410895.279253] 	96000
+<4>[410895.279268] Support audio word lenght: 
+<4>[410895.279292] 	16bit
+<4>[410895.279306] 	20bit
+<4>[410895.279323] 	24bit
+<4>[410895.279338] Support audio type: E-AC3
+<4>[410895.279362] Support audio sample rate: 
+<4>[410895.279386] 	32000
+<4>[410895.279400] 	44100
+<4>[410895.279415] 	48000
+<4>[410895.279429] Support audio word lenght: 
+<4>[410895.279456] 	16bit
+<4>[410895.279470] 	20bit
+<4>[410895.279485] 	24bit
+<4>[410895.279499] ******** Show Sink Info ********
+<4>[410895.279535] lcdc1: dclk:74250000>>fps:60 
+<6>[410895.279566] rk30-lcdc rk30-lcdc.1: rk3188_load_screen for lcdc1 ok!
+<6>[410895.279659] lcdc1 win1 open,atv layer:2
+<6>[410895.279693] lcdc1 win0 closed,atv layer:2
+<6>[411172.201994] DWC_OTG: force_usb_mode_store 2->1
+<7>[411172.311799] i2s dma info:periodsize(8192),limit(3),buffersize(24576),over(0)
+<6>[411172.319083] DWC_OTG: ^^^^^^^^^^^^^^^^^^Host Mode
+<6>[411172.319168] DWC_OTG: Init: Port Power? op_state=1
+<6>[411172.319199] DWC_OTG: Init: Power Port (0)
+<7>[411172.512389] i2s dma info:periodsize(8192),limit(3),buffersize(24576),over(0)
+<6>[411175.118466] DWC_OTG: force_usb_mode_store 1->2
+<6>[411175.118663] DWC_OTG: PortPower off
+<6>[411176.370603] DWC_OTG: ********vbus detect*********************************************
+<6>[411176.555679] DWC_OTG: ********soft connect!!!*****************************************
+<6>[411176.561686] DWC_OTG: USB SUSPEND
+<6>[411176.656197] DWC_OTG: USB RESET
+<6>[411176.777007] android_work: sent uevent USB_STATE=CONNECTED
+<6>[411176.928895] android_usb gadget: high speed config #1: android
+<6>[411176.929147] android_work: sent uevent USB_STATE=CONFIGURED
+<4>[411177.379918] DWC_OTG: req 80.06 v0f00 i0000 l0005 protocol STALL; err -95
+<4>[414776.290922] dhd_pno_get_for_batch : wifi location service is not supported
+<3>[414776.290972] ANDROID-ERROR) failed to getting batching results
+<4>[414776.291831] dhd_pno_stop_for_batch : wifi location service is not supported
+<3>[414776.291878] ANDROID-ERROR) failed to stop batching scan
+<6>[415360.849091] DWC_OTG: USB SUSPEND
+<4>[415471.081073] DWC_OTG: req 80.06 v0f00 i0000 l0005 protocol STALL; err -95
+<3>[416540.932826] init: untracked pid 5503 exited
+<3>[416540.934176] init: untracked pid 5507 exited
+<3>[418641.058740] init: untracked pid 6656 exited
+<3>[418641.058867] init: untracked pid 6661 exited
+<3>[418641.127451] init: untracked pid 6668 exited
+<3>[419023.618146] init: untracked pid 6889 exited
+<3>[419023.618346] init: untracked pid 6884 exited
+<3>[419023.688399] init: untracked pid 6895 exited
+<3>[419023.754122] init: untracked pid 6904 exited
+<3>[419023.820319] init: untracked pid 6913 exited
+<3>[419023.886938] init: untracked pid 6922 exited
+<3>[419023.952002] init: untracked pid 6931 exited
+<3>[419024.020382] init: untracked pid 6941 exited
+<3>[419024.084077] init: untracked pid 6950 exited
+<3>[419024.150234] init: untracked pid 6958 exited
+<3>[419024.214084] init: untracked pid 6969 exited
+<3>[419024.281164] init: untracked pid 6978 exited
+<3>[419024.362260] init: untracked pid 6987 exited
+<3>[419024.363751] init: untracked pid 6991 exited
+<3>[419154.139191] init: untracked pid 7066 exited
+<3>[419154.141020] init: untracked pid 7070 exited
+<3>[419154.254862] init: untracked pid 7077 exited
+<3>[419154.255296] init: untracked pid 7081 exited
+<3>[419154.374748] init: untracked pid 7092 exited
+<3>[419154.374845] init: untracked pid 7088 exited
+<3>[419154.491069] init: untracked pid 7099 exited
+<3>[419154.491467] init: untracked pid 7103 exited
+<3>[419154.595416] init: untracked pid 7110 exited
+<3>[419154.599793] init: untracked pid 7114 exited
+<3>[419154.864977] init: untracked pid 7121 exited
+<3>[419154.870047] init: untracked pid 7125 exited
+<3>[419154.999211] init: untracked pid 7132 exited
+<3>[419155.001151] init: untracked pid 7136 exited
+<3>[419155.102809] init: untracked pid 7144 exited
+<3>[419155.102894] init: untracked pid 7148 exited
+<3>[419155.213164] init: untracked pid 7155 exited
+<3>[419155.213642] init: untracked pid 7159 exited
+<3>[419155.326563] init: untracked pid 7166 exited
+<3>[419155.328419] init: untracked pid 7170 exited
+<3>[419155.435647] init: untracked pid 7177 exited
+<3>[419155.436414] init: untracked pid 7181 exited
+<3>[419155.548121] init: untracked pid 7188 exited
+<3>[419155.549062] init: untracked pid 7192 exited
+<3>[419155.655933] init: untracked pid 7199 exited
+<3>[419155.656653] init: untracked pid 7203 exited
+<3>[419155.759795] init: untracked pid 7211 exited
+<3>[419155.761561] init: untracked pid 7215 exited
+<3>[419156.013377] init: untracked pid 7225 exited
+<3>[419156.013799] init: untracked pid 7229 exited
+<3>[419411.482355] init: untracked pid 7374 exited
+<3>[419411.482425] init: untracked pid 7378 exited
+<3>[419411.735562] init: untracked pid 7385 exited
+<3>[419411.738725] init: untracked pid 7389 exited
+<3>[419411.817299] init: untracked pid 7397 exited
+<3>[419411.817933] init: untracked pid 7401 exited
+<3>[419413.678322] init: untracked pid 7409 exited
+<3>[419413.821015] init: untracked pid 7447 exited
+<3>[419413.822351] init: untracked pid 7443 exited
+<3>[420062.955305] init: untracked pid 7805 exited
+<3>[420062.956112] init: untracked pid 7809 exited
+<3>[420063.059029] init: untracked pid 7816 exited
+<3>[420063.060428] init: untracked pid 7820 exited
+<6>[420839.520691] DWC_OTG: USB SUSPEND
+<6>[420847.210861] DWC_OTG: USB SUSPEND
+<4>[420854.149995] DWC_OTG: req 80.06 v0f00 i0000 l0005 protocol STALL; err -95
+<6>[421254.242018] DWC_OTG: USB SUSPEND
+<6>[421257.704376] DWC_OTG: USB SUSPEND
+<4>[429123.629235] DWC_OTG: req 80.06 v0f00 i0000 l0005 protocol STALL; err -95
+<6>[433631.000956] DWC_OTG: USB SUSPEND
+<6>[433966.037563] DWC_OTG: USB SUSPEND
+<4>[434009.178962] DWC_OTG: req 80.06 v0f00 i0000 l0005 protocol STALL; err -95
+<3>[438170.132806] init: untracked pid 17761 exited
+<3>[438170.133477] init: untracked pid 17765 exited
+<3>[439273.207075] init: untracked pid 17766 exited
+<3>[439313.869146] init: untracked pid 18389 exited
+<3>[439313.870541] init: untracked pid 18393 exited
+<3>[439313.955505] init: untracked pid 18399 exited
+<3>[439313.994761] init: untracked pid 18407 exited
+<3>[439314.045370] init: untracked pid 18417 exited
+
+ADB_EXIT_CODE=0
+
+========== fb0 name ==========
+fb0
+
+ADB_EXIT_CODE=0
+
+========== fb0 mode ==========
+ADB_EXIT_CODE=0
+
+========== fb0 virtual_size ==========
+1920,3240
+
+ADB_EXIT_CODE=0
+
+========== fb0 bits_per_pixel ==========
+32
+
+ADB_EXIT_CODE=0
+
+========== fb0 stride ==========
+7680
+
+ADB_EXIT_CODE=0
+
+========== fb0 blank ==========
+ADB_EXIT_CODE=0
+
+========== fb1 name ==========
+fb1
+
+ADB_EXIT_CODE=0
+
+========== fb1 mode ==========
+ADB_EXIT_CODE=0
+
+========== fb1 virtual_size ==========
+1920,1080
+
+ADB_EXIT_CODE=0
+
+========== fb1 bits_per_pixel ==========
+16
+
+ADB_EXIT_CODE=0
+
+========== fb1 stride ==========
+3840
+
+ADB_EXIT_CODE=0
+
+========== fb1 blank ==========
+ADB_EXIT_CODE=0
+
+========== ANDROID WINDOW SIZE ==========
+Physical size: 1920x1080
+
+ADB_EXIT_CODE=0

@@ -1,0 +1,535 @@
+========== 720P SOURCE ==========
+/* $_FOR_ROCKCHIP_RBOX_$ */
+#include <linux/fb.h>
+#include <linux/delay.h>
+#include <mach/gpio.h>
+#include <mach/iomux.h>
+#include <mach/board.h>
+#include <linux/rk_fb.h>
+#include <linux/rk_screen.h>
+
+#define OUT_TYPE		SCREEN_HDMI
+#define OUT_FACE		OUT_P888
+#define LCDC_ACLK		312000000
+
+#define OUT_CLK	    	74250000
+#define H_PW			40
+#define H_BP			220
+#define H_VD			1280
+#define H_FP			110
+#define V_PW			5
+#define V_BP			20
+#define V_VD			720
+#define V_FP			5
+
+#define LCD_WIDTH       0//1280
+#define LCD_HEIGHT      0//720
+/* Other */
+#define DCLK_POL		1
+#define SWAP_RB			0
+
+
+void set_lcd_info(struct rk29fb_screen *screen, struct rk29lcd_info *lcd_info )
+{
+    /* screen type & face */
+    screen->type = OUT_TYPE;
+    screen->face = OUT_FACE;
+
+    /* Screen size */
+    screen->x_res = H_VD;
+    screen->y_res = V_VD;
+
+    screen->width = LCD_WIDTH;
+    screen->height = LCD_HEIGHT;
+
+    /* Timing */
+    screen->lcdc_aclk = LCDC_ACLK;
+    screen->pixclock = OUT_CLK;
+	screen->left_margin = H_BP;
+	screen->right_margin = H_FP;
+	screen->hsync_len = H_PW;
+	screen->upper_margin = V_BP;
+	screen->lower_margin = V_FP;
+	screen->vsync_len = V_PW;
+
+	/* Pin polarity */
+	screen->pin_hsync = 1;
+	screen->pin_vsync = 1;
+	screen->pin_den = 0;
+	screen->pin_dclk = DCLK_POL;
+
+	/* Swap rule */
+    screen->swap_rb = SWAP_RB;
+    screen->swap_rg = 0;
+    screen->swap_gb = 0;
+    screen->swap_delta = 0;
+    screen->swap_dumy = 0;
+
+    /* Operation function*/
+    screen->init = NULL;
+    screen->standby = NULL;
+}
+
+size_t get_fb_size(void)
+{
+	size_t size = 0;
+	#if defined(CONFIG_THREE_FB_BUFFER)
+		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+	#else
+		size = ((H_VD)*(V_VD)<<2)<<1; //two buffer
+	#endif
+	return ALIGN(size,SZ_1M);
+}
+
+
+========== 1080P SOURCE ==========
+/* $_FOR_ROCKCHIP_RBOX_$ */
+#include <linux/fb.h>
+#include <linux/delay.h>
+#include <mach/gpio.h>
+#include <mach/iomux.h>
+#include <mach/board.h>
+#include <linux/rk_fb.h>
+#include <linux/rk_screen.h>
+
+#define OUT_TYPE		SCREEN_HDMI
+#define OUT_FACE		OUT_P888
+#define LCDC_ACLK		297000000
+
+#define OUT_CLK	    	148500000
+#define H_PW			44
+#define H_BP			148
+#define H_VD			1920
+#define H_FP			88
+#define V_PW			5
+#define V_BP			36
+#define V_VD			1080
+#define V_FP			4
+
+#define LCD_WIDTH       0//1920
+#define LCD_HEIGHT      0//1080
+/* Other */
+#define DCLK_POL		1
+#define SWAP_RB			0
+
+
+void set_lcd_info(struct rk29fb_screen *screen, struct rk29lcd_info *lcd_info )
+{
+    /* screen type & face */
+    screen->type = OUT_TYPE;
+    screen->face = OUT_FACE;
+
+    /* Screen size */
+    screen->x_res = H_VD;
+    screen->y_res = V_VD;
+
+    screen->width = LCD_WIDTH;
+    screen->height = LCD_HEIGHT;
+
+    /* Timing */
+    screen->lcdc_aclk = LCDC_ACLK;
+    screen->pixclock = OUT_CLK;
+	screen->left_margin = H_BP;
+	screen->right_margin = H_FP;
+	screen->hsync_len = H_PW;
+	screen->upper_margin = V_BP;
+	screen->lower_margin = V_FP;
+	screen->vsync_len = V_PW;
+
+	/* Pin polarity */
+	screen->pin_hsync = 1;
+	screen->pin_vsync = 1;
+	screen->pin_den = 0;
+	screen->pin_dclk = DCLK_POL;
+
+	/* Swap rule */
+    screen->swap_rb = SWAP_RB;
+    screen->swap_rg = 0;
+    screen->swap_gb = 0;
+    screen->swap_delta = 0;
+    screen->swap_dumy = 0;
+
+    /* Operation function*/
+    screen->init = NULL;
+    screen->standby = NULL;
+}
+
+size_t get_fb_size(void)
+{
+	size_t size = 0;
+	#if defined(CONFIG_THREE_FB_BUFFER)
+		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+	#else
+		size = ((H_VD)*(V_VD)<<2)<<1; //two buffer
+	#endif
+	return ALIGN(size,SZ_1M);
+}
+
+========== H_VD / V_VD DEFINITIONS ==========
+drivers/video/display/screen/lcd_nt35510.c:19:#define H_VD			480//320	//***800 
+drivers/video/display/screen/lcd_nt35510.c:24:#define V_VD			800//480	//***480
+drivers/video/display/screen/lcd_nt35510.c:137:	screen->x_res = H_VD;
+drivers/video/display/screen/lcd_nt35510.c:138:	screen->y_res = V_VD;
+drivers/video/display/screen/lcd_hdmi_1024x768.c:22:#define H_VD			1024
+drivers/video/display/screen/lcd_hdmi_1024x768.c:27:#define V_VD			768
+drivers/video/display/screen/lcd_hdmi_1024x768.c:38:#define S_H_VD			1024
+drivers/video/display/screen/lcd_hdmi_1024x768.c:43:#define S_V_VD			768
+drivers/video/display/screen/lcd_hdmi_1024x768.c:53:#define S1_H_VD			1024
+drivers/video/display/screen/lcd_hdmi_1024x768.c:58:#define S1_V_VD			768
+drivers/video/display/screen/lcd_hdmi_1024x768.c:68:#define S2_H_VD			1024
+drivers/video/display/screen/lcd_hdmi_1024x768.c:73:#define S2_V_VD			768
+drivers/video/display/screen/lcd_hdmi_1024x768.c:83:#define S3_H_VD			1024
+drivers/video/display/screen/lcd_hdmi_1024x768.c:88:#define S3_V_VD			768
+drivers/video/display/screen/lcd_hdmi_1024x768.c:98:#define S4_H_VD			1024
+drivers/video/display/screen/lcd_hdmi_1024x768.c:103:#define S4_V_VD			768
+drivers/video/display/screen/lcd_hdmi_1024x768.c:113:#define S5_H_VD			1024
+drivers/video/display/screen/lcd_hdmi_1024x768.c:118:#define S5_V_VD			768
+drivers/video/display/screen/lcd_hdmi_1024x768.c:242:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_hdmi_1024x768.c:243:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_s1d13521.c:19:#define H_VD			600
+drivers/video/display/screen/lcd_s1d13521.c:24:#define V_VD			800
+drivers/video/display/screen/lcd_s1d13521.c:318:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_s1d13521.c:319:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_720p.c:17:#define H_VD			1280
+drivers/video/display/screen/lcd_720p.c:21:#define V_VD			720
+drivers/video/display/screen/lcd_720p.c:38:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_720p.c:39:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_720p.c:76:		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+drivers/video/display/screen/lcd_720p.c:78:		size = ((H_VD)*(V_VD)<<2)<<1; //two buffer
+drivers/video/display/screen/lcd_auto.c:45:#define H_VD_ID0			1024
+drivers/video/display/screen/lcd_auto.c:50:#define V_VD_ID0			600
+drivers/video/display/screen/lcd_auto.c:69:#define H_VD_ID1			1024
+drivers/video/display/screen/lcd_auto.c:74:#define V_VD_ID1			768
+drivers/video/display/screen/lcd_auto.c:97:#define H_VD_ID2			1024
+drivers/video/display/screen/lcd_auto.c:102:#define V_VD_ID2			768
+drivers/video/display/screen/lcd_auto.c:121:#define H_VD_ID3			1280
+drivers/video/display/screen/lcd_auto.c:126:#define V_VD_ID3			800
+drivers/video/display/screen/lcd_auto.c:148:#define H_VD_ID4			800
+drivers/video/display/screen/lcd_auto.c:153:#define V_VD_ID4			1280
+drivers/video/display/screen/lcd_auto.c:232:		screen->x_res = H_VD_ID0;
+drivers/video/display/screen/lcd_auto.c:233:		screen->y_res = V_VD_ID0;
+drivers/video/display/screen/lcd_auto.c:274:		screen->x_res = H_VD_ID1;
+drivers/video/display/screen/lcd_auto.c:275:		screen->y_res = V_VD_ID1;
+drivers/video/display/screen/lcd_auto.c:315:		screen->x_res = H_VD_ID2;
+drivers/video/display/screen/lcd_auto.c:316:		screen->y_res = V_VD_ID2;
+drivers/video/display/screen/lcd_auto.c:358:		screen->x_res = H_VD_ID3;
+drivers/video/display/screen/lcd_auto.c:359:		screen->y_res = V_VD_ID3;
+drivers/video/display/screen/lcd_auto.c:400:		screen->x_res = H_VD_ID4;
+drivers/video/display/screen/lcd_auto.c:401:		screen->y_res = V_VD_ID4;
+drivers/video/display/screen/lcd_B101AW06.c:19:#define H_VD			1024
+drivers/video/display/screen/lcd_B101AW06.c:24:#define V_VD			600
+drivers/video/display/screen/lcd_B101AW06.c:41:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_B101AW06.c:42:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_common.c:21:#define H_VD			1280
+drivers/video/display/screen/lcd_common.c:26:#define V_VD			800
+drivers/video/display/screen/lcd_hsd800x480.c:20:#define H_VD			800 //1024
+drivers/video/display/screen/lcd_hsd800x480.c:25:#define V_VD			480 //768
+drivers/video/display/screen/lcd_hsd800x480.c:63:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_hsd800x480.c:64:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_byd1024x600.c:27:#define H_VD			1024
+drivers/video/display/screen/lcd_byd1024x600.c:32:#define V_VD			600
+drivers/video/display/screen/lcd_byd1024x600.c:59:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_byd1024x600.c:60:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_tl5001_mipi.c:40:#define H_VD			720
+drivers/video/display/screen/lcd_tl5001_mipi.c:45:#define V_VD			1280
+drivers/video/display/screen/lcd_tl5001_mipi.c:365:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_tl5001_mipi.c:366:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_LP097QX1.c:22:#define H_VD			2047
+drivers/video/display/screen/lcd_LP097QX1.c:24:#define H_VD                    2048
+drivers/video/display/screen/lcd_LP097QX1.c:32:#define V_VD			1536
+drivers/video/display/screen/lcd_LP097QX1.c:86:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_LP097QX1.c:87:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_LP097QX1.c:125:		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+drivers/video/display/screen/lcd_LP097QX1.c:127:		size = ((H_VD)*(V_VD)<<2)<<1; //two buffer
+drivers/video/display/screen/lcd_YQ70CPT9160.c:20:#define H_VD			800 //1024
+drivers/video/display/screen/lcd_YQ70CPT9160.c:25:#define V_VD			480 //768
+drivers/video/display/screen/lcd_YQ70CPT9160.c:44:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_YQ70CPT9160.c:45:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_hx8357.c:19:#define H_VD			320	//***800
+drivers/video/display/screen/lcd_hx8357.c:24:#define V_VD			480	//***480
+drivers/video/display/screen/lcd_hx8357.c:176:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_hx8357.c:177:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_hsd100pxn.c:19:#define H_VD			1024
+drivers/video/display/screen/lcd_hsd100pxn.c:24:#define V_VD			768
+drivers/video/display/screen/lcd_hsd100pxn.c:47:#define S_H_VD			1024
+drivers/video/display/screen/lcd_hsd100pxn.c:52:#define S_V_VD			768
+drivers/video/display/screen/lcd_hsd100pxn.c:62:#define S1_H_VD			1024
+drivers/video/display/screen/lcd_hsd100pxn.c:67:#define S1_V_VD			768
+drivers/video/display/screen/lcd_hsd100pxn.c:76:#define S2_H_VD			1024
+drivers/video/display/screen/lcd_hsd100pxn.c:81:#define S2_V_VD			768
+drivers/video/display/screen/lcd_hsd100pxn.c:91:#define S3_H_VD			1024
+drivers/video/display/screen/lcd_hsd100pxn.c:96:#define S3_V_VD			768
+drivers/video/display/screen/lcd_hsd100pxn.c:106:#define S4_H_VD			800
+drivers/video/display/screen/lcd_hsd100pxn.c:111:#define S4_V_VD			480
+drivers/video/display/screen/lcd_hsd100pxn.c:120:#define S5_H_VD			800
+drivers/video/display/screen/lcd_hsd100pxn.c:125:#define S5_V_VD			480
+drivers/video/display/screen/lcd_hsd100pxn.c:249:	screen->x_res = H_VD;
+drivers/video/display/screen/lcd_hsd100pxn.c:250:	screen->y_res = V_VD;
+drivers/video/display/screen/lcd_hsd100pxn.c:302:		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+drivers/video/display/screen/lcd_hsd100pxn.c:304:		size = ((H_VD)*(V_VD)<<2)<<1; //two buffer
+drivers/video/display/screen/lcd_ili9803_cpt4_3.c:39:#define H_VD			480
+drivers/video/display/screen/lcd_ili9803_cpt4_3.c:44:#define V_VD			800
+drivers/video/display/screen/lcd_ili9803_cpt4_3.c:343:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_ili9803_cpt4_3.c:344:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_nt35580.c:19:#define H_VD			480
+drivers/video/display/screen/lcd_nt35580.c:24:#define V_VD			800
+drivers/video/display/screen/lcd_nt35580.c:436:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_nt35580.c:437:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_rgb_tft480800_25_e.c:39:#define H_VD			480
+drivers/video/display/screen/lcd_rgb_tft480800_25_e.c:44:#define V_VD			800
+drivers/video/display/screen/lcd_rgb_tft480800_25_e.c:566:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_rgb_tft480800_25_e.c:567:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_hdmi_800x480.c:21:#define H_VD			800
+drivers/video/display/screen/lcd_hdmi_800x480.c:26:#define V_VD			480
+drivers/video/display/screen/lcd_hdmi_800x480.c:38:#define S_H_VD			800
+drivers/video/display/screen/lcd_hdmi_800x480.c:43:#define S_V_VD			480
+drivers/video/display/screen/lcd_hdmi_800x480.c:53:#define S1_H_VD			800
+drivers/video/display/screen/lcd_hdmi_800x480.c:58:#define S1_V_VD			480
+drivers/video/display/screen/lcd_hdmi_800x480.c:67:#define S2_H_VD			800
+drivers/video/display/screen/lcd_hdmi_800x480.c:72:#define S2_V_VD			480
+drivers/video/display/screen/lcd_hdmi_800x480.c:82:#define S3_H_VD			800
+drivers/video/display/screen/lcd_hdmi_800x480.c:87:#define S3_V_VD			480
+drivers/video/display/screen/lcd_hdmi_800x480.c:97:#define S4_H_VD			800
+drivers/video/display/screen/lcd_hdmi_800x480.c:102:#define S4_V_VD			480
+drivers/video/display/screen/lcd_hdmi_800x480.c:111:#define S5_H_VD			800
+drivers/video/display/screen/lcd_hdmi_800x480.c:116:#define S5_V_VD			480
+drivers/video/display/screen/lcd_hdmi_800x480.c:239:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_hdmi_800x480.c:240:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_hj080na.c:20:#define H_VD			1024
+drivers/video/display/screen/lcd_hj080na.c:25:#define V_VD			768
+drivers/video/display/screen/lcd_hj080na.c:41:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_hj080na.c:42:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_hsd100pxn_for_tdw851.c:19:#define H_VD			480
+drivers/video/display/screen/lcd_hsd100pxn_for_tdw851.c:24:#define V_VD			800
+drivers/video/display/screen/lcd_hsd100pxn_for_tdw851.c:286:	screen->x_res	= H_VD;
+drivers/video/display/screen/lcd_hsd100pxn_for_tdw851.c:287:	screen->y_res	= V_VD;
+drivers/video/display/screen/lcd_a060se02.c:17:#define H_VD			600
+drivers/video/display/screen/lcd_a060se02.c:22:#define V_VD			800
+drivers/video/display/screen/lcd_a060se02.c:131:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_a060se02.c:132:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_hv070wsa.c:20:#define H_VD			1024
+drivers/video/display/screen/lcd_hv070wsa.c:25:#define V_VD			600
+drivers/video/display/screen/lcd_hv070wsa.c:41:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_hv070wsa.c:42:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_mcu_tft480800_25_e.c:33:#define H_VD			480
+drivers/video/display/screen/lcd_mcu_tft480800_25_e.c:38:#define V_VD			800
+drivers/video/display/screen/lcd_mcu_tft480800_25_e.c:512:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_mcu_tft480800_25_e.c:513:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_ds1006h.c:32:#define H_VD			1280
+drivers/video/display/screen/lcd_ds1006h.c:37:#define V_VD			800
+drivers/video/display/screen/lcd_ds1006h.c:94:#define S_H_VD			1280
+drivers/video/display/screen/lcd_ds1006h.c:99:#define S_V_VD			800
+drivers/video/display/screen/lcd_ds1006h.c:109:#define S1_H_VD			1280
+drivers/video/display/screen/lcd_ds1006h.c:114:#define S1_V_VD			800
+drivers/video/display/screen/lcd_ds1006h.c:124:#define S2_H_VD			1280
+drivers/video/display/screen/lcd_ds1006h.c:129:#define S2_V_VD			800
+drivers/video/display/screen/lcd_ds1006h.c:140:#define S3_H_VD			1280
+drivers/video/display/screen/lcd_ds1006h.c:145:#define S3_V_VD			800
+drivers/video/display/screen/lcd_ds1006h.c:155:#define S4_H_VD			1280
+drivers/video/display/screen/lcd_ds1006h.c:160:#define S4_V_VD			800
+drivers/video/display/screen/lcd_ds1006h.c:170:#define S5_H_VD			1280
+drivers/video/display/screen/lcd_ds1006h.c:175:#define S5_V_VD			800
+drivers/video/display/screen/lcd_ds1006h.c:298:	screen->x_res = H_VD;
+drivers/video/display/screen/lcd_ds1006h.c:299:	screen->y_res = V_VD;
+drivers/video/display/screen/lcd_ds1006h.c:341:		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+drivers/video/display/screen/lcd_ds1006h.c:343:		size = ((H_VD)*(V_VD)<<2)<<1; //two buffer
+drivers/video/display/screen/lcd_at070tn93.c:20:#define H_VD			800
+drivers/video/display/screen/lcd_at070tn93.c:25:#define V_VD			480
+drivers/video/display/screen/lcd_at070tn93.c:41:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_at070tn93.c:42:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_ips1p5680_v1_e.c:33:#define H_VD			320
+drivers/video/display/screen/lcd_ips1p5680_v1_e.c:38:#define V_VD			480
+drivers/video/display/screen/lcd_ips1p5680_v1_e.c:195:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_ips1p5680_v1_e.c:196:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_hj050na_06a.c:39:#define H_VD			640
+drivers/video/display/screen/lcd_hj050na_06a.c:44:#define V_VD			960
+drivers/video/display/screen/lcd_hj050na_06a.c:378:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_hj050na_06a.c:379:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c:22:#define H_VD			800 //1024
+drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c:27:#define V_VD			480 //768
+drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c:148:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c:149:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c:190:		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+drivers/video/display/screen/lcd_YQ70CPT9160_rk3168_86v.c:192:		size = ((H_VD)*(V_VD)<<2)<<1; //two buffer
+drivers/video/display/screen/lcd_hsd07pfw1.c:31:#define H_VD			1024
+drivers/video/display/screen/lcd_hsd07pfw1.c:36:#define V_VD			600
+drivers/video/display/screen/lcd_hsd07pfw1.c:99:#define S_H_VD			1024
+drivers/video/display/screen/lcd_hsd07pfw1.c:104:#define S_V_VD			600
+drivers/video/display/screen/lcd_hsd07pfw1.c:114:#define S1_H_VD			1024
+drivers/video/display/screen/lcd_hsd07pfw1.c:119:#define S1_V_VD			600
+drivers/video/display/screen/lcd_hsd07pfw1.c:129:#define S2_H_VD			1024
+drivers/video/display/screen/lcd_hsd07pfw1.c:134:#define S2_V_VD			600
+drivers/video/display/screen/lcd_hsd07pfw1.c:145:#define S3_H_VD			1024
+drivers/video/display/screen/lcd_hsd07pfw1.c:150:#define S3_V_VD			600
+drivers/video/display/screen/lcd_hsd07pfw1.c:160:#define S4_H_VD			1024
+drivers/video/display/screen/lcd_hsd07pfw1.c:165:#define S4_V_VD			600
+drivers/video/display/screen/lcd_hsd07pfw1.c:175:#define S5_H_VD			1024
+drivers/video/display/screen/lcd_hsd07pfw1.c:180:#define S5_V_VD			600
+drivers/video/display/screen/lcd_hsd07pfw1.c:302:	screen->x_res = H_VD;
+drivers/video/display/screen/lcd_hsd07pfw1.c:303:	screen->y_res = V_VD;
+drivers/video/display/screen/lcd_hsd07pfw1.c:345:		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+drivers/video/display/screen/lcd_hsd07pfw1.c:347:		size = ((H_VD)*(V_VD)<<2)<<1; //two buffer
+drivers/video/display/screen/lcd_I30_800x480.c:21:#define H_VD			800
+drivers/video/display/screen/lcd_I30_800x480.c:26:#define V_VD			480
+drivers/video/display/screen/lcd_I30_800x480.c:67:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_I30_800x480.c:68:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_YQ70CPT9160_v86.c:20:#define H_VD			800 //1024
+drivers/video/display/screen/lcd_YQ70CPT9160_v86.c:25:#define V_VD			480 //768
+drivers/video/display/screen/lcd_YQ70CPT9160_v86.c:44:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_YQ70CPT9160_v86.c:45:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_nt35582.c:15:#define H_VD			480
+drivers/video/display/screen/lcd_nt35582.c:20:#define V_VD			800
+drivers/video/display/screen/lcd_nt35582.c:221:#if (480==H_VD)
+drivers/video/display/screen/lcd_nt35582.c:393:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_nt35582.c:394:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_tx23d88vm.c:23:#define H_VD			1200
+drivers/video/display/screen/lcd_tx23d88vm.c:28:#define V_VD			800
+drivers/video/display/screen/lcd_tx23d88vm.c:46:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_tx23d88vm.c:47:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_ls035y8dx02a.c:38:#define H_VD			480//320
+drivers/video/display/screen/lcd_ls035y8dx02a.c:43:#define V_VD			800//480
+drivers/video/display/screen/lcd_ls035y8dx02a.c:238:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_ls035y8dx02a.c:239:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_td043mgea1.c:19:#define H_VD			800
+drivers/video/display/screen/lcd_td043mgea1.c:24:#define V_VD			480
+drivers/video/display/screen/lcd_td043mgea1.c:62:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_td043mgea1.c:63:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_AT070TNA2.c:24:#define H_VD			1024
+drivers/video/display/screen/lcd_AT070TNA2.c:29:#define V_VD			600
+drivers/video/display/screen/lcd_AT070TNA2.c:49:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_AT070TNA2.c:50:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_480p.c:16:#define H_VD			720
+drivers/video/display/screen/lcd_480p.c:20:#define V_VD			480
+drivers/video/display/screen/lcd_480p.c:37:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_480p.c:38:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_1080p.c:17:#define H_VD			1920
+drivers/video/display/screen/lcd_1080p.c:21:#define V_VD			1080
+drivers/video/display/screen/lcd_1080p.c:38:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_1080p.c:39:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_1080p.c:76:		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+drivers/video/display/screen/lcd_1080p.c:78:		size = ((H_VD)*(V_VD)<<2)<<1; //two buffer
+drivers/video/display/screen/lcd_tj048nc01ca.c:19:#define H_VD			800
+drivers/video/display/screen/lcd_tj048nc01ca.c:24:#define V_VD			480
+drivers/video/display/screen/lcd_tj048nc01ca.c:61:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_tj048nc01ca.c:62:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_LG_LP097X02.c:17:#define H_VD			1024
+drivers/video/display/screen/lcd_LG_LP097X02.c:22:#define V_VD			768
+drivers/video/display/screen/lcd_LG_LP097X02.c:38:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_LG_LP097X02.c:39:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_ls035y8dx04a.c:38:#define H_VD			480//320
+drivers/video/display/screen/lcd_ls035y8dx04a.c:43:#define V_VD			800//480
+drivers/video/display/screen/lcd_ls035y8dx04a.c:238:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_ls035y8dx04a.c:239:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_hdmi_1280x800.c:25:#define H_VD			1280
+drivers/video/display/screen/lcd_hdmi_1280x800.c:30:#define V_VD			800
+drivers/video/display/screen/lcd_hdmi_1280x800.c:42:#define S_H_VD			1280
+drivers/video/display/screen/lcd_hdmi_1280x800.c:47:#define S_V_VD			800
+drivers/video/display/screen/lcd_hdmi_1280x800.c:57:#define S1_H_VD			1280
+drivers/video/display/screen/lcd_hdmi_1280x800.c:62:#define S1_V_VD			800
+drivers/video/display/screen/lcd_hdmi_1280x800.c:72:#define S2_H_VD			1280
+drivers/video/display/screen/lcd_hdmi_1280x800.c:77:#define S2_V_VD			800
+drivers/video/display/screen/lcd_hdmi_1280x800.c:88:#define S3_H_VD			1280
+drivers/video/display/screen/lcd_hdmi_1280x800.c:93:#define S3_V_VD			800
+drivers/video/display/screen/lcd_hdmi_1280x800.c:103:#define S4_H_VD			1280
+drivers/video/display/screen/lcd_hdmi_1280x800.c:108:#define S4_V_VD			800
+drivers/video/display/screen/lcd_hdmi_1280x800.c:118:#define S5_H_VD			1280
+drivers/video/display/screen/lcd_hdmi_1280x800.c:123:#define S5_V_VD			800
+drivers/video/display/screen/lcd_hdmi_1280x800.c:246:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_hdmi_1280x800.c:247:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_hl070vm4.c:18:#define H_VD			800
+drivers/video/display/screen/lcd_hl070vm4.c:23:#define V_VD			480
+drivers/video/display/screen/lcd_hl070vm4.c:62:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_hl070vm4.c:63:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_rk2928.c:18:        H_VD_INDEX,
+drivers/video/display/screen/lcd_rk2928.c:22:        V_VD_INDEX,
+drivers/video/display/screen/lcd_rk2928.c:43:	screen->x_res = lcd_param[H_VD_INDEX];
+drivers/video/display/screen/lcd_rk2928.c:44:	screen->y_res = lcd_param[V_VD_INDEX];
+drivers/video/display/screen/lcd_A050VL01.c:20:#define H_VD			480
+drivers/video/display/screen/lcd_A050VL01.c:25:#define V_VD			800 
+drivers/video/display/screen/lcd_A050VL01.c:69:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_A050VL01.c:70:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_hj101na.c:24:#define H_VD			1280
+drivers/video/display/screen/lcd_hj101na.c:29:#define V_VD			800
+drivers/video/display/screen/lcd_hj101na.c:54:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_hj101na.c:55:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_CPTclaa038la31xe.c:38:#define H_VD			480//320
+drivers/video/display/screen/lcd_CPTclaa038la31xe.c:43:#define V_VD			800//480
+drivers/video/display/screen/lcd_CPTclaa038la31xe.c:161:    screen->x_res = H_VD;
+drivers/video/display/screen/lcd_CPTclaa038la31xe.c:162:    screen->y_res = V_VD;
+drivers/video/display/screen/lcd_b101ew05.c:34:#define H_VD			1280
+drivers/video/display/screen/lcd_b101ew05.c:39:#define V_VD			800
+drivers/video/display/screen/lcd_b101ew05.c:101:#define S_H_VD			1280
+drivers/video/display/screen/lcd_b101ew05.c:106:#define S_V_VD			800
+drivers/video/display/screen/lcd_b101ew05.c:116:#define S1_H_VD			1280
+drivers/video/display/screen/lcd_b101ew05.c:121:#define S1_V_VD			800
+drivers/video/display/screen/lcd_b101ew05.c:131:#define S2_H_VD			1280
+drivers/video/display/screen/lcd_b101ew05.c:136:#define S2_V_VD			800
+drivers/video/display/screen/lcd_b101ew05.c:147:#define S3_H_VD			1280
+drivers/video/display/screen/lcd_b101ew05.c:152:#define S3_V_VD			800
+drivers/video/display/screen/lcd_b101ew05.c:162:#define S4_H_VD			1280
+drivers/video/display/screen/lcd_b101ew05.c:167:#define S4_V_VD			800
+drivers/video/display/screen/lcd_b101ew05.c:177:#define S5_H_VD			1280
+drivers/video/display/screen/lcd_b101ew05.c:182:#define S5_V_VD			800
+drivers/video/display/screen/lcd_b101ew05.c:305:	screen->x_res = H_VD;
+drivers/video/display/screen/lcd_b101ew05.c:306:	screen->y_res = V_VD;
+drivers/video/display/screen/lcd_b101ew05.c:348:		size = ((H_VD)*(V_VD)<<2)* 3; //three buffer
+drivers/video/display/screen/lcd_b101ew05.c:350:		size = ((H_VD)*(V_VD)<<2)<<1; //two buffer
+
+========== ALL RK3188/X7 DISPLAY DEFCONFIGS ==========
+arch/arm/configs/box_3188_r2_defconfig:2081:# CONFIG_BOX_FB_480P is not set
+arch/arm/configs/box_3188_r2_defconfig:2082:CONFIG_BOX_FB_720P=y
+arch/arm/configs/box_3188_r2_defconfig:2083:# CONFIG_BOX_FB_1080P is not set
+arch/arm/configs/box_3188_r2_defconfig:2099:# CONFIG_FB_ROTATE is not set
+arch/arm/configs/box_3188_r2_defconfig:2100:CONFIG_THREE_FB_BUFFER=y
+arch/arm/configs/box_3188_r1_defconfig.bak:2096:# CONFIG_BOX_FB_480P is not set
+arch/arm/configs/box_3188_r1_defconfig.bak:2097:CONFIG_BOX_FB_720P=y
+arch/arm/configs/box_3188_r1_defconfig.bak:2098:# CONFIG_BOX_FB_1080P is not set
+arch/arm/configs/box_3188_r1_defconfig.bak:2113:# CONFIG_FB_ROTATE is not set
+arch/arm/configs/box_3188_r1_defconfig.bak:2114:CONFIG_THREE_FB_BUFFER=y
+arch/arm/configs/box_x7mini_r1_defconfig:2082:# CONFIG_BOX_FB_480P is not set
+arch/arm/configs/box_x7mini_r1_defconfig:2083:CONFIG_BOX_FB_720P=y
+arch/arm/configs/box_x7mini_r1_defconfig:2084:# CONFIG_BOX_FB_1080P is not set
+arch/arm/configs/box_x7mini_r1_defconfig:2100:# CONFIG_FB_ROTATE is not set
+arch/arm/configs/box_x7mini_r1_defconfig:2101:CONFIG_THREE_FB_BUFFER=y
+arch/arm/configs/box_3188_r2_defconfig.bak:2065:# CONFIG_BOX_FB_480P is not set
+arch/arm/configs/box_3188_r2_defconfig.bak:2066:CONFIG_BOX_FB_720P=y
+arch/arm/configs/box_3188_r2_defconfig.bak:2067:# CONFIG_BOX_FB_1080P is not set
+arch/arm/configs/box_3188_r2_defconfig.bak:2082:# CONFIG_FB_ROTATE is not set
+arch/arm/configs/box_3188_r2_defconfig.bak:2083:CONFIG_THREE_FB_BUFFER=y
+arch/arm/configs/box_3188_base-commit1_defconfig:2095:# CONFIG_BOX_FB_480P is not set
+arch/arm/configs/box_3188_base-commit1_defconfig:2096:CONFIG_BOX_FB_720P=y
+arch/arm/configs/box_3188_base-commit1_defconfig:2097:# CONFIG_BOX_FB_1080P is not set
+arch/arm/configs/box_3188_base-commit1_defconfig:2112:# CONFIG_FB_ROTATE is not set
+arch/arm/configs/box_3188_base-commit1_defconfig:2113:CONFIG_THREE_FB_BUFFER=y
+arch/arm/configs/rk3188_steak_defconfig:287:CONFIG_BOX_FB_720P=y
+arch/arm/configs/box_dongle_base_defconfig:2057:# CONFIG_BOX_FB_480P is not set
+arch/arm/configs/box_dongle_base_defconfig:2058:CONFIG_BOX_FB_720P=y
+arch/arm/configs/box_dongle_base_defconfig:2059:# CONFIG_BOX_FB_1080P is not set
+arch/arm/configs/box_dongle_base_defconfig:2074:# CONFIG_FB_ROTATE is not set
+arch/arm/configs/box_dongle_base_defconfig:2075:CONFIG_THREE_FB_BUFFER=y
+arch/arm/configs/rk3168_86v_defconfig:2122:# CONFIG_FB_ROTATE is not set
+arch/arm/configs/rk3168_86v_defconfig:2123:CONFIG_THREE_FB_BUFFER=y
+arch/arm/configs/box_3188_r1_defconfig:2070:# CONFIG_BOX_FB_480P is not set
+arch/arm/configs/box_3188_r1_defconfig:2071:CONFIG_BOX_FB_720P=y
+arch/arm/configs/box_3188_r1_defconfig:2072:# CONFIG_BOX_FB_1080P is not set
+arch/arm/configs/box_3188_r1_defconfig:2087:# CONFIG_FB_ROTATE is not set
+arch/arm/configs/box_3188_r1_defconfig:2088:CONFIG_THREE_FB_BUFFER=y
+arch/arm/configs/box_3188_base_defconfig:2094:# CONFIG_BOX_FB_480P is not set
+arch/arm/configs/box_3188_base_defconfig:2095:CONFIG_BOX_FB_720P=y
+arch/arm/configs/box_3188_base_defconfig:2096:# CONFIG_BOX_FB_1080P is not set
+arch/arm/configs/box_3188_base_defconfig:2111:# CONFIG_FB_ROTATE is not set
+arch/arm/configs/box_3188_base_defconfig:2112:CONFIG_THREE_FB_BUFFER=y
+arch/arm/configs/rk3188_magicwand_defconfig:286:CONFIG_BOX_FB_720P=y
+
+========== X7 CONFIG FILES ==========
+box_3188_base-commit1_defconfig
+box_3188_base_defconfig
+box_3188_r1_defconfig
+box_3188_r1_defconfig.bak
+box_3188_r2_defconfig
+box_3188_r2_defconfig.bak
+box_dongle_base_defconfig
+box_x7mini_r1_defconfig
+rk3188_magicwand_defconfig
+rk3188_steak_defconfig
+rk3188_tb_defconfig
